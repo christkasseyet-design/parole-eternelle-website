@@ -240,7 +240,7 @@ const ALBUMS = [
   },
 ];
 
-const DROP_SLOTS = 6;
+const DROP_SLOTS = (typeof window !== "undefined" && window.omelette && window.omelette.writeFile) ? 6 : 0;
 
 function readHash() {
   const m = window.location.hash.match(/album=([a-z]+)/);

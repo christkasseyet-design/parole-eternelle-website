@@ -2,14 +2,14 @@ function Reels() {
   // Vertical 9:16 reels — placeholders + TikTok / FB / YouTube Shorts links
   // Users drop their actual reel thumbnails into the image-slots
   const reels = [
-    { id: "reel-1", platform: "TikTok",   tag: "Worship Live",      title: "« Eternel mon Roc »",            views: "24,1K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-2", platform: "TikTok",   tag: "Extrait prédication",title: "L'autorité du croyant",         views: "12,4K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-3", platform: "TikTok",   tag: "Témoignage",        title: "Restaurée par Sa grâce",         views: "31,8K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-4", platform: "Facebook", tag: "Reel · NextGen",    title: "Camp jeunesse 2026",             views: "8,9K",  href: "https://www.facebook.com/cepeng/videos" },
-    { id: "reel-5", platform: "TikTok",   tag: "Lingala worship",   title: "Nzambe na ngai",                 views: "47,2K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-6", platform: "YouTube",  tag: "Short",             title: "La prière qui change tout",      views: "16,5K", href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts" },
-    { id: "reel-7", platform: "TikTok",   tag: "Coulisses",         title: "Avant le culte du dimanche",     views: "9,3K",  href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-8", platform: "Facebook", tag: "Reel",              title: "Baptêmes · joie pure",           views: "21,7K", href: "https://www.facebook.com/cepeng/videos" },
+    { id: "reel-1", img: "assets/photos/chorale-scene.jpg", platform: "TikTok",   tag: "Worship Live",      title: "« Eternel mon Roc »",            views: "24,1K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-2", img: "assets/photos/serie/pe-17.jpg", platform: "TikTok",   tag: "Extrait prédication",title: "L'autorité du croyant",         views: "12,4K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-3", img: "assets/photos/serie/pe-68.jpg", platform: "TikTok",   tag: "Témoignage",        title: "Restaurée par Sa grâce",         views: "31,8K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-4", img: "assets/photos/jeunesse-etude.jpg", platform: "Facebook", tag: "Reel · NextGen",    title: "Camp jeunesse 2026",             views: "8,9K",  href: "https://www.facebook.com/cepeng/videos" },
+    { id: "reel-5", img: "assets/photos/serie/pe-58.jpg", platform: "TikTok",   tag: "Lingala worship",   title: "Nzambe na ngai",                 views: "47,2K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-6", img: "assets/photos/serie/pe-08.jpg", platform: "YouTube",  tag: "Short",             title: "La prière qui change tout",      views: "16,5K", href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts" },
+    { id: "reel-7", img: "assets/photos/accueil-entree.jpg", platform: "TikTok",   tag: "Coulisses",         title: "Avant le culte du dimanche",     views: "9,3K",  href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-8", img: "assets/photos/sainte-cene.jpg", platform: "Facebook", tag: "Reel",              title: "Baptêmes · joie pure",           views: "21,7K", href: "https://www.facebook.com/cepeng/videos" },
   ];
 
   const platformBadge = (p) => {
@@ -62,7 +62,7 @@ function Reels() {
   );
 }
 
-function ReelCard({ id, platform, tag, title, views, href, idx, badge }) {
+function ReelCard({ id, img, platform, tag, title, views, href, idx, badge }) {
   return (
     <a href={href} target="_blank" rel="noopener" className="group relative shrink-0 w-[220px] sm:w-[260px] block">
       <div className="relative" style={{ aspectRatio: "9 / 16" }}>
@@ -74,6 +74,7 @@ function ReelCard({ id, platform, tag, title, views, href, idx, badge }) {
         <image-slot
           id={id}
           shape="rect"
+          src={img}
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
           placeholder="Glissez la miniature">
         </image-slot>

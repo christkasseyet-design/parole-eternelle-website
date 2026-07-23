@@ -83,7 +83,7 @@ function Gallery() {
           ))}
 
           {/* Drop zone — ajoutez vos propres photos, elles restent en place */}
-          {album === "Tous" && [1, 2, 3].map((n) => (
+          {album === "Tous" && (typeof window !== "undefined" && window.omelette && window.omelette.writeFile) && [1, 2, 3].map((n) => (
             <div key={n} className="relative w-full overflow-hidden rounded-[2px] border border-dashed border-white/20 hover:border-gold-400/60 transition" style={{ aspectRatio: "4/3" }}>
               <image-slot
                 id={`gallery-drop-${n}`}
