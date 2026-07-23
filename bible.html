@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/jpeg" href="assets/logo-parole-eternelle.jpg" />
+<title>Bible · Lire & Écouter — Parole Éternelle</title>
+<meta name="description" content="Lisez et écoutez la Bible en français et lingala. Gratuit, hors-ligne disponible." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Parole Éternelle Ngiri-Ngiri" />
+<meta property="og:title" content="Bible · Lire & Écouter — Parole Éternelle" />
+<meta property="og:description" content="Lisez et écoutez la Bible en français et lingala. Gratuit, hors-ligne disponible." />
+<meta property="og:url" content="https://christkasseyet-design.github.io/parole-eternelle-website/bible.html" />
+<meta property="og:image" content="https://christkasseyet-design.github.io/parole-eternelle-website/assets/photos/culte-assemblee-2.jpg" />
+<meta property="og:locale" content="fr_FR" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Bible · Lire & Écouter — Parole Éternelle" />
+<meta name="twitter:description" content="Lisez et écoutez la Bible en français et lingala. Gratuit, hors-ligne disponible." />
+<meta name="twitter:image" content="https://christkasseyet-design.github.io/parole-eternelle-website/assets/photos/culte-assemblee-2.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Archivo:ital,wght@0,500;0,600;0,700;0,800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display: ['Archivo','sans-serif'], serif: ['"Cormorant Garamond"','serif'], sans: ['Manrope','sans-serif'], mono: ['"JetBrains Mono"','ui-monospace'] },
+    colors: {
+      ink: { 900:'#0d0d10',800:'#161618',700:'#1f1f22',500:'#3a3a40',400:'#5a5853',300:'#857f72' },
+      paper: { DEFAULT:'#fbf8f1', 2:'#f4eee2', 3:'#ece4d3', 4:'#e0d4ba' },
+      coral: { DEFAULT:'#e4593a', soft:'#fbe6dd', deep:'#c44424' },
+      gold: { 200:'#cfa75a', 300:'#b8924f' }
+    }, letterSpacing:{ mega:'-0.04em' }
+  }}}
+</script>
+
+<style>
+  body{background:#fbf8f1;color:#0d0d10;font-family:'Manrope',ui-sans-serif,system-ui;-webkit-font-smoothing:antialiased}
+  .font-display{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-0.03em}
+  .font-display em{font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;letter-spacing:-0.02em}
+  .font-serif{font-family:'Cormorant Garamond',serif}
+  .font-mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  .eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#e4593a;font-weight:600}
+  .eyebrow .dot{display:inline-block;width:5px;height:5px;background:currentColor;border-radius:99px;margin:0 .7em .15em 0;vertical-align:middle}
+
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem;border-radius:999px;font-weight:500;font-size:13px;transition:all .25s}
+  .btn-coral{background:#e4593a;color:#fff}.btn-coral:hover{background:#c44424}
+  .btn-dark{background:#0d0d10;color:#fbf8f1}
+  .btn-ghost{background:transparent;color:#0d0d10;border:1px solid rgba(13,13,16,.15)}
+  .btn-ghost:hover{border-color:#0d0d10}
+
+  ::selection{background:#e4593a;color:#fff}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#d4cdbb;border-radius:8px}
+
+  /* Verse layout */
+  .verse{display:flex;gap:14px;padding:8px 0;cursor:pointer;border-radius:6px;transition:background .15s}
+  .verse:hover{background:rgba(228,89,58,.04)}
+  .verse.highlighted{background:#fbe6dd}
+  .verse.playing{background:#e4593a;color:#fff}
+  .verse.playing .vnum{color:#fff;opacity:.7}
+  .verse.playing .vtext{color:#fff}
+  .vnum{flex-shrink:0;width:32px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.05em;color:#e4593a;font-weight:600;padding-top:8px;text-align:right}
+  .vtext{flex:1;font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.55;color:#161618}
+  .vtext.is-jesus{color:#c44424}
+
+  /* size variations */
+  body[data-size="sm"] .vtext{font-size:18px}
+  body[data-size="md"] .vtext{font-size:21px}
+  body[data-size="lg"] .vtext{font-size:25px}
+  body[data-size="xl"] .vtext{font-size:30px;line-height:1.5}
+
+  /* sepia mode */
+  body[data-mode="sepia"]{background:#f0e6cf}
+  body[data-mode="sepia"] aside.sidebar,body[data-mode="sepia"] header.top{background:#e8dcc0!important}
+  body[data-mode="night"]{background:#0d0d10;color:#dcdad1}
+  body[data-mode="night"] .vtext{color:#dcdad1}
+  body[data-mode="night"] aside.sidebar,body[data-mode="night"] header.top,body[data-mode="night"] footer.bar{background:#161618!important;border-color:rgba(255,255,255,.08)!important}
+  body[data-mode="night"] .verse:hover{background:rgba(228,89,58,.08)}
+  body[data-mode="night"] .border-black\/8,body[data-mode="night"] .border-black\/12{border-color:rgba(255,255,255,.08)!important}
+  body[data-mode="night"] .text-ink-700{color:#a3a2a0!important}
+  body[data-mode="night"] .text-ink-500{color:#857f72!important}
+  body[data-mode="night"] .text-ink-900{color:#fafaf7!important}
+  body[data-mode="night"] .bg-paper-2,body[data-mode="night"] .bg-paper-3{background:#0d0d10!important}
+  body[data-mode="night"] .bg-white{background:#1f1f22!important}
+  body[data-mode="night"] .vtext.is-jesus{color:#f0a48a}
+  body[data-mode="night"] .btn-ghost{color:#fafaf7;border-color:rgba(255,255,255,.2)}
+
+  /* book item */
+  .book-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px;transition:all .15s}
+  .book-item:hover{background:rgba(228,89,58,.08)}
+  .book-item.active{background:#e4593a;color:#fff}
+  .book-item.active .abbr{color:#fff;opacity:.8}
+  .book-item .abbr{font-family:'JetBrains Mono';font-size:10px;color:#857f72;letter-spacing:.05em}
+
+  .chap-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:8px;font-family:'JetBrains Mono';font-size:12px;cursor:pointer;border:1px solid rgba(13,13,16,.08);transition:all .15s}
+  .chap-btn:hover{border-color:#e4593a;color:#e4593a}
+  .chap-btn.active{background:#e4593a;color:#fff;border-color:#e4593a}
+
+  /* lang button */
+  .lang-pill{padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.04em;cursor:pointer;border:1px solid rgba(13,13,16,.12);transition:all .2s;white-space:nowrap}
+  .lang-pill:hover{border-color:#e4593a;color:#e4593a}
+  .lang-pill.active{background:#0d0d10;color:#fbf8f1;border-color:#0d0d10}
+
+  /* audio bar */
+  .progress-bar{height:4px;background:rgba(13,13,16,.08);border-radius:999px;overflow:hidden;cursor:pointer}
+  .progress-fill{height:100%;background:#e4593a;border-radius:999px;transition:width .1s linear}
+
+  /* mobile sidebar */
+  .sidebar-overlay{position:fixed;inset:0;background:rgba(13,13,16,.4);backdrop-filter:blur(2px);z-index:50}
+
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .verse{animation:fadeIn .4s ease both}
+
+  /* download progress for offline */
+  .dl-ring{transform:rotate(-90deg)}
+
+  /* hide scrollbar on language pills row */
+  .lang-row::-webkit-scrollbar{display:none}
+  .lang-row{scrollbar-width:none}
+</style>
+</head>
+<body data-size="md" data-mode="paper">
+
+<!-- TOP BAR -->
+<header class="top sticky top-0 z-30 bg-paper border-b border-black/8 backdrop-blur-md">
+  <div class="max-w-[1400px] mx-auto px-4 md:px-8 h-14 flex items-center gap-3">
+    <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+      <img src="assets/logo-parole-eternelle.jpg" alt="Logo Parole Éternelle" class="w-8 h-8 rounded-full object-cover shrink-0" style="box-shadow:0 0 0 1px rgba(0,0,0,.1)">
+      <span class="font-display text-[16px] hidden sm:inline">Bible · Parole Éternelle</span>
+      <span class="font-display text-[16px] sm:hidden">Bible</span>
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <button id="menuBtn" class="lg:hidden ml-auto w-9 h-9 grid place-items-center border border-black/12 rounded-lg">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+
+    <!-- Center: current book/chapter -->
+    <button id="refBtn" class="hidden lg:flex items-center gap-3 mx-auto px-4 py-1.5 rounded-full border border-black/12 hover:border-coral transition">
+      <span class="font-display text-[15px]" id="refLabel">Jean · Chapitre 3</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <!-- Right toolbar -->
+    <div class="hidden lg:flex items-center gap-1 ml-auto">
+      <!-- mode toggle -->
+      <div class="flex items-center gap-0.5 border border-black/12 rounded-full p-0.5">
+        <button data-mode="paper" class="mode-btn w-7 h-7 grid place-items-center rounded-full active" title="Clair">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.5 5.5l1.5 1.5M17 17l1.5 1.5M5.5 18.5L7 17M17 7l1.5-1.5"/></svg>
+        </button>
+        <button data-mode="sepia" class="mode-btn w-7 h-7 grid place-items-center rounded-full" title="Sépia">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
+        </button>
+        <button data-mode="night" class="mode-btn w-7 h-7 grid place-items-center rounded-full" title="Nuit">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z"/></svg>
+        </button>
+      </div>
+      <!-- size -->
+      <div class="flex items-center gap-0.5 border border-black/12 rounded-full p-0.5 ml-1">
+        <button data-size="sm" class="size-btn w-7 h-7 grid place-items-center rounded-full text-[11px] font-medium">A-</button>
+        <button data-size="md" class="size-btn w-7 h-7 grid place-items-center rounded-full text-[13px] font-medium active">A</button>
+        <button data-size="lg" class="size-btn w-7 h-7 grid place-items-center rounded-full text-[15px] font-medium">A</button>
+        <button data-size="xl" class="size-btn w-7 h-7 grid place-items-center rounded-full text-[17px] font-medium">A+</button>
+      </div>
+      <button id="offlineBtn" class="ml-2 btn btn-ghost !py-1.5 !px-3 text-[12px]">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3v13M6 13l6 6 6-6M5 21h14"/></svg>
+        Hors-ligne
+      </button>
+    </div>
+  </div>
+
+  <!-- Language strip -->
+  <div class="border-t border-black/8 bg-paper-2/70">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 h-12 flex items-center gap-3">
+      <span class="font-mono text-[10px] tracking-[.22em] uppercase text-ink-500 hidden sm:inline">Langue</span>
+      <div class="lang-row flex items-center gap-2 overflow-x-auto -mx-2 px-2 flex-1">
+        <button data-lang="fr" class="lang-pill active">🇫🇷 Français · LSG</button>
+        <button data-lang="en" class="lang-pill">🇬🇧 English · KJV</button>
+        <button data-lang="ln" class="lang-pill">🇨🇩 Lingala</button>
+        <button data-lang="sw" class="lang-pill">🌍 Swahili</button>
+        <button data-lang="kg" class="lang-pill">🇨🇩 Kikongo</button>
+        <button data-lang="ts" class="lang-pill">🇨🇩 Tshiluba</button>
+      </div>
+      <button id="searchBtn" class="hidden md:flex items-center gap-2 px-3 py-1.5 border border-black/12 rounded-full text-[12px] text-ink-500 hover:border-coral hover:text-coral transition">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        Rechercher un verset…
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- BODY: sidebar + reader -->
+<div class="max-w-[1400px] mx-auto px-4 md:px-8 grid lg:grid-cols-[280px_1fr] gap-8 py-8">
+
+  <!-- Books sidebar -->
+  <aside id="sidebar" class="sidebar lg:sticky lg:top-[120px] lg:self-start lg:max-h-[calc(100svh-140px)] overflow-y-auto pr-2 hidden lg:block bg-paper">
+    <div class="mb-5">
+      <div class="eyebrow mb-3">Ancien Testament</div>
+      <div id="ot-list" class="space-y-0.5"></div>
+    </div>
+    <div>
+      <div class="eyebrow mb-3">Nouveau Testament</div>
+      <div id="nt-list" class="space-y-0.5"></div>
+    </div>
+  </aside>
+
+  <!-- READER -->
+  <main class="min-w-0 pb-32">
+    <!-- Breadcrumb / actions -->
+    <div class="flex items-center justify-between gap-4 mb-6 flex-wrap">
+      <div>
+        <div class="eyebrow mb-2"><span class="dot"></span><span id="testamentLabel">Nouveau Testament</span></div>
+        <h1 class="font-display text-[40px] sm:text-[56px] leading-[1.05] tracking-mega pb-2">
+          <span id="bookTitle">Jean</span> <span class="text-coral">·</span> <em id="chapterTitle">Chapitre 3</em>
+        </h1>
+        <p class="mt-4 text-[14px] text-ink-500" id="chapterSub">L'entretien avec Nicodème · « Il faut naître de nouveau »</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="prevChap" class="w-10 h-10 grid place-items-center rounded-full border border-black/12 hover:border-coral hover:text-coral transition" title="Chapitre précédent">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button id="nextChap" class="w-10 h-10 grid place-items-center rounded-full border border-black/12 hover:border-coral hover:text-coral transition" title="Chapitre suivant">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <span class="w-px h-6 bg-black/10 mx-1"></span>
+        <button id="bookmarkAll" class="w-10 h-10 grid place-items-center rounded-full border border-black/12 hover:border-coral hover:text-coral transition" title="Marquer ce chapitre">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+        </button>
+        <button id="shareBtn" class="w-10 h-10 grid place-items-center rounded-full border border-black/12 hover:border-coral hover:text-coral transition" title="Partager">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chapter content -->
+    <div id="chapterContent" class="max-w-[700px]">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- Next chapter -->
+    <div class="mt-12 pt-8 border-t border-black/8 flex flex-wrap items-center justify-between gap-4">
+      <button id="prevChap2" class="btn btn-ghost"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Chapitre précédent</button>
+      <div class="font-mono text-[10px] tracking-[.22em] uppercase text-ink-500">Lu en <span id="readDuration">~ 6 min</span></div>
+      <button id="nextChap2" class="btn btn-coral">Chapitre suivant <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+  </main>
+</div>
+
+<!-- AUDIO PLAYER (bottom bar) -->
+<footer id="audioBar" class="bar fixed bottom-0 inset-x-0 z-40 bg-paper border-t border-black/8 backdrop-blur-md">
+  <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-3 flex items-center gap-3 md:gap-5">
+    <!-- play -->
+    <button id="playBtn" class="w-12 h-12 rounded-full bg-coral hover:bg-coral-deep text-white grid place-items-center shrink-0 transition">
+      <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>
+      <svg id="pauseIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="hidden"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </button>
+    <button id="prevVerse" class="hidden sm:grid w-9 h-9 place-items-center rounded-full hover:bg-black/5 transition" title="Verset précédent">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM10 12l10-7v14z"/></svg>
+    </button>
+    <button id="nextVerse" class="hidden sm:grid w-9 h-9 place-items-center rounded-full hover:bg-black/5 transition" title="Verset suivant">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM4 5l10 7-10 7z"/></svg>
+    </button>
+
+    <!-- title + progress -->
+    <div class="flex-1 min-w-0">
+      <div class="flex items-baseline justify-between gap-3 mb-1.5">
+        <div class="min-w-0 truncate">
+          <span id="playingRef" class="font-display text-[14px]">Jean 3</span>
+          <span class="text-ink-500 text-[12px] ml-1.5" id="playingLang">Audio · Voix française · LSG</span>
+        </div>
+        <div class="font-mono text-[10px] tracking-[.1em] text-ink-500 shrink-0">
+          <span id="curTime">0:00</span> / <span id="totalTime">12:48</span>
+        </div>
+      </div>
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- speed -->
+    <button id="speedBtn" class="hidden md:block px-3 py-1.5 border border-black/12 rounded-full font-mono text-[11px] font-medium hover:border-coral hover:text-coral transition">1.0×</button>
+    <!-- volume -->
+    <button id="muteBtn" class="hidden md:grid w-9 h-9 place-items-center rounded-full hover:bg-black/5 transition" title="Volume">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 10v4h4l5 4V6L7 10z"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14"/></svg>
+    </button>
+  </div>
+</footer>
+
+<!-- OFFLINE MODAL -->
+<div id="offlineModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm grid place-items-center p-4 hidden">
+  <div class="bg-paper border border-black/12 max-w-md w-full p-8">
+    <div class="eyebrow mb-3">Lecture hors-ligne</div>
+    <h3 class="font-display text-[28px] leading-tight mb-2">Téléchargez la Bible</h3>
+    <p class="text-[14px] text-ink-700 leading-relaxed">Texte intégral + audio pour lire et écouter même sans connexion. Sélectionnez les langues à télécharger.</p>
+    <div class="mt-5 space-y-2.5">
+      <label class="flex items-center justify-between p-3 border border-black/8 rounded-lg cursor-pointer hover:border-coral transition">
+        <span class="flex items-center gap-3"><input type="checkbox" checked class="accent-[#e4593a]"/><span class="font-medium">Français · LSG</span></span>
+        <span class="font-mono text-[11px] text-ink-500">8.2 Mo + 124 Mo audio</span>
+      </label>
+      <label class="flex items-center justify-between p-3 border border-black/8 rounded-lg cursor-pointer hover:border-coral transition">
+        <span class="flex items-center gap-3"><input type="checkbox" class="accent-[#e4593a]"/><span class="font-medium">Lingala</span></span>
+        <span class="font-mono text-[11px] text-ink-500">7.8 Mo + 118 Mo audio</span>
+      </label>
+      <label class="flex items-center justify-between p-3 border border-black/8 rounded-lg cursor-pointer hover:border-coral transition">
+        <span class="flex items-center gap-3"><input type="checkbox" class="accent-[#e4593a]"/><span class="font-medium">Swahili</span></span>
+        <span class="font-mono text-[11px] text-ink-500">8.0 Mo + 122 Mo audio</span>
+      </label>
+      <label class="flex items-center justify-between p-3 border border-black/8 rounded-lg cursor-pointer hover:border-coral transition">
+        <span class="flex items-center gap-3"><input type="checkbox" class="accent-[#e4593a]"/><span class="font-medium">Kikongo</span></span>
+        <span class="font-mono text-[11px] text-ink-500">7.6 Mo + 110 Mo audio</span>
+      </label>
+      <label class="flex items-center justify-between p-3 border border-black/8 rounded-lg cursor-pointer hover:border-coral transition">
+        <span class="flex items-center gap-3"><input type="checkbox" class="accent-[#e4593a]"/><span class="font-medium">Tshiluba</span></span>
+        <span class="font-mono text-[11px] text-ink-500">7.4 Mo + 108 Mo audio</span>
+      </label>
+    </div>
+    <div class="mt-6 flex items-center gap-3 justify-end">
+      <button id="closeOffline" class="btn btn-ghost">Annuler</button>
+      <button id="confirmOffline" class="btn btn-coral">Télécharger</button>
+    </div>
+    <p class="mt-4 text-[11px] text-ink-500 font-mono tracking-[.05em] leading-relaxed">Les fichiers sont stockés localement sur votre appareil. Aucune connexion requise après le téléchargement.</p>
+  </div>
+</div>
+
+<!-- SEARCH MODAL -->
+<div id="searchModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden">
+  <div class="max-w-2xl mx-auto mt-24 bg-paper border border-black/12">
+    <div class="flex items-center gap-3 p-4 border-b border-black/8">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="searchInput" type="search" placeholder="Rechercher un verset, un mot, une référence…" class="flex-1 bg-transparent focus:outline-none text-[15px]"/>
+      <button id="closeSearch" class="text-ink-500 hover:text-coral">Esc</button>
+    </div>
+    <div class="p-6 max-h-[60vh] overflow-y-auto">
+      <div class="eyebrow mb-3">Suggestions</div>
+      <div class="space-y-1" id="suggestions">
+        <button class="suggest w-full text-left p-3 hover:bg-coral-soft rounded-lg transition" data-go="Jean,3">
+          <div class="font-mono text-[10px] text-coral tracking-[.22em] uppercase">Jean 3 : 16</div>
+          <div class="font-serif text-[17px] mt-1">« Car Dieu a tant aimé le monde qu'il a donné son Fils unique… »</div>
+        </button>
+        <button class="suggest w-full text-left p-3 hover:bg-coral-soft rounded-lg transition" data-go="Psaumes,23">
+          <div class="font-mono text-[10px] text-coral tracking-[.22em] uppercase">Psaumes 23 : 1</div>
+          <div class="font-serif text-[17px] mt-1">« L'Éternel est mon berger : je ne manquerai de rien. »</div>
+        </button>
+        <button class="suggest w-full text-left p-3 hover:bg-coral-soft rounded-lg transition" data-go="Matthieu,24">
+          <div class="font-mono text-[10px] text-coral tracking-[.22em] uppercase">Matthieu 24 : 35</div>
+          <div class="font-serif text-[17px] mt-1">« Le ciel et la terre passeront, mais mes paroles ne passeront point. »</div>
+        </button>
+        <button class="suggest w-full text-left p-3 hover:bg-coral-soft rounded-lg transition" data-go="Romains,8">
+          <div class="font-mono text-[10px] text-coral tracking-[.22em] uppercase">Romains 8 : 28</div>
+          <div class="font-serif text-[17px] mt-1">« Toutes choses concourent au bien de ceux qui aiment Dieu… »</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="bible-data.js"></script>
+<script src="bible-app.js"></script>
+</body>
+</html>
