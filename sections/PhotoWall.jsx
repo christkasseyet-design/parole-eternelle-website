@@ -27,9 +27,9 @@ function PhotoWall() {
           </p>
         </Reveal>
 
-        <Reveal stagger className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <Reveal stagger className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {tiles.map((t, i) => (
-            <a key={t.id} href="videos.html" className={`group relative overflow-hidden block ${t.span}`} style={{ aspectRatio: t.span.includes("row-span-2") ? "1/2" : t.span.includes("col-span-2") ? "2/1" : "1/1" }}>
+            <a key={t.id} href="videos.html" className="group relative overflow-hidden block" style={{ aspectRatio: "4/3" }}>
               <Photo tone={t.tone} className="absolute inset-0"/>
               <image-slot
                 id={t.id}

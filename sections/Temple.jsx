@@ -8,12 +8,83 @@ function Temple() {
     { name: "Airtel Money",       acc: "098 550 83 43",               intitule: "Mobile Money", color: "#ED1C24", logo: "AM" },
   ];
 
+  // Slideshow — slide 1 is the current rendering; the rest are drop slots the
+  // church fills with more photos over time (persist across reloads).
+  const allSlides = [
+    { type: "img",  src: "assets/temple-projet.jpg", label: "Rendu 3D · Vue d’ensemble" },
+    { type: "slot", id: "temple-photo-2", label: "Façade principale",     ph: "Déposez une photo · façade" },
+    { type: "slot", id: "temple-photo-3", label: "Intérieur · sanctuaire", ph: "Déposez une photo · intérieur" },
+    { type: "slot", id: "temple-photo-4", label: "Chantier en cours",      ph: "Déposez une photo · chantier" },
+  ];
+  // Visiteurs : uniquement les diapositives remplies (les slots vides restent
+  // réservés au mode auteur). Le sidecar est consulté pour les slots remplis.
+  const editable = typeof window !== "undefined" && !!(window.omelette && window.omelette.writeFile);
+  const [slotState, setSlotState] = React.useState(null);
+  React.useEffect(() => {
+    if (editable) { setSlotState({}); return; }
+    fetch(".image-slots.state.json").then(r => r.ok ? r.json() : {}).then(setSlotState).catch(() => setSlotState({}));
+  }, []);
+  const slides = allSlides.filter(s => s.type === "img" || editable || (slotState && slotState[s.id] && slotState[s.id].u));
+  const n = slides.length;
+
+  const [i, setI] = React.useState(0);
+  React.useEffect(() => { if (i >= n) setI(0); }, [n]);
+  const [hover, setHover] = React.useState(false);
+  const go = (d) => setI((x) => (x + d + n) % n);
+
+  // Autoplay (paused on hover / reduced-motion).
+  React.useEffect(() => {
+    if (hover || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => setI((x) => (x + 1) % n), 5500);
+    return () => clearInterval(t);
+  }, [hover, n]);
+
+  // Copy-to-clipboard for bank details.
   const [copied, setCopied] = React.useState(null);
   const copy = (txt, idx) => {
     navigator.clipboard?.writeText(txt);
     setCopied(idx);
     setTimeout(() => setCopied(null), 1500);
   };
+
+  // Animated fundraising stats (count-up on first view).
+  const [p, setP] = React.useState(0);
+  const [donors, setDonors] = React.useState(0);
+  const statsRef = React.useRef(null);
+  React.useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    let ran = false;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const run = () => {
+      if (ran) return; ran = true;
+      cleanup();
+      if (reduce) { setP(68); setDonors(1420); return; }
+      const t0 = performance.now(), D = 1500;
+      const tick = (t) => {
+        const q = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - q, 3);
+        setP(68 * e); setDonors(Math.round(1420 * e));
+        if (q < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    // IntersectionObserver is unreliable inside content-visibility:auto
+    // sections — use the scroll + rect pattern of the page's reveal safety-net.
+    const check = () => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.9 && r.bottom > 0) run();
+    };
+    const cleanup = () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+      clearTimeout(t1); clearTimeout(t2);
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    const t1 = setTimeout(check, 400);
+    const t2 = setTimeout(check, 1500);
+    return cleanup;
+  }, []);
 
   return (
     <section id="temple" data-screen-label="Temple" className="sec-light relative bg-ink-900 py-24 md:py-32 overflow-hidden">
@@ -39,47 +110,102 @@ function Temple() {
           </p>
         </Reveal>
 
-        {/* Featured image of the building */}
-        <Reveal className="relative grid lg:grid-cols-12 gap-6 lg:gap-8 mb-10">
-          {/* Big rendering */}
-          <div className="lg:col-span-8 relative aspect-[16/10] overflow-hidden glow">
-            <img src="assets/temple-projet.jpg" alt="Temple Parole Éternelle Ngiri-Ngiri — Extension Bé Cape" className="absolute inset-0 w-full h-full object-cover" loading="lazy"/>
-            <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 60%, rgba(0,0,0,.85) 100%)" }}></div>
-            <div className="absolute top-5 left-5 px-3 py-1.5 bg-ink-900/80 backdrop-blur-md border border-gold-500/40 font-mono text-[10px] tracking-[.22em] uppercase text-gold-300">
-              Rendu 3D · Projet en cours
+        {/* ── Featured slideshow (fills more of the page; ready for more photos) ── */}
+        <Reveal className="mb-10">
+          <div className="relative aspect-[16/9] overflow-hidden glow"
+               onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+            {slides.map((s, idx) => (
+              <div key={idx} className={`temple-slide absolute inset-0 ${idx === i ? "is-active opacity-100" : "opacity-0 pointer-events-none"}`}>
+                <div className="temple-media absolute inset-0">
+                  {s.type === "img"
+                    ? <img src={s.src} alt={`Temple Parole Éternelle Ngiri-Ngiri — ${s.label}`} className="absolute inset-0 w-full h-full object-cover" loading="lazy"/>
+                    : <image-slot id={s.id} shape="rect" fit="cover"
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
+                        placeholder={s.ph}></image-slot>}
+                </div>
+              </div>
+            ))}
+
+            {/* cinematic gradient */}
+            <div className="absolute inset-0 pointer-events-none z-[5]" style={{ background: "linear-gradient(180deg, rgba(0,0,0,.28) 0%, transparent 30%, transparent 52%, rgba(0,0,0,.9) 100%)" }}></div>
+
+            {/* per-slide badge (kept dark for cinematic contrast) */}
+            <div className="absolute top-5 left-5 z-[6] px-3 py-1.5 backdrop-blur-md border border-gold-500/40 font-mono text-[10px] tracking-[.22em] uppercase" style={{ background: "rgba(10,10,12,.72)" }}>
+              <span style={{ color: "#d8b66a" }}>{slides[i].label}</span>
             </div>
-            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
+            {/* counter */}
+            <div className="absolute top-5 right-5 z-[6] font-mono text-[11px] tracking-[.2em] text-white/85 tick">
+              {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+            </div>
+
+            {/* arrows */}
+            {n > 1 && <button aria-label="Image précédente" onClick={() => go(-1)} className="tile-arrow absolute left-4 top-1/2 -translate-y-1/2 z-[7] w-11 h-11 rounded-full grid place-items-center transition">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+            </button>}
+            {n > 1 && <button aria-label="Image suivante" onClick={() => go(1)} className="tile-arrow absolute right-4 top-1/2 -translate-y-1/2 z-[7] w-11 h-11 rounded-full grid place-items-center transition">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </button>}
+
+            {/* caption + dots */}
+            <div className="absolute bottom-6 left-6 right-6 z-[6] flex items-end justify-between gap-4">
               <div>
-                <div className="font-display text-[24px] sm:text-[32px] leading-tight text-white">Le nouveau temple — Avenue Monkoto</div>
+                <div className="font-display text-[24px] sm:text-[34px] leading-tight text-white">Le nouveau temple — Avenue Monkoto</div>
                 <div className="mt-1 text-[13px] text-white/80">2 bis &amp; 4, Av. Monkoto · C/Ngiri-Ngiri · Réf. Marché Kale</div>
+              </div>
+              <div className="hidden sm:flex items-center gap-2">
+                {slides.map((_, idx) => (
+                  <button key={idx} aria-label={`Aller à l’image ${idx + 1}`} onClick={() => setI(idx)}
+                    className={`h-2 rounded-full transition-all duration-300 ${idx === i ? "w-7 bg-gold-300" : "w-2 bg-white/45 hover:bg-white/80"}`}></button>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Progress card */}
-          <div className="lg:col-span-4 bg-ink-700 border border-gold-500/30 p-6 sm:p-7 flex flex-col gap-5 glow">
-            <div>
-              <Eyebrow className="mb-3">Avancement</Eyebrow>
-              <div className="font-display text-[44px] sm:text-[56px] leading-none text-bone-50 tick">68<span className="text-gold-300">%</span></div>
-              <div className="text-[12px] text-bone-300 mt-1">de l'objectif atteint, grâce à Dieu et à vous</div>
-            </div>
-            <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-              <div className="h-full bg-gold-300 transition-all duration-1000" style={{ width: "68%" }}></div>
-            </div>
-            <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-5">
-              <div>
-                <div className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">Objectif</div>
-                <div className="font-display text-[22px] text-bone-50 mt-1 tick">350K USD</div>
-              </div>
-              <div>
-                <div className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">Donateurs</div>
-                <div className="font-display text-[22px] text-bone-50 mt-1 tick">1 420+</div>
-              </div>
-            </div>
-            <a href="#donner" className="btn btn-gold !w-full justify-center mt-auto">
-              <I.Heart width="14" height="14"/> Soutenir le projet
-            </a>
+          {/* dots on mobile (below the frame) */}
+          <div className="sm:hidden mt-4 flex items-center justify-center gap-2">
+            {slides.map((_, idx) => (
+              <button key={idx} aria-label={`Aller à l’image ${idx + 1}`} onClick={() => setI(idx)}
+                className={`h-2 rounded-full transition-all ${idx === i ? "w-7 bg-gold-300" : "w-2 bg-white/40"}`}></button>
+            ))}
           </div>
+        </Reveal>
+
+        {/* ── Fundraising band — bigger, animated ── */}
+        <Reveal className="grid lg:grid-cols-12 gap-6 mb-10">
+          <div ref={statsRef} className="lg:col-span-8 bg-ink-700 border border-gold-500/30 p-7 sm:p-9 glow">
+            <div className="flex flex-col sm:flex-row sm:items-end gap-x-10 gap-y-6">
+              <div className="shrink-0">
+                <Eyebrow className="mb-3">Avancement du chantier</Eyebrow>
+                <div className="font-display text-[56px] sm:text-[72px] leading-none text-bone-50 tick">{Math.round(p)}<span className="text-gold-300">%</span></div>
+                <div className="text-[12px] text-bone-300 mt-1">de l’objectif atteint — grâce à Dieu et à vous</div>
+              </div>
+              <div className="flex-1 min-w-[200px]">
+                <div className="h-2.5 bg-white/8 rounded-full overflow-hidden">
+                  <div className="h-full bg-gold-300 rounded-full" style={{ width: `${p}%` }}></div>
+                </div>
+                <div className="grid grid-cols-2 gap-6 mt-6">
+                  <div>
+                    <div className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">Objectif</div>
+                    <div className="font-display text-[26px] text-bone-50 mt-1 tick">350K USD</div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">Donateurs</div>
+                    <div className="font-display text-[26px] text-bone-50 mt-1 tick">{donors.toLocaleString("fr-FR")}+</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#donner" className="lg:col-span-4 bg-gold-300 text-ink-900 p-7 sm:p-9 flex flex-col justify-between hover:bg-gold-200 transition group">
+            <div>
+              <div className="font-display text-[26px] sm:text-[30px] leading-tight">Devenez bâtisseur du temple</div>
+              <p className="mt-3 text-[13px] leading-relaxed opacity-80">Chaque don rapproche notre communauté de sa maison de prière — construisons-la ensemble.</p>
+            </div>
+            <div className="mt-6 inline-flex items-center gap-2 font-mono text-[10px] tracking-[.22em] uppercase font-bold">
+              <I.Heart width="14" height="14"/> Soutenir le projet <I.ArrowR width="12" height="12"/>
+            </div>
+          </a>
         </Reveal>
 
         {/* Bank transfer coordinates — REAL data from poster */}
@@ -93,13 +219,13 @@ function Temple() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {methods.map((m, i) => (
-              <button key={i} onClick={() => copy(m.acc, i)}
+            {methods.map((m, idx) => (
+              <button key={idx} onClick={() => copy(m.acc, idx)}
                 className="text-left p-5 border border-white/10 hover:border-gold-400/50 transition group bg-ink-800">
                 <div className="flex items-start justify-between mb-3">
                   <span className="w-9 h-9 rounded-md grid place-items-center font-display text-[13px] font-bold" style={{ background: m.color, color: "#fff" }}>{m.logo}</span>
-                  <span className={`text-[10px] font-mono tracking-[.18em] uppercase transition ${copied === i ? "text-gold-300" : "text-bone-400 opacity-0 group-hover:opacity-100"}`}>
-                    {copied === i ? "✓ Copié" : "Copier"}
+                  <span className={`text-[10px] font-mono tracking-[.18em] uppercase transition ${copied === idx ? "text-gold-300" : "text-bone-400 opacity-0 group-hover:opacity-100"}`}>
+                    {copied === idx ? "✓ Copié" : "Copier"}
                   </span>
                 </div>
                 <div className="font-medium text-[14px] text-bone-50 mb-2">{m.name}</div>

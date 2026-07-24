@@ -5,6 +5,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "ambiance": "hybride",
   "heroVariant": "cinematic",
   "showLiveBanner": true,
+  "showSectionNav": true,
   "compact": false
 }/*EDITMODE-END*/;
 
@@ -36,6 +37,7 @@ function App() {
   return (
     <div className={t.compact ? "is-compact" : ""}>
       <Nav/>
+      <SectionNav show={t.showSectionNav}/>
       <main>
         <Hero showLive={t.showLiveBanner} variant={t.heroVariant}/>
         <Jubile/>
@@ -84,6 +86,9 @@ function App() {
         <TweakRadio label="Style du hero" value={t.heroVariant}
                     options={["cinematic", "minimal"]}
                     onChange={(v) => setTweak('heroVariant', v)}/>
+        <TweakSection label="Navigation"/>
+        <TweakToggle label="Barre de sections" value={t.showSectionNav}
+                     onChange={(v) => setTweak('showSectionNav', v)}/>
         <TweakSection label="Densité"/>
         <TweakToggle label="Mode compact" value={t.compact}
                      onChange={(v) => setTweak('compact', v)}/>
