@@ -52,7 +52,16 @@
   a{color:#e3c98a}a:hover{color:#d8b66a}
   ::selection{background:#cba255;color:#0a0a0c}
   ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#0a0a0c}::-webkit-scrollbar-thumb{background:#2d2e37;border-radius:8px}
+  html{scroll-behavior:smooth}
+  .reveal-ready [data-reveal]{will-change:opacity,transform}
+  @media (prefers-reduced-motion:no-preference){.reveal-ready [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.22,.7,.2,1),transform .8s cubic-bezier(.22,.7,.2,1)}.reveal-ready [data-reveal].in{opacity:1;transform:none}}
+  [data-cards]>div{transition:background-color .45s ease,box-shadow .45s ease}
+  [data-cards]>div:hover{background-color:#0d0d12;box-shadow:inset 0 0 0 1px rgba(216,182,106,.24)}
+  .btn-gold{position:relative;overflow:hidden;isolation:isolate}
+  .btn-gold::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.55) 50%,transparent 75%);transform:translateX(-130%);transition:transform .7s ease}
+  .btn-gold:hover::after{transform:translateX(130%)}
 </style>
+<script>document.documentElement.classList.add('reveal-ready')</script>
 </head>
 <body>
 
@@ -85,7 +94,7 @@
 <!-- Hero -->
 <section class="relative bg-ink-900 pt-16 pb-14 md:pt-24 md:pb-18 border-b border-white/10 overflow-hidden">
   <div class="absolute inset-0 opacity-60" style="background:radial-gradient(60% 80% at 50% 0%, rgba(216,182,106,.14), transparent 70%)"></div>
-  <div class="relative max-w-[1180px] mx-auto px-6 sm:px-10">
+  <div class="relative max-w-[1180px] mx-auto px-6 sm:px-10" data-reveal>
     <div class="eyebrow mb-4"><span class="inline-block w-[5px] h-[5px] bg-current rounded-full mr-2 align-middle"></span>Édition Juillet 2026 · Spécial Jubilé</div>
     <h1 class="font-display tracking-mega text-[44px] sm:text-[64px] md:text-[76px] leading-[.95] max-w-[900px]">Le concours biblique <em class="text-gold-300">du mois</em></h1>
     <p class="mt-6 max-w-[620px] text-[15px] sm:text-[16px] leading-relaxed text-bone-300">8 questions tirées des prédications et des événements du mois. Écoutez, répondez, gagnez — et grandissez dans la connaissance de la Parole.</p>
@@ -100,8 +109,8 @@
 <!-- Prix -->
 <section class="bg-ink-800 py-16 border-b border-white/10">
   <div class="max-w-[1180px] mx-auto px-6 sm:px-10">
-    <div class="eyebrow mb-8"><span class="inline-block w-[5px] h-[5px] bg-current rounded-full mr-2 align-middle"></span>À gagner</div>
-    <div class="grid md:grid-cols-2 gap-px bg-white/10 border border-white/10">
+    <div class="eyebrow mb-8" data-reveal><span class="inline-block w-[5px] h-[5px] bg-current rounded-full mr-2 align-middle"></span>À gagner</div>
+    <div class="grid md:grid-cols-2 gap-px bg-white/10 border border-white/10" data-reveal data-cards>
       <div class="bg-ink-800 p-8 sm:p-10">
         <div class="font-mono text-[10px] tracking-[.28em] uppercase text-gold-300 mb-3">Chaque mois</div>
         <div class="font-display text-[30px] sm:text-[36px] leading-tight">Des livres chrétiens</div>
@@ -111,10 +120,10 @@
       <div class="bg-ink-800 p-8 sm:p-10 relative overflow-hidden">
         <div class="absolute inset-0 opacity-40 pointer-events-none" style="background:radial-gradient(80% 100% at 100% 0%, rgba(216,182,106,.16), transparent 60%)"></div>
         <div class="relative">
-          <div class="font-mono text-[10px] tracking-[.28em] uppercase text-gold-300 mb-3">Grand prix annuel</div>
-          <div class="font-display text-[30px] sm:text-[36px] leading-tight">Un voyage en <em class="text-gold-300">Israël</em> ou en <em class="text-gold-300">Éthiopie</em></div>
-          <p class="mt-3 text-[14px] leading-relaxed text-bone-300">Parmi les 12 gagnants mensuels de l'année, un grand gagnant recevra un billet d'avion pour marcher sur les traces de l'histoire biblique.</p>
-          <div class="mt-5 font-mono text-[11px] tracking-[.18em] uppercase text-bone-400">Destination et modalités fixées avec le pasteur responsable</div>
+          <div class="font-mono text-[10px] tracking-[.28em] uppercase text-gold-300 mb-3">Et bien plus encore</div>
+          <div class="font-display text-[30px] sm:text-[36px] leading-tight">Des cadeaux pour le <em class="text-gold-300">quotidien</em></div>
+          <p class="mt-3 text-[14px] leading-relaxed text-bone-300">En plus des livres, les gagnants peuvent recevoir des cadeaux vestimentaires, des fournitures scolaires, des denrées alimentaires et d'autres présents utiles pour toute la famille.</p>
+          <div class="mt-5 font-mono text-[11px] tracking-[.18em] uppercase text-bone-400">Remis au culte dominical, avec les livres</div>
         </div>
       </div>
     </div>
@@ -176,8 +185,8 @@
 <!-- Règlement -->
 <section id="reglement" class="bg-ink-800 py-16 border-t border-white/10">
   <div class="max-w-[1180px] mx-auto px-6 sm:px-10">
-    <div class="eyebrow mb-8"><span class="inline-block w-[5px] h-[5px] bg-current rounded-full mr-2 align-middle"></span>Règlement du concours</div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+    <div class="eyebrow mb-8" data-reveal><span class="inline-block w-[5px] h-[5px] bg-current rounded-full mr-2 align-middle"></span>Règlement du concours</div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10" data-reveal data-cards>
       <div class="bg-ink-800 p-7">
         <div class="font-mono text-[22px] text-gold-300 mb-3">01</div>
         <div class="font-semibold text-[15px] mb-2">Un quiz par mois</div>
@@ -191,15 +200,15 @@
       <div class="bg-ink-800 p-7">
         <div class="font-mono text-[22px] text-gold-300 mb-3">03</div>
         <div class="font-semibold text-[15px] mb-2">Tirage & remise</div>
-        <p class="text-[13px] leading-relaxed text-bone-300">Le gagnant est tiré au sort parmi les meilleurs scores et annoncé au culte du premier dimanche du mois suivant. Prix : des livres.</p>
+        <p class="text-[13px] leading-relaxed text-bone-300">Le gagnant est tiré au sort parmi les meilleurs scores et annoncé au culte du premier dimanche du mois suivant. Prix : des livres et d'autres cadeaux utiles.</p>
       </div>
       <div class="bg-ink-800 p-7">
         <div class="font-mono text-[22px] text-gold-300 mb-3">04</div>
-        <div class="font-semibold text-[15px] mb-2">Grand prix annuel</div>
-        <p class="text-[13px] leading-relaxed text-bone-300">En fin d'année, un billet d'avion pour Israël ou l'Éthiopie est attribué parmi les gagnants mensuels — destination et modalités fixées en accord avec le pasteur responsable.</p>
+        <div class="font-semibold text-[15px] mb-2">Bien plus que des livres</div>
+        <p class="text-[13px] leading-relaxed text-bone-300">Selon les mois, les gagnants peuvent aussi recevoir des cadeaux vestimentaires, des fournitures scolaires, des denrées alimentaires et d'autres présents utiles pour la famille.</p>
       </div>
     </div>
-    <p class="mt-6 font-mono text-[10px] tracking-[.16em] uppercase text-bone-400">Le concours est gratuit et ouvert à tous · Les membres de l'équipe d'organisation ne peuvent pas participer</p>
+    <p class="mt-6 font-mono text-[10px] tracking-[.16em] uppercase text-bone-400" data-reveal>Le concours est gratuit et ouvert à tous · Les membres de l'équipe d'organisation ne peuvent pas participer</p>
   </div>
 </section>
 
@@ -220,5 +229,8 @@
 </footer>
 
 <script src="concours-app.js"></script>
+<script>
+(function(){try{var els=document.querySelectorAll('[data-reveal]');if(!('IntersectionObserver'in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(el){el.classList.add('in')});return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});els.forEach(function(el){io.observe(el)});}catch(e){document.querySelectorAll('[data-reveal]').forEach(function(el){el.classList.add('in')});}})();
+</script>
 </body>
 </html>

@@ -33,9 +33,11 @@ function Reveal({ children, stagger = false, className = "", as: As = "div" }) {
   React.useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Already at/near viewport on mount (or very tall element)? reveal immediately.
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) { el.classList.add("in"); return; }
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { el.classList.add("in"); io.unobserve(el); } });
-    }, { threshold: 0.15 });
+    }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
     io.observe(el);
     return () => io.disconnect();
   }, []);

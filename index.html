@@ -146,6 +146,9 @@
   /* hover lift */
   .lift{transition:transform .5s cubic-bezier(.2,.7,.2,1), border-color .3s, background-color .3s;}
   .lift:hover{transform:translateY(-4px);}
+  .tile-arrow{border:1px solid rgba(255,255,255,.22);background:rgba(7,7,8,.55);backdrop-filter:blur(8px);color:#fafaf7}
+  .group:hover .tile-arrow{background:#e3c98a;border-color:#e3c98a;color:#0b0b0d}
+  .tile-clamp{-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
   /* nav scroll state */
   .nav-scrolled{background:rgba(7,7,8,.78);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid rgba(216,182,106,.12);}
@@ -153,15 +156,18 @@
   /* reveal on scroll */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);}
   .reveal.in{opacity:1;transform:none;}
-  .reveal-stagger > * {opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
-  .reveal-stagger.in > *:nth-child(1){transition-delay:.05s;opacity:1;transform:none}
-  .reveal-stagger.in > *:nth-child(2){transition-delay:.12s;opacity:1;transform:none}
-  .reveal-stagger.in > *:nth-child(3){transition-delay:.19s;opacity:1;transform:none}
-  .reveal-stagger.in > *:nth-child(4){transition-delay:.26s;opacity:1;transform:none}
-  .reveal-stagger.in > *:nth-child(5){transition-delay:.33s;opacity:1;transform:none}
-  .reveal-stagger.in > *:nth-child(6){transition-delay:.40s;opacity:1;transform:none}
-  .reveal-stagger.in > *:nth-child(7){transition-delay:.47s;opacity:1;transform:none}
-  .reveal-stagger.in > *:nth-child(8){transition-delay:.54s;opacity:1;transform:none}
+  .reveal-stagger > * {opacity:0;transition:opacity .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal-stagger.in > *{opacity:1;transition:opacity .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal-stagger.in > *:nth-child(1){transition-delay:.05s}
+  .reveal-stagger.in > *:nth-child(2){transition-delay:.12s}
+  .reveal-stagger.in > *:nth-child(3){transition-delay:.19s}
+  .reveal-stagger.in > *:nth-child(4){transition-delay:.26s}
+  .reveal-stagger.in > *:nth-child(5){transition-delay:.33s}
+  .reveal-stagger.in > *:nth-child(6){transition-delay:.40s}
+  .reveal-stagger.in > *:nth-child(7){transition-delay:.47s}
+  .reveal-stagger.in > *:nth-child(n+8){transition-delay:.54s}
+  /* Guarantee: stagger rows are never left permanently hidden (opacity-only, no transform → hover transforms elsewhere untouched) */
+  html.revealed .reveal-stagger > *{opacity:1!important}
 
   /* marquee */
   @keyframes marq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
@@ -313,7 +319,7 @@
 <script src="image-slot.js"></script>
 <script src="yt-real.js"></script>
 
-
+<script type="text/babel" src="tweaks-panel.jsx"></script>
 <script type="text/babel" src="components/icons.jsx"></script>
 <script type="text/babel" src="components/primitives.jsx"></script>
 <script type="text/babel" src="components/Nav.jsx"></script>
@@ -333,8 +339,32 @@
 <script type="text/babel" src="sections/Donate.jsx"></script>
 <script type="text/babel" src="sections/Contact.jsx"></script>
 <script type="text/babel" src="sections/Footer.jsx"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
 <script type="text/babel" src="app.jsx"></script>
 <script src="i18n.js"></script>
+<script>
+/* Reveal safety-net: guarantee scroll-reveal content is never permanently hidden,
+   even for very tall blocks or content added on filter/view changes. */
+(function(){
+  function revealVisible(){
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var els = document.querySelectorAll('.reveal:not(.in), .reveal-stagger:not(.in)');
+    for (var i=0;i<els.length;i++){
+      var r = els[i].getBoundingClientRect();
+      if (r.top < vh * 0.95 && r.bottom > 0) els[i].classList.add('in');
+    }
+  }
+  window.addEventListener('scroll', revealVisible, {passive:true});
+  window.addEventListener('resize', revealVisible);
+  document.addEventListener('DOMContentLoaded', revealVisible);
+  // React mounts + dynamic re-renders (filters, view toggle) settle over time
+  var n=0, iv=setInterval(function(){ revealVisible(); if(++n>60) clearInterval(iv); }, 250);
+  setTimeout(revealVisible, 300);
+  // Hard guarantee: after the app has mounted, force all reveal content visible
+  // regardless of scroll position or animation state (opacity-only via <html>.revealed).
+  function forceReveal(){ document.documentElement.classList.add('revealed'); }
+  setTimeout(forceReveal, 1800);
+  window.addEventListener('load', function(){ setTimeout(forceReveal, 600); });
+})();
+</script>
 </body>
 </html>

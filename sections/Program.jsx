@@ -29,7 +29,8 @@ function Program() {
   const [filter, setFilter] = React.useState("Tous");
   const [view, setView] = React.useState("liste"); // liste | calendrier
 
-  const filters = ["Tous", "Culte", "Prière", "Étude", "Jeunesse", "Louange", "Mission", "Conférence", "Séminaire", "Enfants"];
+  // Only categories that actually occur this month — no dead filters, no empty states
+  const filters = ["Tous", ...Array.from(new Set(events.map(e => e.tag)))];
   const filtered = filter === "Tous" ? events : events.filter(e => e.tag === filter);
 
   const tagColor = (t) => ({
