@@ -2,7 +2,8 @@ function Nav() {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    // Fond sombre seulement après le Hero — l'en-tête reste transparent sur la photo.
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.75);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
