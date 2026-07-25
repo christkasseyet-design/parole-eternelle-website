@@ -1,13 +1,44 @@
 function Nav() {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+
+  // Barre compacte + masquage automatique : on libère l'écran quand le
+  // visiteur descend, la navigation revient dès qu'il remonte.
   React.useEffect(() => {
-    // Fond sombre seulement après le Hero — l'en-tête reste transparent sur la photo.
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.75);
-    onScroll();
+    const root = document.documentElement;
+    let last = window.scrollY;
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      const past = y > window.innerHeight * 0.75;
+      setScrolled(past);
+      root.classList.toggle("nav-compact", past);
+
+      // Masquer seulement en descendant, hors du Hero et hors menu ouvert.
+      const goingDown = y > last + 6;
+      const goingUp = y < last - 6;
+      if (!past || open) {
+        root.classList.remove("nav-hidden");
+      } else if (goingDown) {
+        root.classList.add("nav-hidden");
+      } else if (goingUp) {
+        root.classList.remove("nav-hidden");
+      }
+      last = y;
+    };
+
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      root.classList.remove("nav-compact", "nav-hidden");
+    };
+  }, [open]);
 
   // Fermer avec Échap + bloquer le défilement quand le menu est ouvert.
   React.useEffect(() => {
@@ -50,10 +81,10 @@ function Nav() {
   return (
     <>
       <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "nav-scrolled" : ""}`}>
-        <div className="max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between h-[88px]">
+        <div className="nav-bar max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between">
           <a href="#accueil" className="flex items-center gap-3.5 group">
             <Logo />
-            <div className="font-display text-[24px] sm:text-[28px] md:text-[30px] tracking-tight text-bone-50 leading-none">
+            <div className="nav-title font-display tracking-tight text-bone-50 leading-none">
               Parole Éternelle
             </div>
           </a>
@@ -126,7 +157,7 @@ function Logo() {
       id="church-logo"
       shape="circle"
       src="assets/logo-parole-eternelle.jpg"
-      style={{ width: "66px", height: "66px", display: "inline-block" }}
+      className="nav-logo" style={{ display: "inline-block" }}
       placeholder="Logo">
     </image-slot>
   );
