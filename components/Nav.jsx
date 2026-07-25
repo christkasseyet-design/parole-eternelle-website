@@ -8,14 +8,42 @@ function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const items = [
-    ["A propos", "#a-propos"],
-    ["Prédication", "predications.html"],
-    ["Construction", "#temple"],
-    ["Ministères", "#communaute"],
-    ["Event", "#jubile"],
-    ["Bible", "bible.html"],
-    ["Concours", "concours.html"],
+  // Fermer avec Échap + bloquer le défilement quand le menu est ouvert.
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [open]);
+
+  // Menu complet, regroupé — remplace l'ancienne rangée de liens en haut.
+  const groups = [
+    { title: "L'église", links: [
+      ["Accueil", "#accueil"],
+      ["À propos", "#a-propos"],
+      ["Ministères", "#communaute"],
+      ["Vie d'église", "#vie"],
+      ["Galerie", "#galerie"],
+    ]},
+    { title: "La Parole", links: [
+      ["Programme des cultes", "#programmes"],
+      ["Prédications", "predications.html"],
+      ["Médias & vidéos", "#medias"],
+      ["Bible", "bible.html"],
+      ["Concours biblique", "concours.html"],
+    ]},
+    { title: "Participer", links: [
+      ["Jubilé 2026", "#jubile"],
+      ["Projet du temple", "#temple"],
+      ["Faire un don", "#donner"],
+      ["Nous contacter", "#contact"],
+    ]},
+  ];
+
+  const socials = [
+    ["Facebook", "https://www.facebook.com/cepeng/"],
+    ["YouTube", "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw"],
+    ["TikTok", "https://www.tiktok.com/@paroleternellengiringiri"],
   ];
 
   return (
@@ -29,37 +57,64 @@ function Nav() {
             </div>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-7">
-            {items.map(([label, href]) => (
-              <a key={href} href={href} className="relative text-[13px] font-medium text-bone-200/80 hover:text-bone-50 transition group">
-                {label}
-                <span className="absolute left-0 right-0 -bottom-1 h-px bg-gold-300 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </a>
-            ))}
-          </nav>
-
           <div className="flex items-center gap-3">
             <a href="#donner" className="hidden sm:inline-flex items-center px-6 py-2.5 rounded-full bg-gold-300 text-ink-900 text-[13px] font-bold uppercase tracking-[.08em] hover:bg-gold-200 transition">Donation</a>
-            <button onClick={() => setOpen(!open)} className="lg:hidden w-10 h-10 grid place-items-center rounded-full border border-white/10 text-bone-50">
-              {open ? <I.Close width="18" height="18"/> : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <button onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}
+              className="nav-burger w-11 h-11 grid place-items-center rounded-full border border-white/15 text-bone-50 hover:border-gold-300 hover:text-gold-200 transition">
+              {open ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              ) : (
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
               )}
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile drawer */}
-        {open && (
-          <div className="lg:hidden border-t border-white/10 bg-ink-900/95 backdrop-blur-xl">
-            <div className="px-6 py-6 grid grid-cols-2 gap-x-6 gap-y-3">
-              {items.map(([label, href]) => (
-                <a key={href} href={href} onClick={() => setOpen(false)} className="text-[15px] py-2 text-bone-100 border-b border-white/5">{label}</a>
+      {/* ── Menu plein écran ─────────────────────────────────────────────── */}
+      <div className={`nav-menu ${open ? "is-open" : ""}`} onClick={() => setOpen(false)}>
+        <div className="nav-menu-inner" onClick={(e) => e.stopPropagation()}>
+          <div className="max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-9">
+              {groups.map((g) => (
+                <div key={g.title}>
+                  <div className="eyebrow mb-5"><span className="dot"></span>{g.title}</div>
+                  <ul className="space-y-1">
+                    {g.links.map(([label, href]) => (
+                      <li key={href}>
+                        <a href={href} onClick={() => setOpen(false)} className="nav-link">
+                          <span>{label}</span>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-              <a href="#donner" onClick={() => setOpen(false)} className="text-[15px] py-2 text-gold-200 font-semibold border-b border-white/5">Donation</a>
+            </div>
+
+            <div className="mt-10 pt-7 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+              <a href="#donner" onClick={() => setOpen(false)}
+                 className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-gold-300 text-ink-900 text-[13px] font-bold uppercase tracking-[.08em] hover:bg-gold-200 transition">
+                Faire un don
+              </a>
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400 mr-1">Suivez-nous</span>
+                {socials.map(([label, href]) => (
+                  <a key={label} href={href} target="_blank" rel="noopener"
+                     className="px-3.5 py-1.5 rounded-full border border-white/15 text-[12px] text-bone-200 hover:border-gold-300 hover:text-gold-200 transition">
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-7 text-[12px] text-bone-400 leading-relaxed">
+              2 bis &amp; 4, Av. Monkoto · C/Ngiri-Ngiri, Kinshasa · Cultes dimanche 07h30 &amp; 10h00
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      </div>
     </>
   );
 }

@@ -151,6 +151,22 @@
   .tile-clamp{-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
   /* nav scroll state */
+  /* ── Menu plein écran (bouton 3 traits) ───────────────────────────────── */
+  .nav-burger{background:rgba(6,26,68,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .nav-menu{position:fixed;inset:0;z-index:49;display:flex;align-items:center;
+    background:rgba(4,14,38,.86);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);
+    opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease;overflow-y:auto;padding:112px 0 44px}
+  .nav-menu.is-open{opacity:1;visibility:visible}
+  .nav-menu-inner{width:100%;transform:translateY(-14px);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  .nav-menu.is-open .nav-menu-inner{transform:none}
+  .nav-link{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 2px;
+    font-family:'Archivo','Manrope',sans-serif;font-weight:600;font-size:19px;letter-spacing:-.01em;
+    color:#f3f2ec;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.07);transition:color .22s,padding .22s}
+  .nav-link svg{opacity:0;transform:translateX(-6px);transition:opacity .22s,transform .22s;flex-shrink:0}
+  .nav-link:hover{color:#f4c238;padding-left:9px}
+  .nav-link:hover svg{opacity:1;transform:none}
+  @media (max-width:640px){ .nav-link{font-size:17px;padding:10px 2px} .nav-menu{padding-top:100px} }
+
   .nav-scrolled{background:rgba(7,7,8,.78);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid rgba(216,182,106,.12);}
 
   /* reveal on scroll */
