@@ -61,6 +61,20 @@
     .fade-in { animation: fadeUp .6s cubic-bezier(.2,.7,.2,1) both }
   }
 </style>
+
+<!-- Statistiques de visite (GoatCounter) — sans cookie, sans bannière.
+     Pour activer : créez un compte gratuit sur https://www.goatcounter.com
+     puis remplacez "" par votre code, ex. "parole-eternelle". -->
+<script>
+(function(){
+  var CODE = "";
+  if(!CODE) return;
+  var s = document.createElement("script");
+  s.async = true; s.src = "//gc.zgo.at/count.js";
+  s.setAttribute("data-goatcounter", "https://" + CODE + ".goatcounter.com/count");
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
 <div id="root"></div>
@@ -293,14 +307,16 @@ function AlbumView({ a, onBack }) {
   const [open, setOpen] = React.useState(null);
 
   React.useEffect(() => {
+    if (open === null) return;
+    const prevOv = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKey = (e) => {
-      if (open === null) return;
       if (e.key === "Escape") setOpen(null);
       if (e.key === "ArrowRight") setOpen((o) => (o + 1) % a.photos.length);
       if (e.key === "ArrowLeft") setOpen((o) => (o - 1 + a.photos.length) % a.photos.length);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = prevOv; window.removeEventListener("keydown", onKey); };
   }, [open, a]);
 
   return (

@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/jpeg" href="assets/logo-parole-eternelle.jpg" />
 <title>Parole Éternelle — Une église vivante pour une génération transformée</title>
-<meta name="description" content="C.E. Parole Éternelle Ngiri-Ngiri, église des Assemblées de Dieu à Kinshasa. Cultes dimanche 07h30 & 10h00, prière, jeunesse, médias." />
+<meta name="description" content="C.E. Parole Éternelle Ngiri-Ngiri, église des Assemblées de Dieu à Kinshasa. Cultes dimanche 07h30 & 10h00, Jubilé 2026, prière, jeunesse, médias." />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Parole Éternelle Ngiri-Ngiri" />
 <meta property="og:title" content="Parole Éternelle — Une église vivante pour une génération transformée" />
-<meta property="og:description" content="C.E. Parole Éternelle Ngiri-Ngiri, église des Assemblées de Dieu à Kinshasa. Cultes dimanche 07h30 & 10h00, prière, jeunesse, médias." />
+<meta property="og:description" content="C.E. Parole Éternelle Ngiri-Ngiri, église des Assemblées de Dieu à Kinshasa. Cultes dimanche 07h30 & 10h00, Jubilé 2026, prière, jeunesse, médias." />
 <meta property="og:url" content="https://christkasseyet-design.github.io/parole-eternelle-website/" />
 <meta property="og:image" content="https://christkasseyet-design.github.io/parole-eternelle-website/assets/photos/culte-assemblee-2.jpg" />
 <meta property="og:locale" content="fr_FR" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Parole Éternelle — Une église vivante pour une génération transformée" />
-<meta name="twitter:description" content="C.E. Parole Éternelle Ngiri-Ngiri, église des Assemblées de Dieu à Kinshasa. Cultes dimanche 07h30 & 10h00, prière, jeunesse, médias." />
+<meta name="twitter:description" content="C.E. Parole Éternelle Ngiri-Ngiri, église des Assemblées de Dieu à Kinshasa. Cultes dimanche 07h30 & 10h00, Jubilé 2026, prière, jeunesse, médias." />
 <meta name="twitter:image" content="https://christkasseyet-design.github.io/parole-eternelle-website/assets/photos/culte-assemblee-2.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -216,6 +216,52 @@
   /* glow */
   .glow{box-shadow:0 0 0 1px rgba(216,182,106,.18), 0 30px 80px -40px rgba(216,182,106,.45);}
 
+  /* photos : fond sombre pendant le chargement (évite les cases vides claires) */
+  main img[class*="object-cover"]{background-color:#101014}
+
+  /* assistance IA */
+  .sb-root{position:fixed;right:22px;bottom:22px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-family:'Manrope',system-ui,sans-serif}
+  .sb-fab{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:999px;background:var(--gold-300,#d8b66a);color:#0a0a0c;border:none;cursor:pointer;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 18px 40px -18px rgba(0,0,0,.8);transition:transform .25s ease,background .25s ease}
+  .sb-fab:hover{transform:translateY(-2px);background:var(--gold-200,#e3c98a)}
+  .sb-fab-label{text-transform:uppercase}
+  .sb-panel{width:min(88vw,382px);max-height:min(74vh,620px);display:flex;flex-direction:column;background:rgba(12,12,15,.96);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:6px;box-shadow:0 40px 90px -35px rgba(0,0,0,.9);overflow:hidden;animation:gshowFade .28s ease both}
+  .sb-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 14px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .sb-dot{width:9px;height:9px;border-radius:999px;background:#7fd48a;box-shadow:0 0 0 4px rgba(127,212,138,.16)}
+  .sb-tabs{display:flex;gap:6px;padding:10px 14px 0}
+  .sb-tab{flex:1;padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:none;color:#dcdad1;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.2s}
+  .sb-tab.is-on{background:var(--gold-300,#d8b66a);border-color:var(--gold-300,#d8b66a);color:#0a0a0c}
+  .sb-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .sb-msg{max-width:88%;padding:11px 13px;border-radius:4px;font-size:13.5px;line-height:1.5;white-space:pre-wrap}
+  .sb-wa{display:inline-flex;align-items:center;gap:6px;margin-top:9px;padding:7px 13px;border-radius:999px;background:#25D366;color:#0a2160;font-weight:700;font-size:11.5px;letter-spacing:.03em;text-decoration:none;transition:filter .2s}
+  .sb-wa:hover{filter:brightness(1.08)}
+  .sb-ai{align-self:flex-start;background:rgba(255,255,255,.07);color:#f3f2ec;border:1px solid rgba(255,255,255,.08)}
+  .sb-me{align-self:flex-end;background:var(--gold-300,#d8b66a);color:#0a0a0c;font-weight:500}
+  .sb-typing{display:flex;gap:5px;align-items:center}
+  .sb-typing span{width:6px;height:6px;border-radius:999px;background:#d8b66a;animation:sbBlink 1.1s infinite}
+  .sb-typing span:nth-child(2){animation-delay:.18s}.sb-typing span:nth-child(3){animation-delay:.36s}
+  @keyframes sbBlink{0%,100%{opacity:.25}50%{opacity:1}}
+  .sb-logitem{padding:10px 12px;border:1px solid rgba(255,255,255,.08);border-radius:4px;background:rgba(255,255,255,.04)}
+  .sb-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 12px}
+  .sb-quick button{padding:7px 11px;border-radius:999px;border:1px solid rgba(216,182,106,.35);background:none;color:#e3c98a;font-size:11.5px;cursor:pointer;transition:.2s}
+  .sb-quick button:hover{background:rgba(216,182,106,.14)}
+  .sb-quick button:disabled{opacity:.45;cursor:default}
+  .sb-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(255,255,255,.1)}
+  .sb-form input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:11px 15px;color:#fafaf7;font-size:13.5px;outline:none}
+  .sb-form input:focus{border-color:var(--gold-300,#d8b66a)}
+  .sb-form button{width:42px;height:42px;flex:none;border-radius:999px;border:none;background:var(--gold-300,#d8b66a);color:#0a0a0c;display:grid;place-items:center;cursor:pointer;transition:.2s}
+  .sb-form button:disabled{opacity:.4;cursor:default}
+  @media (max-width:560px){.sb-root{right:14px;bottom:14px}.sb-fab-label{display:none}.sb-fab{padding:14px}}
+
+  /* galerie · mosaïque de diaporamas */
+  .gmosaic{display:grid;gap:14px;grid-template-columns:1fr}
+  .gmosaic>.gtile{aspect-ratio:4/3;width:100%}
+  @media (min-width:768px){.gmosaic{grid-template-columns:repeat(12,1fr);grid-auto-rows:210px}.gmosaic>.gtile{aspect-ratio:auto;height:100%}.gt-a{grid-column:span 7;grid-row:span 2}.gt-b{grid-column:span 5}.gt-c{grid-column:span 5}.gt-d,.gt-e,.gt-f{grid-column:span 4}}
+  @media (min-width:1280px){.gmosaic{grid-auto-rows:255px}}
+  @keyframes gshowFade{from{opacity:0}to{opacity:1}}
+  @keyframes gshowKB{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+  .gshow-fade{animation:gshowFade 1.15s ease both}
+  @media (prefers-reduced-motion: no-preference){.gshow-kb{animation:gshowFade 1.15s ease both, gshowKB 9s ease-out both}}
+
   /* lightbox */
   .lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:5vw;}
 
@@ -343,6 +389,20 @@
   .sec-light :is(.ph,.tile-dark) [class*="bg-ink"]{background:rgba(10,10,12,.6)!important;box-shadow:none}
   .sec-light :is(.ph,.tile-dark) [class*="bg-white/"]{background:rgba(255,255,255,.07)!important}
 </style>
+
+<!-- Statistiques de visite (GoatCounter) — sans cookie, sans bannière.
+     Pour activer : créez un compte gratuit sur https://www.goatcounter.com
+     puis remplacez "" par votre code, ex. "parole-eternelle". -->
+<script>
+(function(){
+  var CODE = "";
+  if(!CODE) return;
+  var s = document.createElement("script");
+  s.async = true; s.src = "//gc.zgo.at/count.js";
+  s.setAttribute("data-goatcounter", "https://" + CODE + ".goatcounter.com/count");
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
 <div id="root"></div>
@@ -359,6 +419,7 @@
 <script type="text/babel" src="components/primitives.jsx"></script>
 <script type="text/babel" src="components/Nav.jsx"></script>
 <script type="text/babel" src="components/SectionNav.jsx"></script>
+<script type="text/babel" src="components/SupportBot.jsx"></script>
 <script type="text/babel" src="sections/Hero.jsx"></script>
 <script type="text/babel" src="sections/Jubile.jsx"></script>
 <script type="text/babel" src="sections/PhotoWall.jsx"></script>

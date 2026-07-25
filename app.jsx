@@ -56,6 +56,7 @@ function App() {
         <Contact/>
       </main>
       <Footer/>
+      <SupportBot/>
 
       <TweaksPanel>
         <TweakSection label="Identité visuelle"/>

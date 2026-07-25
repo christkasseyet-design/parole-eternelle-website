@@ -70,7 +70,7 @@ function Logo() {
       id="church-logo"
       shape="circle"
       src="assets/logo-parole-eternelle.jpg"
-      style={{ width: "44px", height: "44px", display: "inline-block" }}
+      style={{ width: "66px", height: "66px", display: "inline-block" }}
       placeholder="Logo">
     </image-slot>
   );

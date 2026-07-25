@@ -51,6 +51,20 @@
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
   .reveal.in{opacity:1;transform:none}
 </style>
+
+<!-- Statistiques de visite (GoatCounter) — sans cookie, sans bannière.
+     Pour activer : créez un compte gratuit sur https://www.goatcounter.com
+     puis remplacez "" par votre code, ex. "parole-eternelle". -->
+<script>
+(function(){
+  var CODE = "";
+  if(!CODE) return;
+  var s = document.createElement("script");
+  s.async = true; s.src = "//gc.zgo.at/count.js";
+  s.setAttribute("data-goatcounter", "https://" + CODE + ".goatcounter.com/count");
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
 

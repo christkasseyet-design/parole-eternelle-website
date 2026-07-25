@@ -16,8 +16,8 @@ function Temple() {
     { type: "slot", id: "temple-photo-3", label: "Intérieur · sanctuaire", ph: "Déposez une photo · intérieur" },
     { type: "slot", id: "temple-photo-4", label: "Chantier en cours",      ph: "Déposez une photo · chantier" },
   ];
-  // Visiteurs : uniquement les diapositives remplies (les slots vides restent
-  // réservés au mode auteur). Le sidecar est consulté pour les slots remplis.
+  // Visiteurs : uniquement les diapositives remplies (les emplacements vides
+  // restent réservés au mode auteur).
   const editable = typeof window !== "undefined" && !!(window.omelette && window.omelette.writeFile);
   const [slotState, setSlotState] = React.useState(null);
   React.useEffect(() => {
