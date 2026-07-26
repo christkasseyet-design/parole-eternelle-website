@@ -157,7 +157,7 @@ function Logo() {
       id="church-logo"
       shape="circle"
       src="assets/logo-parole-eternelle.jpg"
-      className="nav-logo" style={{ display: "inline-block" }}
+      style={{ display: "inline-block" }}
       placeholder="Logo">
     </image-slot>
   );

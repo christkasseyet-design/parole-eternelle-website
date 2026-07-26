@@ -170,13 +170,13 @@
   /* ── Barre compacte + masquage au défilement (gagne de la place à l'écran) ── */
   header{transition:transform .34s cubic-bezier(.2,.7,.2,1), background-color .3s ease}
   .nav-bar{height:88px;transition:height .3s cubic-bezier(.2,.7,.2,1)}
-  .nav-logo{width:66px;height:66px;transition:width .3s cubic-bezier(.2,.7,.2,1),height .3s cubic-bezier(.2,.7,.2,1)}
+  image-slot#church-logo{width:66px;height:66px;transition:width .3s cubic-bezier(.2,.7,.2,1),height .3s cubic-bezier(.2,.7,.2,1)}
   .nav-title{font-size:30px;transition:font-size .3s cubic-bezier(.2,.7,.2,1)}
   @media (max-width:640px){ .nav-title{font-size:24px} }
 
   /* état compact : après le Hero, l'en-tête se resserre */
   .nav-compact .nav-bar{height:58px}
-  .nav-compact .nav-logo{width:40px;height:40px}
+  .nav-compact image-slot#church-logo{width:40px;height:40px}
   .nav-compact .nav-title{font-size:21px}
   @media (max-width:640px){ .nav-compact .nav-title{font-size:18px} }
 
