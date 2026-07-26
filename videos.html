@@ -65,6 +65,18 @@
   document.head.appendChild(s);
 })();
 </script>
+
+<style>
+  /* Cohérence sur toutes les pages : pas de défilement horizontal parasite,
+     focus clavier visible, animations réduites si le visiteur le demande. */
+  html,body{overflow-x:hidden}
+  html{scroll-padding-top:96px}
+  a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{
+    outline:2px solid #d8b66a;outline-offset:3px;border-radius:4px}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  }
+</style>
 </head>
 <body>
 
