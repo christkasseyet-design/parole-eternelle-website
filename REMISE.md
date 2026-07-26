@@ -36,3 +36,28 @@ GoatCounter n'utilise **aucun cookie** → pas de bannière de consentement néc
 - [ ] Numéros de dons (Rawbank, Equity, Orange, M-Pesa, Airtel) confirmés avec la trésorerie
 - [ ] Numéro WhatsApp de contact correct
 - [ ] Programme du mois en cours à jour
+
+## 5. Fichiers compilés — à régénérer après modification
+
+Le site ne compile plus rien dans le navigateur (c'est beaucoup plus rapide).
+Après avoir modifié un fichier source, il faut régénérer :
+
+**JavaScript** — si vous modifiez un `.jsx` :
+```
+npx @babel/cli --presets @babel/preset-react fichier.jsx -o fichier.js
+```
+
+**CSS Tailwind** — si vous ajoutez des classes Tailwind :
+```
+npm install -D tailwindcss@3.4.17
+npx tailwindcss -c tailwind.config.js -i tw-input.css -o assets/tailwind.css --minify
+npx tailwindcss -c tailwind.light.config.js -i tw-input.css -o assets/tailwind-light.css --minify
+```
+(avec `tw-input.css` contenant : `@tailwind base;@tailwind components;@tailwind utilities;`)
+
+**Deux palettes distinctes — attention :**
+- `assets/tailwind.css` → index, galerie, concours, predications (bleu nuit / or)
+- `assets/tailwind-light.css` → bible, videos (crème / corail)
+
+Les mêmes noms de classes (`paper`, `coral`, `ink`) ont des couleurs différentes
+selon la page. Ne fusionnez pas les deux fichiers.
