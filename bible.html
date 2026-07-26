@@ -385,5 +385,27 @@
 
 <script src="bible-data.js"></script>
 <script src="bible-app.js"></script>
+
+<style>
+  /* En-tête escamotable : libère l'écran en descendant, revient en remontant. */
+  header{transition:transform .34s cubic-bezier(.2,.7,.2,1)}
+  html.chrome-hidden header{transform:translateY(-100%)}
+  @media (prefers-reduced-motion: reduce){ header{transition:none} }
+</style>
+<script>
+(function(){
+  var root=document.documentElement, last=0, ticking=false;
+  function upd(){
+    ticking=false;
+    var y=window.scrollY||window.pageYOffset;
+    if(y<140){ root.classList.remove('chrome-hidden'); last=y; return; }
+    if(y>last+6){ root.classList.add('chrome-hidden'); }
+    else if(y<last-6){ root.classList.remove('chrome-hidden'); }
+    last=y;
+  }
+  window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(upd);} },{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+</script>
 </body>
 </html>
