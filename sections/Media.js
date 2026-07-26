@@ -1,0 +1,542 @@
+// YouTube channel — CE Parole Eternelle TV
+const YT_CHANNEL_ID = "UCPmV9FMnv9imGbnxJdFiMcw";
+const YT_CHANNEL_URL = "https://www.youtube.com/@paroleeternellengiri-ngiri";
+const YT_VIDEOS_URL = `${YT_CHANNEL_URL}/videos`;
+const YT_LIVE_EMBED = `https://www.youtube.com/embed/live_stream?channel=${YT_CHANNEL_ID}&autoplay=0&mute=1`;
+const FB_PAGE_URL = "https://www.facebook.com/cepeng/";
+const FB_VIDEOS_URL = "https://www.facebook.com/cepeng/videos";
+
+// Extrait réel de prédication — chaîne officielle Parole Eternelle Ngiri-ngiri TV
+const FEATURED_VIDEO = {
+  id: "OBPAIOklLYg",
+  title: "Extrait · Campagne « Épouse Parole »",
+  speaker: "Past. Raphaël Kaseya Bin Moningo",
+  series: "Extrait de prédication · Ngiri-Ngiri"
+};
+function Media() {
+  const [tab, setTab] = React.useState("Prédications");
+  const [sort, setSort] = React.useState("recent");
+  const [realVids, setRealVids] = React.useState(null);
+  const tabs = ["Prédications", "Worship", "Podcast", "Direct"];
+  React.useEffect(() => {
+    if (window.loadRealYtVideos) window.loadRealYtVideos(setRealVids);
+  }, []);
+  const sermons = [{
+    date: "11 Mai 2026",
+    title: "Bâtir sa maison sur le Roc",
+    speaker: "Past. Raphaël Kaseya",
+    duration: "42:18",
+    series: "Série · Fondations",
+    featured: true
+  }, {
+    date: "04 Mai 2026",
+    title: "L'autorité du croyant",
+    speaker: "Past. Grâce Lumba",
+    duration: "37:05",
+    series: "Série · Identité"
+  }, {
+    date: "27 Avr 2026",
+    title: "La prière qui déplace les montagnes",
+    speaker: "Past. Daniel Nzuzi",
+    duration: "44:22",
+    series: "Série · Prière"
+  }, {
+    date: "20 Avr 2026",
+    title: "Vivre par la foi, pas par la vue",
+    speaker: "Past. Esther Kalemba",
+    duration: "38:50",
+    series: "Série · Marche de foi"
+  }, {
+    date: "13 Avr 2026",
+    title: "Pâques · Il est vivant !",
+    speaker: "Past. Raphaël Kaseya",
+    duration: "48:11",
+    series: "Série · Pâques"
+  }, {
+    date: "06 Avr 2026",
+    title: "Le pardon, une libération",
+    speaker: "Past. Patrick Kabongo",
+    duration: "35:42",
+    series: "Série · Cœur libre"
+  }];
+  const worship = [{
+    title: "Eternel, mon Roc",
+    duration: "5:42",
+    album: "Live · Soirée d'adoration"
+  }, {
+    title: "Tu es vivant",
+    duration: "6:18",
+    album: "Live · Soirée d'adoration"
+  }, {
+    title: "Nzambe na ngai (Lingala)",
+    duration: "7:02",
+    album: "EP · Au cœur de Kinshasa"
+  }, {
+    title: "Plus que vainqueurs",
+    duration: "5:30",
+    album: "EP · Au cœur de Kinshasa"
+  }, {
+    title: "Mon Dieu fidèle",
+    duration: "4:55",
+    album: "Single"
+  }, {
+    title: "Lève-toi, Église",
+    duration: "6:44",
+    album: "Single"
+  }];
+
+  // Vraies vidéos de la chaîne (via yt-real.js) — sinon feed exemple
+  const realSermons = realVids ? realVids.filter(v => v.cat === "Prédications" || v.cat === "Cultes" || v.cat === "Conférences").slice(0, 6).map(v => ({
+    date: "Sur YouTube",
+    title: v.title,
+    speaker: v.speaker || "Parole Eternelle Ngiri-ngiri TV",
+    duration: "",
+    series: v.cat,
+    vid: v.id,
+    href: `https://www.youtube.com/watch?v=${v.id}`
+  })) : null;
+  const shownSermons = realSermons && realSermons.length ? realSermons : sermons.slice(1);
+  const realWorship = realVids ? realVids.filter(v => v.cat === "Louange").slice(0, 6).map(v => ({
+    title: v.title,
+    duration: "YouTube ↗",
+    album: "Louange · Chaîne officielle",
+    vid: v.id,
+    href: `https://www.youtube.com/watch?v=${v.id}`
+  })) : null;
+  const shownWorship = realWorship && realWorship.length ? realWorship : worship;
+  return /*#__PURE__*/React.createElement("section", {
+    id: "medias",
+    "data-screen-label": "Médias",
+    className: "sec-light relative bg-ink-800 py-28 md:py-40"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14"
+  }, /*#__PURE__*/React.createElement(Reveal, {
+    className: "flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Eyebrow, {
+    className: "mb-5"
+  }, "Messages & Médias"), /*#__PURE__*/React.createElement(Heading, null, "Nourrissez votre foi —", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("em", {
+    className: "italic text-gold-200 font-light"
+  }, "partout, à toute heure."))), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-3 shrink-0"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: "videos.html"
+  }, "Toutes les vidéos"), /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: YT_CHANNEL_URL,
+    icon: false
+  }, /*#__PURE__*/React.createElement(I.YT, {
+    width: "14",
+    height: "14"
+  }), " YouTube"))), /*#__PURE__*/React.createElement(Reveal, {
+    id: "messages",
+    "data-screen-label": "Messages",
+    className: "grid lg:grid-cols-12 gap-8 mb-16"
+  }, /*#__PURE__*/React.createElement(FeaturedPlayer, {
+    video: FEATURED_VIDEO
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "lg:col-span-4 flex flex-col gap-4"
+  }, /*#__PURE__*/React.createElement(LiveCard, null), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink-700 border border-white/10 p-6"
+  }, /*#__PURE__*/React.createElement(Eyebrow, {
+    className: "mb-3"
+  }, "Cette semaine"), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-3"
+  }, /*#__PURE__*/React.createElement(Mini, {
+    k: "Vues sur YouTube",
+    v: "34 218"
+  }), /*#__PURE__*/React.createElement(Mini, {
+    k: "Nouveaux abonnés",
+    v: "+612"
+  }), /*#__PURE__*/React.createElement(Mini, {
+    k: "Téléchargements podcast",
+    v: "1 847"
+  }), /*#__PURE__*/React.createElement(Mini, {
+    k: "Pays touchés",
+    v: "27"
+  }))))), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 mb-8 border-b border-white/10 pb-3 overflow-x-auto"
+  }, tabs.map(t => /*#__PURE__*/React.createElement("button", {
+    key: t,
+    onClick: () => setTab(t),
+    className: `relative shrink-0 px-1 py-2 text-[14px] font-medium transition ${tab === t ? "text-bone-50" : "text-bone-400 hover:text-bone-200"}`
+  }, t, tab === t && /*#__PURE__*/React.createElement("span", {
+    className: "absolute -bottom-3 left-0 right-0 h-[2px] bg-gold-300"
+  }))), tab === "Prédications" && /*#__PURE__*/React.createElement("div", {
+    className: "ml-auto flex items-center gap-3 text-[12px] text-bone-400"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "font-mono tracking-[.18em] uppercase"
+  }, "Trier"), /*#__PURE__*/React.createElement("select", {
+    value: sort,
+    onChange: e => setSort(e.target.value),
+    className: "bg-transparent text-bone-200 text-[12px] outline-none cursor-pointer"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "recent"
+  }, "Plus récents"), /*#__PURE__*/React.createElement("option", {
+    value: "serie"
+  }, "Par série")))), tab === "Prédications" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Reveal, {
+    stagger: true,
+    className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+  }, (sort === "serie" ? [...shownSermons].sort((a, b) => a.series.localeCompare(b.series)) : shownSermons).map((s, i) => /*#__PURE__*/React.createElement(SermonCard, {
+    key: s.vid || i,
+    ...s
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "mt-10 flex justify-center"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: "predications.html"
+  }, "Voir toutes les prédications · 248 messages"))), tab === "Worship" && /*#__PURE__*/React.createElement(Reveal, {
+    stagger: true,
+    className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+  }, shownWorship.map((w, i) => /*#__PURE__*/React.createElement(WorshipCard, {
+    key: w.vid || i,
+    ...w,
+    idx: i
+  }))), tab === "Podcast" && /*#__PURE__*/React.createElement(PodcastBlock, {
+    realVids: realVids
+  }), tab === "Direct" && /*#__PURE__*/React.createElement(LiveStreamBlock, null), /*#__PURE__*/React.createElement("div", {
+    className: "mt-20 -mx-6 sm:-mx-10 lg:-mx-14 overflow-hidden border-y border-white/10 py-6 bg-ink-900"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex marq whitespace-nowrap gap-12 text-bone-300/50"
+  }, [..."LA PAROLE QUI DEMEURE · ✦ · UNE GÉNÉRATION TRANSFORMÉE · ✦ · KINSHASA NGIRI-NGIRI · ✦ · CULTE DIMANCHE 07H30 & 10H00 · ✦ · ".repeat(4)].join("")))));
+}
+function FeaturedPlayer({
+  video
+}) {
+  const [playing, setPlaying] = React.useState(false);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "lg:col-span-8"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "tile-dark relative aspect-[16/9] bg-ink-900 border border-white/10 overflow-hidden rounded-[2px]"
+  }, playing ? /*#__PURE__*/React.createElement("iframe", {
+    className: "absolute inset-0 w-full h-full",
+    src: `https://www.youtube.com/embed/${video.id}?autoplay=1`,
+    title: video.title,
+    frameBorder: "0",
+    referrerPolicy: "strict-origin-when-cross-origin",
+    allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+    allowFullScreen: true
+  }) : /*#__PURE__*/React.createElement("button", {
+    onClick: () => setPlaying(true),
+    className: "group absolute inset-0 text-left",
+    "aria-label": "Lire l'extrait"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+    alt: video.title,
+    className: "absolute inset-0 w-full h-full object-cover"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/20 to-ink-900/30"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0 grid place-items-center"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-bone-50 text-ink-900 grid place-items-center transition-transform group-hover:scale-105 glow"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "absolute inset-0 rounded-full animate-ping bg-gold-300/30"
+  }), /*#__PURE__*/React.createElement(I.Play, {
+    width: "22",
+    height: "22",
+    style: {
+      marginLeft: 3
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "absolute bottom-0 left-0 right-0 p-5 md:p-7"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[10px] tracking-[.28em] uppercase text-gold-300/90 mb-2"
+  }, video.series), /*#__PURE__*/React.createElement("div", {
+    className: "font-display text-[28px] md:text-[40px] leading-tight text-bone-50"
+  }, video.title), /*#__PURE__*/React.createElement("div", {
+    className: "mt-1 text-[13px] text-bone-300"
+  }, "par ", video.speaker, " · YouTube")))), /*#__PURE__*/React.createElement("div", {
+    className: "mt-4 flex flex-wrap items-center justify-between gap-3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-bone-400"
+  }, "Chaîne officielle · Parole Eternelle Ngiri-ngiri TV"), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: `https://www.youtube.com/watch?v=${video.id}`,
+    icon: false
+  }, /*#__PURE__*/React.createElement(I.YT, {
+    width: "14",
+    height: "14"
+  }), " Voir sur YouTube"), /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: FB_VIDEOS_URL,
+    icon: false
+  }, /*#__PURE__*/React.createElement(I.FB, {
+    width: "14",
+    height: "14"
+  }), " Vidéos Facebook"))));
+}
+function IconBtn({
+  children
+}) {
+  return /*#__PURE__*/React.createElement("button", {
+    className: "w-9 h-9 rounded-full bg-ink-900/70 border border-white/10 grid place-items-center text-bone-100 hover:bg-ink-900 hover:border-gold-300/40 transition"
+  }, children);
+}
+function LiveCard() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "relative overflow-hidden bg-ink-700 border border-gold-500/30 p-6 glow"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 mb-3"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "relative flex h-2 w-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-ping"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "relative inline-flex rounded-full h-2 w-2 bg-red-500"
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-bone-50"
+  }, "En direct dimanche")), /*#__PURE__*/React.createElement("div", {
+    className: "font-display text-[26px] leading-tight text-bone-50"
+  }, "Vendredi Ngomba · Soirée de prière"), /*#__PURE__*/React.createElement("div", {
+    className: "mt-1.5 text-[12px] text-bone-300"
+  }, "Vendredi 15 mai · 17h00 · YouTube + Facebook"), /*#__PURE__*/React.createElement("div", {
+    className: "mt-5 grid grid-cols-4 gap-2 text-center"
+  }, [["03", "Jours"], ["12", "Heures"], ["44", "Min."], ["18", "Sec."]].map(([n, l]) => /*#__PURE__*/React.createElement("div", {
+    key: l,
+    className: "bg-ink-900 border border-white/5 py-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-display text-[24px] leading-none text-bone-50 tick"
+  }, n), /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[9px] tracking-[.18em] uppercase text-bone-400 mt-0.5"
+  }, l)))), /*#__PURE__*/React.createElement(Btn, {
+    variant: "gold",
+    href: YT_CHANNEL_URL,
+    className: "!w-full mt-5 justify-center"
+  }, "Rejoindre le direct"));
+}
+function Mini({
+  k,
+  v
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "flex items-baseline justify-between border-b border-white/5 pb-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-[12px] text-bone-300"
+  }, k), /*#__PURE__*/React.createElement("span", {
+    className: "font-display text-[22px] text-bone-50 tick"
+  }, v));
+}
+function SermonCard({
+  date,
+  title,
+  speaker,
+  duration,
+  series,
+  vid,
+  href = YT_VIDEOS_URL
+}) {
+  return /*#__PURE__*/React.createElement("a", {
+    href: href,
+    target: "_blank",
+    rel: "noopener",
+    className: "group lift block"
+  }, /*#__PURE__*/React.createElement(Photo, {
+    label: "Vignette prédication",
+    tone: "warm",
+    className: "aspect-[4/3] rounded-[2px]"
+  }, vid && /*#__PURE__*/React.createElement("img", {
+    src: `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`,
+    alt: "",
+    loading: "lazy",
+    className: "absolute inset-0 w-full h-full object-cover"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/0 to-transparent"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute top-3 left-3 font-mono text-[9px] tracking-[.22em] uppercase text-gold-300/80"
+  }, series), duration ? /*#__PURE__*/React.createElement("div", {
+    className: "absolute top-3 right-3 px-2 py-1 bg-ink-900/70 backdrop-blur-md text-[10px] font-mono text-bone-100 border border-white/10"
+  }, duration) : null, /*#__PURE__*/React.createElement("span", {
+    className: "absolute inset-0 grid place-items-center opacity-0 group-hover:opacity-100 transition"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "w-14 h-14 rounded-full bg-gold-300 text-ink-900 grid place-items-center"
+  }, /*#__PURE__*/React.createElement(I.Play, {
+    width: "18",
+    height: "18",
+    style: {
+      marginLeft: 2
+    }
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "pt-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-bone-400"
+  }, date), /*#__PURE__*/React.createElement("h4", {
+    className: "font-display text-[22px] leading-tight text-bone-50 mt-1.5 group-hover:text-gold-200 transition"
+  }, title), /*#__PURE__*/React.createElement("div", {
+    className: "mt-1 text-[12px] text-bone-300"
+  }, speaker)));
+}
+function WorshipCard({
+  title,
+  duration,
+  album,
+  idx,
+  vid,
+  href = YT_VIDEOS_URL
+}) {
+  return /*#__PURE__*/React.createElement("article", {
+    className: "group bg-ink-700 border border-white/10 p-5 lift hover:border-gold-500/30"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-start gap-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "relative"
+  }, /*#__PURE__*/React.createElement(Photo, {
+    tone: "warm",
+    className: "w-20 h-20 rounded-[2px]"
+  }, vid ? /*#__PURE__*/React.createElement("img", {
+    src: `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`,
+    alt: "",
+    loading: "lazy",
+    className: "absolute inset-0 w-full h-full object-cover"
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0 grid place-items-center text-gold-200/80"
+  }, /*#__PURE__*/React.createElement(I.Music, {
+    width: "22",
+    height: "22"
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1 min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-gold-300/80"
+  }, album), /*#__PURE__*/React.createElement("h4", {
+    className: "font-display text-[22px] leading-tight text-bone-50 truncate mt-1",
+    title: title
+  }, title), /*#__PURE__*/React.createElement("div", {
+    className: "mt-1 text-[12px] text-bone-400"
+  }, duration)), /*#__PURE__*/React.createElement("a", {
+    href: href,
+    target: "_blank",
+    rel: "noopener",
+    "aria-label": "Écouter sur YouTube",
+    className: "w-10 h-10 rounded-full border border-white/10 grid place-items-center text-bone-100 hover:bg-gold-300 hover:text-ink-900 hover:border-gold-300 transition shrink-0"
+  }, /*#__PURE__*/React.createElement(I.Play, {
+    width: "14",
+    height: "14",
+    style: {
+      marginLeft: 1
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "mt-4 flex items-end gap-[2px] h-7"
+  }, Array.from({
+    length: 60
+  }).map((_, i) => {
+    const h = 20 + 60 * Math.abs(Math.sin((i + idx * 7) * 0.42));
+    return /*#__PURE__*/React.createElement("span", {
+      key: i,
+      className: "w-[3px] bg-bone-300/30",
+      style: {
+        height: h + "%"
+      }
+    });
+  })));
+}
+function PodcastBlock({
+  realVids
+}) {
+  const fallback = [{
+    n: "EP. 24",
+    title: "Vivre dans la grâce, pas dans la performance",
+    host: "Past. R. Kaseya + invité",
+    duration: "52:08"
+  }, {
+    n: "EP. 23",
+    title: "La louange comme arme spirituelle",
+    host: "Min. Bénédicte",
+    duration: "38:42"
+  }, {
+    n: "EP. 22",
+    title: "Famille, identité, foi en RDC",
+    host: "Past. Patrick Kabongo",
+    duration: "61:14"
+  }, {
+    n: "EP. 21",
+    title: "Pourquoi prier ne change pas seulement nos vies",
+    host: "Past. Esther Kalemba",
+    duration: "44:30"
+  }];
+  const eps = realVids && realVids.length ? realVids.slice(0, 4).map((v, i) => ({
+    n: "ÉCOUTE " + (i + 1),
+    title: v.title,
+    host: v.speaker || "Parole Eternelle Ngiri-ngiri TV",
+    duration: v.cat,
+    href: `https://www.youtube.com/watch?v=${v.id}`,
+    vid: v.id
+  })) : fallback;
+  return /*#__PURE__*/React.createElement(Reveal, {
+    stagger: true,
+    className: "grid lg:grid-cols-2 gap-4"
+  }, eps.map((e, i) => /*#__PURE__*/React.createElement("article", {
+    key: e.vid || i,
+    className: "group bg-ink-700 border border-white/10 p-6 lift hover:border-gold-500/30 flex gap-5 items-center"
+  }, /*#__PURE__*/React.createElement(Photo, {
+    tone: "deep",
+    className: "w-24 h-24 rounded-full shrink-0"
+  }, e.vid ? /*#__PURE__*/React.createElement("img", {
+    src: `https://i.ytimg.com/vi/${e.vid}/hqdefault.jpg`,
+    alt: "",
+    loading: "lazy",
+    className: "absolute inset-0 w-full h-full object-cover rounded-full"
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0 grid place-items-center text-gold-200"
+  }, /*#__PURE__*/React.createElement(I.Mic, {
+    width: "26",
+    height: "26"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1 min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-gold-300/80"
+  }, e.n, " · ", e.duration), /*#__PURE__*/React.createElement("h4", {
+    className: "font-display text-[22px] leading-tight text-bone-50 mt-1"
+  }, e.title), /*#__PURE__*/React.createElement("div", {
+    className: "mt-1 text-[12px] text-bone-300"
+  }, "avec ", e.host)), /*#__PURE__*/React.createElement("a", {
+    href: e.href || YT_VIDEOS_URL,
+    target: "_blank",
+    rel: "noopener",
+    "aria-label": "Écouter sur YouTube",
+    className: "w-12 h-12 rounded-full bg-gold-300 text-ink-900 grid place-items-center hover:bg-gold-200 transition shrink-0"
+  }, /*#__PURE__*/React.createElement(I.Play, {
+    width: "16",
+    height: "16",
+    style: {
+      marginLeft: 1
+    }
+  })))));
+}
+function LiveStreamBlock() {
+  return /*#__PURE__*/React.createElement(Reveal, {
+    className: "relative"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "relative aspect-[16/9] bg-ink-900 border border-white/10 overflow-hidden"
+  }, /*#__PURE__*/React.createElement("iframe", {
+    className: "absolute inset-0 w-full h-full",
+    src: YT_LIVE_EMBED,
+    referrerPolicy: "strict-origin-when-cross-origin",
+    title: "Direct YouTube · CE Parole Eternelle TV",
+    frameBorder: "0",
+    allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+    allowFullScreen: true
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt-5 flex flex-wrap items-end justify-between gap-4"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-gold-300/80 mb-1"
+  }, "Chaîne officielle · CE Parole Eternelle TV"), /*#__PURE__*/React.createElement("div", {
+    className: "font-display text-[28px] md:text-[36px] leading-tight text-bone-50"
+  }, "Suivez tous les cultes en direct"), /*#__PURE__*/React.createElement("div", {
+    className: "mt-1 text-[13px] text-bone-300"
+  }, "Si aucun direct n'est en cours, retrouvez les rediffusions sur la chaîne.")), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-3"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    variant: "gold",
+    href: YT_CHANNEL_URL
+  }, "S'abonner sur YouTube"), /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: FB_PAGE_URL,
+    icon: false
+  }, /*#__PURE__*/React.createElement(I.FB, {
+    width: "14",
+    height: "14"
+  }), " Facebook"))));
+}
+window.Media = Media;
