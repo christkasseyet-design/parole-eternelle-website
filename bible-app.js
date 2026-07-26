@@ -102,16 +102,45 @@
     $("#readDuration").textContent = "~ " + Math.max(1, Math.round(words / 180)) + " min";
   }
 
+  // ── Sources de texte biblique ────────────────────────────────────────────
+  // getbible.net : français (LSG 1910) et anglais (KJV).
+  // bible.helloao.org : lingala et swahili — Bible complète (AT + NT).
   const TRANSLATIONS = { fr: "ls1910", en: "kjv" };
-  function translationFor(lang){ return TRANSLATIONS[lang] || "ls1910"; }
+  const HELLOAO = { ln: "lin_bib", sw: "swh_swa" };
+
+  const BOOK_IDS = [
+    "GEN","EXO","LEV","NUM","DEU","JOS","JDG","RUT","1SA","2SA","1KI","2KI",
+    "1CH","2CH","EZR","NEH","EST","JOB","PSA","PRO","ECC","SNG","ISA","JER",
+    "LAM","EZK","DAN","HOS","JOL","AMO","OBA","JON","MIC","NAM","HAB","ZEP",
+    "HAG","ZEC","MAL",
+    "MAT","MRK","LUK","JHN","ACT","ROM","1CO","2CO","GAL","EPH","PHP","COL",
+    "1TH","2TH","1TI","2TI","TIT","PHM","HEB","JAS","1PE","2PE","1JN","2JN",
+    "3JN","JUD","REV"
+  ];
+
+  function translationFor(lang){ return TRANSLATIONS[lang] || HELLOAO[lang] || "ls1910"; }
+  function hasText(lang){ return (lang in TRANSLATIONS) || (lang in HELLOAO); }
+
+  function versesFromHelloao(json){
+    const content = ((json || {}).chapter || {}).content || [];
+    const out = [];
+    content.forEach((c) => {
+      if (c.type !== "verse") return;
+      const txt = (c.content || [])
+        .map((p) => (typeof p === "string" ? p : (p && p.text) ? p.text : ""))
+        .join(" ").replace(/\s+/g, " ").trim();
+      if (txt) out.push({ verse: c.number, text: txt });
+    });
+    return out;
+  }
 
   function loadChapter(cnt, book, chapter, lang){
     const num = bookNumber();
     const trans = translationFor(lang);
     const cacheKey = `bibleChap:${trans}:${num}:${chapter}`;
     const cached = localStorage.getItem(cacheKey);
-    const note = !(lang in TRANSLATIONS)
-      ? '<div class="mb-6 px-4 py-3 border border-black/10 rounded-xl text-[12px] text-ink-500" style="background:rgba(255,255,255,.6)">La traduction ' + LANG_LABELS[lang].name + ' arrive bientôt — texte affiché : Louis Segond (français).</div>'
+    const note = !hasText(lang)
+      ? '<div class="mb-6 px-4 py-3 border border-black/10 rounded-xl text-[12px] text-ink-500" style="background:rgba(255,255,255,.6)">Il n\'existe pas encore de Bible numérique libre en ' + LANG_LABELS[lang].name + '. Vous lisez ici le texte français (Louis Segond).</div>'
       : "";
     if (cached) {
       try {
@@ -129,10 +158,16 @@
         <p class="text-[14px] text-ink-500">Chargement du texte…</p>
       </div>
     `;
-    fetch(`https://api.getbible.net/v2/${trans}/${num}/${chapter}.json`)
+    const useHelloao = lang in HELLOAO;
+    const url = useHelloao
+      ? `https://bible.helloao.org/api/${trans}/${BOOK_IDS[num - 1]}/${chapter}.json`
+      : `https://api.getbible.net/v2/${trans}/${num}/${chapter}.json`;
+    fetch(url)
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(json => {
-        const verses = (json.verses || []).map(v => ({ verse: v.verse, text: v.text }));
+        const verses = useHelloao
+          ? versesFromHelloao(json)
+          : (json.verses || []).map(v => ({ verse: v.verse, text: v.text }));
         if (!verses.length) throw new Error("empty");
         try { localStorage.setItem(cacheKey, JSON.stringify(verses)); } catch (e) {}
         // Ne pas écraser si l'utilisateur a déjà navigué ailleurs
@@ -267,15 +302,20 @@
   function scoreVoice(v){
     const n = v.name.toLowerCase();
     let s = 0;
-    if (/natural|neural/.test(n)) s += 100;
-    if (/premium|enhanced|plus/.test(n)) s += 80;
-    if (/google/.test(n)) s += 60;
-    if (/microsoft.*online/.test(n)) s += 60;
-    if (/siri/.test(n)) s += 50;
-    if (/amélie|amelie|thomas|audrey|aurelie|denise|henri|rémi|remi/.test(n)) s += 20;
-    if (/libby|sonia|ryan|aria|jenny|guy|daniel|samantha|karen|moira/.test(n)) s += 20;
-    if (v.localService === false) s += 15; // voix cloud, souvent meilleures
-    if (/compact|espeak|eloquence/.test(n)) s -= 60;
+    // Voix neuronales : de loin les plus naturelles et les plus posées
+    if (/natural|neural/.test(n)) s += 140;
+    if (/premium|enhanced|plus/.test(n)) s += 90;
+    if (/google/.test(n)) s += 70;
+    if (/microsoft.*online/.test(n)) s += 70;
+    if (/siri/.test(n)) s += 55;
+    // Voix connues pour leur timbre chaleureux et calme
+    if (/denise|amélie|amelie|audrey|aurelie|charlotte|vivienne/.test(n)) s += 35;
+    if (/libby|sonia|aria|jenny|samantha|karen|moira|ava/.test(n)) s += 35;
+    if (/thomas|henri|rémi|remi|daniel|ryan|guy/.test(n)) s += 20;
+    if (v.localService === false) s += 20;
+    // Voix anciennes ou synthétiques : timbre métallique
+    if (/compact|espeak|eloquence|festival|pico/.test(n)) s -= 120;
+    if (/david|zira|hazel|mark|paul|fred|albert|zarvox|junior/.test(n)) s -= 40;
     return s;
   }
   function pickVoice(prefix){
@@ -317,16 +357,37 @@
         startSimulation();
       }
     }, 900);
+    // Langue de lecture : swahili si une voix existe, sinon français
+    // (le lingala n'a pas encore de voix de synthèse dans les navigateurs).
+    const wanted = state.lang === "en" ? "en" : (state.lang === "sw" ? "sw" : "fr");
+    let best = pickVoice(wanted);
+    let prefix = wanted;
+    if (!best && wanted !== "fr") { best = pickVoice("fr"); prefix = "fr"; }
+
     for (let i = startIdx; i < verses.length; i++) {
-      const u = new SpeechSynthesisUtterance(verses[i].textContent.replace(/^\s*\d+\s*/, ""));
-      const prefix = state.lang === "en" ? "en" : "fr";
-      const best = pickVoice(prefix);
+      let txt = verses[i].textContent.replace(/^\s*\d+\s*/, "").trim();
+      // Une ponctuation finale crée une respiration naturelle entre les versets
+      if (!/[.!?…»:;]$/.test(txt)) txt += ".";
+      const u = new SpeechSynthesisUtterance(txt);
       if (best) u.voice = best;
-      u.lang = best ? best.lang : (prefix === "en" ? "en-US" : "fr-FR");
-      u.rate = speed;
+      u.lang = best ? best.lang : (prefix === "en" ? "en-US" : prefix === "sw" ? "sw-KE" : "fr-FR");
+      // Lecture posée : un peu plus lente et légèrement plus grave que la
+      // valeur par défaut — nettement moins « machine ».
+      u.rate = Math.max(0.5, speed * 0.88);
+      u.pitch = 0.95;
+      u.volume = 1;
       u.onstart = () => { highlightVerse(i); progress = i / verses.length; updateProgress(); };
       u.onend = () => { if (i === verses.length - 1 && playing) stop(); };
       window.speechSynthesis.speak(u);
+
+      // Courte pause entre les versets (silence prononcé, non audible)
+      if (i < verses.length - 1) {
+        const pause = new SpeechSynthesisUtterance(" ");
+        pause.volume = 0;
+        pause.rate = 0.6;
+        if (best) pause.voice = best;
+        window.speechSynthesis.speak(pause);
+      }
     }
     return true;
   }
