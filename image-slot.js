@@ -165,14 +165,19 @@
     // .frame img (clipped) and .spill (unclipped ghost + handles) share the
     // same left/top/width/height in frame-%, computed by _applyView(), so the
     // inside-mask crop and the outside-mask spill stay pixel-aligned.
+    // touch-action doit rester libre : sinon le doigt ne fait plus défiler la
+    // page dès qu'il se pose sur une photo (bug signalé sur mobile).
+    // Le verrouillage n'est appliqué que pendant le recadrage (mode auteur).
     '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
-    '  -webkit-user-drag:none;user-select:none;touch-action:none}' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:pan-y pinch-zoom}' +
+    ':host([data-reframe]) .frame img{touch-action:none}' +
     // Reframe mode (double-click): the full image spills past the mask. The
     // spill layer is sized to the IMAGE bounds so its corners are where the
     // resize handles belong. The ghost <img> inside is translucent; the real
     // clipped <img> underneath shows the opaque in-mask crop.
     '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;' +
-    '  cursor:grab;touch-action:none}' +
+    '  cursor:grab;touch-action:auto}' +
+    ':host([data-reframe]) .spill{touch-action:none}' +
     ':host([data-panning]) .spill{cursor:grabbing}' +
     '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;' +
     '  pointer-events:none;-webkit-user-drag:none;user-select:none;' +
