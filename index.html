@@ -121,7 +121,7 @@
   @media (max-width:640px){ .nav-link{font-size:17px;padding:10px 2px} .nav-menu{padding-top:100px} }
 
   /* ── Barre compacte + masquage au défilement (gagne de la place à l'écran) ── */
-  header{transition:transform .34s cubic-bezier(.2,.7,.2,1), background-color .3s ease}
+  header{transition:transform .34s cubic-bezier(.2,.7,.2,1), background-color .3s ease;will-change:transform}
   .nav-bar{height:88px;transition:height .3s cubic-bezier(.2,.7,.2,1)}
   image-slot#church-logo{width:66px;height:66px;transition:width .3s cubic-bezier(.2,.7,.2,1),height .3s cubic-bezier(.2,.7,.2,1)}
   .nav-title{font-size:30px;transition:font-size .3s cubic-bezier(.2,.7,.2,1)}
@@ -134,13 +134,17 @@
   @media (max-width:640px){ .nav-compact .nav-title{font-size:18px} }
 
   /* la barre de sections suit la hauteur de l'en-tête */
-  .section-nav{top:88px;transition:opacity .3s ease,transform .34s cubic-bezier(.2,.7,.2,1),top .3s cubic-bezier(.2,.7,.2,1)}
+  .section-nav{top:88px;transition:opacity .3s ease,transform .34s cubic-bezier(.2,.7,.2,1);will-change:transform}
   .nav-compact .section-nav{top:58px}
 
   /* masquage vers le haut quand on descend — retour immédiat en remontant */
-  html.nav-hidden header{transform:translateY(-100%)}
+  /* En-tête (58 px) et barre de sections (46 px) forment un seul bloc de
+     104 px. Ils doivent parcourir EXACTEMENT la même distance dans le même
+     temps, sinon ils se désolidarisent et un vide apparaît entre les deux
+     pendant l'animation. */
+  html.nav-hidden header{transform:translateY(-104px)}
   html.nav-hidden .section-nav,
-  html.nav-hidden .section-nav.sn-in{transform:translateY(calc(-100% - 62px))}
+  html.nav-hidden .section-nav.sn-in{transform:translateY(-104px)}
   @media (prefers-reduced-motion: reduce){
     header,.nav-bar,.nav-logo,.nav-title,.section-nav{transition:none}
   }
