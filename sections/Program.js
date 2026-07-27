@@ -397,16 +397,19 @@ function CalendarView({
     length: 2
   }).map((_, i) => /*#__PURE__*/React.createElement("div", {
     key: "e" + i,
-    className: "bg-ink-800 min-h-[110px]"
+    className: "bg-ink-800 min-h-[64px] sm:min-h-[110px]"
   })), Array.from({
     length: 31
   }).map((_, i) => {
     const d = i + 1;
     const evs = evByDay[d] || [];
-    const isToday = d === 11;
+    // Marque le vrai jour courant, et seulement si l'on se trouve
+    // effectivement dans le mois affiché (juillet 2026).
+    const now = new Date();
+    const isToday = now.getFullYear() === 2026 && now.getMonth() === 6 && now.getDate() === d;
     return /*#__PURE__*/React.createElement("div", {
       key: d,
-      className: `bg-ink-700 min-h-[110px] p-2 flex flex-col gap-1 ${isToday ? "ring-1 ring-gold-400 ring-inset" : ""}`
+      className: `bg-ink-700 min-h-[64px] sm:min-h-[110px] p-1 sm:p-2 flex flex-col gap-1 ${isToday ? "ring-1 ring-gold-400 ring-inset" : ""}`
     }, /*#__PURE__*/React.createElement("div", {
       className: "flex items-center justify-between"
     }, /*#__PURE__*/React.createElement("span", {

@@ -176,13 +176,16 @@ function CalendarView({ events, tagColor }) {
           <div key={d} className="bg-ink-700 py-3 text-center font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">{d}</div>
         ))}
         {/* Alignement lundi : le 1ᵉʳ juillet 2026 est un mercredi → décalage de 2 */}
-        {Array.from({length: 2}).map((_, i) => <div key={"e"+i} className="bg-ink-800 min-h-[110px]"></div>)}
+        {Array.from({length: 2}).map((_, i) => <div key={"e"+i} className="bg-ink-800 min-h-[64px] sm:min-h-[110px]"></div>)}
         {Array.from({length: 31}).map((_, i) => {
           const d = i + 1;
           const evs = evByDay[d] || [];
-          const isToday = d === 11;
+          // Marque le vrai jour courant, et seulement si l'on se trouve
+          // effectivement dans le mois affiché (juillet 2026).
+          const now = new Date();
+          const isToday = now.getFullYear() === 2026 && now.getMonth() === 6 && now.getDate() === d;
           return (
-            <div key={d} className={`bg-ink-700 min-h-[110px] p-2 flex flex-col gap-1 ${isToday ? "ring-1 ring-gold-400 ring-inset" : ""}`}>
+            <div key={d} className={`bg-ink-700 min-h-[64px] sm:min-h-[110px] p-1 sm:p-2 flex flex-col gap-1 ${isToday ? "ring-1 ring-gold-400 ring-inset" : ""}`}>
               <div className="flex items-center justify-between">
                 <span className={`font-mono text-[11px] ${isToday ? "text-gold-300 font-bold" : "text-bone-300"}`}>{d}</span>
                 {isToday && <span className="text-[8px] font-mono tracking-[.2em] uppercase text-gold-300">Auj.</span>}

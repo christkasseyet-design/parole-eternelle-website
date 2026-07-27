@@ -1,0 +1,23 @@
+{
+  "name": "C.E. Parole Éternelle Ngiri-Ngiri",
+  "short_name": "Parole Éternelle",
+  "description": "Église chrétienne des Assemblées de Dieu à Ngiri-Ngiri, Kinshasa — cultes, prédications, Bible, galerie et concours biblique.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#061a44",
+  "theme_color": "#061a44",
+  "lang": "fr",
+  "categories": ["lifestyle", "education"],
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Bible", "url": "./bible.html" },
+    { "name": "Prédications", "url": "./predications.html" },
+    { "name": "Galerie", "url": "./galerie.html" }
+  ]
+}

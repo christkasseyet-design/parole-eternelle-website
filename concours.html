@@ -75,6 +75,31 @@
   }
 </style>
 <link rel="stylesheet" href="assets/tailwind.css" />
+<style>
+  /* ── Lisibilité sur petits écrans ────────────────────────────────────────
+     Les libellés en 8–9 px sont trop petits sur téléphone, en particulier
+     pour les personnes âgées de l'assemblée. On relève le minimum à 10–11 px
+     sans toucher au rendu sur ordinateur. */
+  @media (max-width: 640px){
+    .text-\[8px\]{font-size:10px !important}
+    .text-\[9px\]{font-size:10.5px !important}
+    .text-\[10px\]{font-size:11px !important}
+    .eyebrow{font-size:10.5px}
+  }
+</style>
+<style>
+  /* iOS zoome automatiquement sur les champs dont le texte fait moins de
+     16 px. On force 16 px sur mobile pour éviter ce saut désagréable. */
+  @media (max-width: 640px){
+    input, textarea, select { font-size: 16px !important; }
+  }
+</style>
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#061a44" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Parole Éternelle" />
 </head>
 <body>
 

@@ -99,7 +99,7 @@
   /* hover lift */
   .lift{transition:transform .5s cubic-bezier(.2,.7,.2,1), border-color .3s, background-color .3s, box-shadow .5s;}
   .lift:hover{transform:translateY(-4px);}
-  .tile-arrow{border:1px solid rgba(255,255,255,.22);background:rgba(7,7,8,.55);backdrop-filter:blur(8px);color:#fafaf7}
+  .tile-arrow{border:1px solid rgba(255,255,255,.22);background:rgba(7,7,8,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fafaf7}
   .group:hover .tile-arrow{background:#e3c98a;border-color:#e3c98a;color:#0b0b0d}
   .tile-clamp{-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
@@ -221,7 +221,7 @@
   .sb-fab{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:999px;background:var(--gold-300,#d8b66a);color:#0a0a0c;border:none;cursor:pointer;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 18px 40px -18px rgba(0,0,0,.8);transition:transform .25s ease,background .25s ease}
   .sb-fab:hover{transform:translateY(-2px);background:var(--gold-200,#e3c98a)}
   .sb-fab-label{text-transform:uppercase}
-  .sb-panel{width:min(88vw,382px);max-height:min(74vh,620px);display:flex;flex-direction:column;background:rgba(12,12,15,.96);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:6px;box-shadow:0 40px 90px -35px rgba(0,0,0,.9);overflow:hidden;animation:gshowFade .28s ease both}
+  .sb-panel{width:min(88vw,382px);max-height:min(74vh,620px);display:flex;flex-direction:column;background:rgba(12,12,15,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:6px;box-shadow:0 40px 90px -35px rgba(0,0,0,.9);overflow:hidden;animation:gshowFade .28s ease both}
   .sb-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 14px;border-bottom:1px solid rgba(255,255,255,.1)}
   .sb-dot{width:9px;height:9px;border-radius:999px;background:#7fd48a;box-shadow:0 0 0 4px rgba(127,212,138,.16)}
   .sb-tabs{display:flex;gap:6px;padding:10px 14px 0}
@@ -401,6 +401,31 @@
 })();
 </script>
 <link rel="stylesheet" href="assets/tailwind.css" />
+<style>
+  /* ── Lisibilité sur petits écrans ────────────────────────────────────────
+     Les libellés en 8–9 px sont trop petits sur téléphone, en particulier
+     pour les personnes âgées de l'assemblée. On relève le minimum à 10–11 px
+     sans toucher au rendu sur ordinateur. */
+  @media (max-width: 640px){
+    .text-\[8px\]{font-size:10px !important}
+    .text-\[9px\]{font-size:10.5px !important}
+    .text-\[10px\]{font-size:11px !important}
+    .eyebrow{font-size:10.5px}
+  }
+</style>
+<style>
+  /* iOS zoome automatiquement sur les champs dont le texte fait moins de
+     16 px. On force 16 px sur mobile pour éviter ce saut désagréable. */
+  @media (max-width: 640px){
+    input, textarea, select { font-size: 16px !important; }
+  }
+</style>
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#061a44" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Parole Éternelle" />
 </head>
 <body>
 <div id="root"></div>
