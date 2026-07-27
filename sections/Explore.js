@@ -3,7 +3,7 @@ function Explore() {
   const tiles = [{
     kicker: "01 · Grand projet",
     title: "Le Temple",
-    desc: "Ensemble, bâtissons un temple pour le Seigneur. Avancement 68%.",
+    desc: "Ensemble, bâtissons un temple pour le Seigneur, à l'Avenue Monkoto.",
     href: "#temple",
     tag: "Soutenir le projet",
     tone: "warm",
@@ -32,7 +32,7 @@ function Explore() {
   }, {
     kicker: "04 · La Parole",
     title: "Prédications",
-    desc: "Plus de 248 messages classés par série et thème.",
+    desc: "Les messages du dimanche, classés par série et par thème.",
     href: "predications.html",
     tag: "Voir l'archive",
     tone: "deep",

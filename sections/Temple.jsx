@@ -48,43 +48,8 @@ function Temple() {
   };
 
   // Animated fundraising stats (count-up on first view).
-  const [p, setP] = React.useState(0);
-  const [donors, setDonors] = React.useState(0);
+  // Référence conservée pour l'animation d'apparition de la section.
   const statsRef = React.useRef(null);
-  React.useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-    let ran = false;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const run = () => {
-      if (ran) return; ran = true;
-      cleanup();
-      if (reduce) { setP(68); setDonors(1420); return; }
-      const t0 = performance.now(), D = 1500;
-      const tick = (t) => {
-        const q = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - q, 3);
-        setP(68 * e); setDonors(Math.round(1420 * e));
-        if (q < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-    // IntersectionObserver is unreliable inside content-visibility:auto
-    // sections — use the scroll + rect pattern of the page's reveal safety-net.
-    const check = () => {
-      const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight * 0.9 && r.bottom > 0) run();
-    };
-    const cleanup = () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
-      clearTimeout(t1); clearTimeout(t2);
-    };
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check);
-    const t1 = setTimeout(check, 400);
-    const t2 = setTimeout(check, 1500);
-    return cleanup;
-  }, []);
 
   return (
     <section id="temple" data-screen-label="Temple" className="sec-light relative bg-ink-900 py-24 md:py-32 overflow-hidden">
@@ -173,26 +138,25 @@ function Temple() {
         {/* ── Fundraising band — bigger, animated ── */}
         <Reveal className="grid lg:grid-cols-12 gap-6 mb-10">
           <div ref={statsRef} className="lg:col-span-8 bg-ink-700 border border-gold-500/30 p-7 sm:p-9 glow">
-            <div className="flex flex-col sm:flex-row sm:items-end gap-x-10 gap-y-6">
-              <div className="shrink-0">
-                <Eyebrow className="mb-3">Avancement du chantier</Eyebrow>
-                <div className="font-display text-[56px] sm:text-[72px] leading-none text-bone-50 tick">{Math.round(p)}<span className="text-gold-300">%</span></div>
-                <div className="text-[12px] text-bone-300 mt-1">de l’objectif atteint — grâce à Dieu et à vous</div>
+            <Eyebrow className="mb-4">Bâtissons ensemble</Eyebrow>
+            <div className="font-display text-[30px] sm:text-[38px] leading-tight text-bone-50">
+              Chaque brique de cette maison de prière
+              <br className="hidden sm:block"/> naîtra de la générosité de la famille.
+            </div>
+            <p className="mt-4 text-[15px] leading-relaxed text-bone-200/85 max-w-2xl">
+              Le chantier avance grâce aux dons de l&rsquo;assemblée et des amis de
+              l&rsquo;église. Pour connaître l&rsquo;état exact de la collecte, adressez-vous
+              au secrétariat après le culte ou écrivez-nous — nous partageons les
+              comptes en toute transparence.
+            </p>
+            <div className="mt-7 grid sm:grid-cols-2 gap-4">
+              <div className="border border-white/10 p-4">
+                <div className="font-mono text-[10px] tracking-[.22em] uppercase text-gold-300">Lieu</div>
+                <div className="text-[14px] text-bone-100 mt-1.5">2 bis &amp; 4, Av. Monkoto · Ngiri-Ngiri</div>
               </div>
-              <div className="flex-1 min-w-[200px]">
-                <div className="h-2.5 bg-white/8 rounded-full overflow-hidden">
-                  <div className="h-full bg-gold-300 rounded-full" style={{ width: `${p}%` }}></div>
-                </div>
-                <div className="grid grid-cols-2 gap-6 mt-6">
-                  <div>
-                    <div className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">Objectif</div>
-                    <div className="font-display text-[26px] text-bone-50 mt-1 tick">350K USD</div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">Donateurs</div>
-                    <div className="font-display text-[26px] text-bone-50 mt-1 tick">{donors.toLocaleString("fr-FR")}+</div>
-                  </div>
-                </div>
+              <div className="border border-white/10 p-4">
+                <div className="font-mono text-[10px] tracking-[.22em] uppercase text-gold-300">Moyens de don</div>
+                <div className="text-[14px] text-bone-100 mt-1.5">Rawbank · Equity · Orange · M-Pesa · Airtel</div>
               </div>
             </div>
           </div>

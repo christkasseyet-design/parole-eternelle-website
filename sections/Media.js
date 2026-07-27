@@ -140,20 +140,20 @@ function Media() {
     className: "bg-ink-700 border border-white/10 p-6"
   }, /*#__PURE__*/React.createElement(Eyebrow, {
     className: "mb-3"
-  }, "Cette semaine"), /*#__PURE__*/React.createElement("div", {
+  }, "Nos rendez-vous"), /*#__PURE__*/React.createElement("div", {
     className: "space-y-3"
   }, /*#__PURE__*/React.createElement(Mini, {
-    k: "Vues sur YouTube",
-    v: "34 218"
+    k: "Dimanche · 1ᵉʳ service",
+    v: "07h30"
   }), /*#__PURE__*/React.createElement(Mini, {
-    k: "Nouveaux abonnés",
-    v: "+612"
+    k: "Dimanche · 2ᵉ service",
+    v: "10h00"
   }), /*#__PURE__*/React.createElement(Mini, {
-    k: "Téléchargements podcast",
-    v: "1 847"
+    k: "Mercredi · étude",
+    v: "17h00"
   }), /*#__PURE__*/React.createElement(Mini, {
-    k: "Pays touchés",
-    v: "27"
+    k: "Vendredi Ngomba",
+    v: "17h00"
   }))))), /*#__PURE__*/React.createElement("div", {
     className: "flex items-center gap-2 mb-8 border-b border-white/10 pb-3 overflow-x-auto"
   }, tabs.map(t => /*#__PURE__*/React.createElement("button", {
@@ -185,7 +185,7 @@ function Media() {
   }, /*#__PURE__*/React.createElement(Btn, {
     variant: "ghost",
     href: "predications.html"
-  }, "Voir toutes les prédications · 248 messages"))), tab === "Worship" && /*#__PURE__*/React.createElement(Reveal, {
+  }, "Voir toutes les prédications"))), tab === "Worship" && /*#__PURE__*/React.createElement(Reveal, {
     stagger: true,
     className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
   }, shownWorship.map((w, i) => /*#__PURE__*/React.createElement(WorshipCard, {
@@ -276,6 +276,59 @@ function IconBtn({
   }, children);
 }
 function LiveCard() {
+  // Compte à rebours réel jusqu'au prochain rendez-vous (heure de Kinshasa,
+  // UTC+1) : vendredi Ngomba 17h00, puis dimanche 07h30.
+  const nextMeeting = () => {
+    const now = new Date();
+    const kin = new Date(now.getTime() + (60 + now.getTimezoneOffset()) * 60000);
+    const cands = [];
+    for (let d = 0; d < 8; d++) {
+      const day = new Date(kin);
+      day.setDate(kin.getDate() + d);
+      const wd = day.getDay();
+      if (wd === 5) cands.push({
+        when: new Date(new Date(day).setHours(17, 0, 0, 0)),
+        label: "Vendredi Ngomba · Soirée de prière",
+        sub: "Vendredi · 17h00 · YouTube + Facebook"
+      });else if (wd === 0) cands.push({
+        when: new Date(new Date(day).setHours(7, 30, 0, 0)),
+        label: "Culte dominical · 1ᵉʳ service",
+        sub: "Dimanche · 07h30 · YouTube + Facebook"
+      });
+    }
+    const future = cands.filter(c => c.when > kin).sort((a, b) => a.when - b.when);
+    return future[0] || cands[0];
+  };
+  const [meeting, setMeeting] = React.useState(nextMeeting);
+  const [left, setLeft] = React.useState({
+    d: 0,
+    h: 0,
+    m: 0,
+    s: 0
+  });
+  React.useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const kin = new Date(now.getTime() + (60 + now.getTimezoneOffset()) * 60000);
+      let diff = meeting.when - kin;
+      if (diff <= 0) {
+        const m = nextMeeting();
+        setMeeting(m);
+        diff = Math.max(0, m.when - kin);
+      }
+      const t = Math.max(0, Math.floor(diff / 1000));
+      setLeft({
+        d: Math.floor(t / 86400),
+        h: Math.floor(t / 3600) % 24,
+        m: Math.floor(t / 60) % 60,
+        s: t % 60
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [meeting]);
+  const pad = n => String(n).padStart(2, "0");
   return /*#__PURE__*/React.createElement("div", {
     className: "relative overflow-hidden bg-ink-700 border border-gold-500/30 p-6 glow"
   }, /*#__PURE__*/React.createElement("div", {
@@ -288,13 +341,13 @@ function LiveCard() {
     className: "relative inline-flex rounded-full h-2 w-2 bg-red-500"
   })), /*#__PURE__*/React.createElement("span", {
     className: "font-mono text-[10px] tracking-[.22em] uppercase text-bone-50"
-  }, "En direct dimanche")), /*#__PURE__*/React.createElement("div", {
+  }, "Prochain direct")), /*#__PURE__*/React.createElement("div", {
     className: "font-display text-[26px] leading-tight text-bone-50"
-  }, "Vendredi Ngomba · Soirée de prière"), /*#__PURE__*/React.createElement("div", {
+  }, meeting.label), /*#__PURE__*/React.createElement("div", {
     className: "mt-1.5 text-[12px] text-bone-300"
-  }, "Vendredi 15 mai · 17h00 · YouTube + Facebook"), /*#__PURE__*/React.createElement("div", {
+  }, meeting.sub), /*#__PURE__*/React.createElement("div", {
     className: "mt-5 grid grid-cols-4 gap-2 text-center"
-  }, [["03", "Jours"], ["12", "Heures"], ["44", "Min."], ["18", "Sec."]].map(([n, l]) => /*#__PURE__*/React.createElement("div", {
+  }, [[pad(left.d), "Jours"], [pad(left.h), "Heures"], [pad(left.m), "Min."], [pad(left.s), "Sec."]].map(([n, l]) => /*#__PURE__*/React.createElement("div", {
     key: l,
     className: "bg-ink-900 border border-white/5 py-2"
   }, /*#__PURE__*/React.createElement("div", {

@@ -90,54 +90,8 @@ function Temple() {
   };
 
   // Animated fundraising stats (count-up on first view).
-  const [p, setP] = React.useState(0);
-  const [donors, setDonors] = React.useState(0);
+  // Référence conservée pour l'animation d'apparition de la section.
   const statsRef = React.useRef(null);
-  React.useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-    let ran = false;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const run = () => {
-      if (ran) return;
-      ran = true;
-      cleanup();
-      if (reduce) {
-        setP(68);
-        setDonors(1420);
-        return;
-      }
-      const t0 = performance.now(),
-        D = 1500;
-      const tick = t => {
-        const q = Math.min(1, (t - t0) / D),
-          e = 1 - Math.pow(1 - q, 3);
-        setP(68 * e);
-        setDonors(Math.round(1420 * e));
-        if (q < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-    // IntersectionObserver is unreliable inside content-visibility:auto
-    // sections — use the scroll + rect pattern of the page's reveal safety-net.
-    const check = () => {
-      const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight * 0.9 && r.bottom > 0) run();
-    };
-    const cleanup = () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
-    window.addEventListener("scroll", check, {
-      passive: true
-    });
-    window.addEventListener("resize", check);
-    const t1 = setTimeout(check, 400);
-    const t2 = setTimeout(check, 1500);
-    return cleanup;
-  }, []);
   return /*#__PURE__*/React.createElement("section", {
     id: "temple",
     "data-screen-label": "Temple",
@@ -262,38 +216,29 @@ function Temple() {
   }, /*#__PURE__*/React.createElement("div", {
     ref: statsRef,
     className: "lg:col-span-8 bg-ink-700 border border-gold-500/30 p-7 sm:p-9 glow"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col sm:flex-row sm:items-end gap-x-10 gap-y-6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "shrink-0"
   }, /*#__PURE__*/React.createElement(Eyebrow, {
-    className: "mb-3"
-  }, "Avancement du chantier"), /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-[56px] sm:text-[72px] leading-none text-bone-50 tick"
-  }, Math.round(p), /*#__PURE__*/React.createElement("span", {
-    className: "text-gold-300"
-  }, "%")), /*#__PURE__*/React.createElement("div", {
-    className: "text-[12px] text-bone-300 mt-1"
-  }, "de l’objectif atteint — grâce à Dieu et à vous")), /*#__PURE__*/React.createElement("div", {
-    className: "flex-1 min-w-[200px]"
+    className: "mb-4"
+  }, "Bâtissons ensemble"), /*#__PURE__*/React.createElement("div", {
+    className: "font-display text-[30px] sm:text-[38px] leading-tight text-bone-50"
+  }, "Chaque brique de cette maison de prière", /*#__PURE__*/React.createElement("br", {
+    className: "hidden sm:block"
+  }), " naîtra de la générosité de la famille."), /*#__PURE__*/React.createElement("p", {
+    className: "mt-4 text-[15px] leading-relaxed text-bone-200/85 max-w-2xl"
+  }, "Le chantier avance grâce aux dons de l’assemblée et des amis de l’église. Pour connaître l’état exact de la collecte, adressez-vous au secrétariat après le culte ou écrivez-nous — nous partageons les comptes en toute transparence."), /*#__PURE__*/React.createElement("div", {
+    className: "mt-7 grid sm:grid-cols-2 gap-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "h-2.5 bg-white/8 rounded-full overflow-hidden"
+    className: "border border-white/10 p-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "h-full bg-gold-300 rounded-full",
-    style: {
-      width: `${p}%`
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "grid grid-cols-2 gap-6 mt-6"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "font-mono text-[10px] tracking-[.22em] uppercase text-bone-400"
-  }, "Objectif"), /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-[26px] text-bone-50 mt-1 tick"
-  }, "350K USD")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "font-mono text-[10px] tracking-[.22em] uppercase text-bone-400"
-  }, "Donateurs"), /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-[26px] text-bone-50 mt-1 tick"
-  }, donors.toLocaleString("fr-FR"), "+")))))), /*#__PURE__*/React.createElement("a", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-gold-300"
+  }, "Lieu"), /*#__PURE__*/React.createElement("div", {
+    className: "text-[14px] text-bone-100 mt-1.5"
+  }, "2 bis & 4, Av. Monkoto · Ngiri-Ngiri")), /*#__PURE__*/React.createElement("div", {
+    className: "border border-white/10 p-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-mono text-[10px] tracking-[.22em] uppercase text-gold-300"
+  }, "Moyens de don"), /*#__PURE__*/React.createElement("div", {
+    className: "text-[14px] text-bone-100 mt-1.5"
+  }, "Rawbank · Equity · Orange · M-Pesa · Airtel")))), /*#__PURE__*/React.createElement("a", {
     href: "#donner",
     className: "lg:col-span-4 bg-gold-300 text-ink-900 p-7 sm:p-9 flex flex-col justify-between hover:bg-gold-200 transition group"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {

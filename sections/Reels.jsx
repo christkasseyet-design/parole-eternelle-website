@@ -2,14 +2,14 @@ function Reels() {
   // Vertical 9:16 reels — placeholders + TikTok / FB / YouTube Shorts links
   // Users drop their actual reel thumbnails into the image-slots
   const reels = [
-    { id: "reel-1", img: "assets/photos/chorale-scene.jpg", platform: "TikTok",   tag: "Worship Live",      title: "« Eternel mon Roc »",            views: "24,1K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-2", img: "assets/photos/serie/pe-17.jpg", platform: "TikTok",   tag: "Extrait prédication",title: "L'autorité du croyant",         views: "12,4K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-3", img: "assets/photos/serie/pe-68.jpg", platform: "TikTok",   tag: "Témoignage",        title: "Restaurée par Sa grâce",         views: "31,8K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-4", img: "assets/photos/jeunesse-etude.jpg", platform: "Facebook", tag: "Reel · NextGen",    title: "Camp jeunesse 2026",             views: "8,9K",  href: "https://www.facebook.com/cepeng/videos" },
-    { id: "reel-5", img: "assets/photos/serie/pe-58.jpg", platform: "TikTok",   tag: "Lingala worship",   title: "Nzambe na ngai",                 views: "47,2K", href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-6", img: "assets/photos/serie/pe-08.jpg", platform: "YouTube",  tag: "Short",             title: "La prière qui change tout",      views: "16,5K", href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts" },
-    { id: "reel-7", img: "assets/photos/accueil-entree.jpg", platform: "TikTok",   tag: "Coulisses",         title: "Avant le culte du dimanche",     views: "9,3K",  href: "https://www.tiktok.com/@paroleternellengiringiri" },
-    { id: "reel-8", img: "assets/photos/sainte-cene.jpg", platform: "Facebook", tag: "Reel",              title: "Baptêmes · joie pure",           views: "21,7K", href: "https://www.facebook.com/cepeng/videos" },
+    { id: "reel-1", img: "assets/photos/chorale-scene.jpg", platform: "TikTok",   tag: "Worship Live",      title: "« Eternel mon Roc »", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-2", img: "assets/photos/serie/pe-17.jpg", platform: "TikTok",   tag: "Extrait prédication",title: "L'autorité du croyant", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-3", img: "assets/photos/serie/pe-68.jpg", platform: "TikTok",   tag: "Témoignage",        title: "Restaurée par Sa grâce", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-4", img: "assets/photos/jeunesse-etude.jpg", platform: "Facebook", tag: "Reel · NextGen",    title: "Camp jeunesse 2026",  href: "https://www.facebook.com/cepeng/videos" },
+    { id: "reel-5", img: "assets/photos/serie/pe-58.jpg", platform: "TikTok",   tag: "Lingala worship",   title: "Nzambe na ngai", href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-6", img: "assets/photos/serie/pe-08.jpg", platform: "YouTube",  tag: "Short",             title: "La prière qui change tout", href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts" },
+    { id: "reel-7", img: "assets/photos/accueil-entree.jpg", platform: "TikTok",   tag: "Coulisses",         title: "Avant le culte du dimanche",  href: "https://www.tiktok.com/@paroleternellengiringiri" },
+    { id: "reel-8", img: "assets/photos/sainte-cene.jpg", platform: "Facebook", tag: "Reel",              title: "Baptêmes · joie pure", href: "https://www.facebook.com/cepeng/videos" },
   ];
 
   const platformBadge = (p) => {
@@ -62,7 +62,7 @@ function Reels() {
   );
 }
 
-function ReelCard({ id, img, platform, tag, title, views, href, idx, badge }) {
+function ReelCard({ id, img, platform, tag, title, href, idx, badge }) {
   return (
     <a href={href} target="_blank" rel="noopener" className="group relative shrink-0 w-[220px] sm:w-[260px] block">
       <div className="relative" style={{ aspectRatio: "9 / 16" }}>
@@ -95,10 +95,6 @@ function ReelCard({ id, img, platform, tag, title, views, href, idx, badge }) {
         <div className="absolute bottom-3 left-3 right-3 z-10 pointer-events-none">
           <div className="font-mono text-[9px] tracking-[.22em] uppercase text-gold-300/90 mb-1">{tag}</div>
           <div className="font-display text-[18px] leading-tight text-white">{title}</div>
-          <div className="mt-1 flex items-center gap-2 text-[10px] text-white/75 font-mono">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
-            {views}
-          </div>
         </div>
       </div>
     </a>

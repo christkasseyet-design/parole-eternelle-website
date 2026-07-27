@@ -1,10 +1,10 @@
 function Explore() {
   // Bento grid of content categories — real photography + tone fallback
   const tiles = [
-    { kicker: "01 · Grand projet", title: "Le Temple", desc: "Ensemble, bâtissons un temple pour le Seigneur. Avancement 68%.", href: "#temple", tag: "Soutenir le projet", tone: "warm", img: "assets/photos/pasteur-temple-message.jpg", span: "sm:col-span-2 lg:col-span-2 lg:row-span-2", size: "hero" },
+    { kicker: "01 · Grand projet", title: "Le Temple", desc: "Ensemble, bâtissons un temple pour le Seigneur, à l'Avenue Monkoto.", href: "#temple", tag: "Soutenir le projet", tone: "warm", img: "assets/photos/pasteur-temple-message.jpg", span: "sm:col-span-2 lg:col-span-2 lg:row-span-2", size: "hero" },
     { kicker: "02 · Lire & Écouter", title: "La Bible", desc: "Texte intégral + audio · 5 langues · hors-ligne.", href: "bible.html", tag: "FR · LN · SW · KG · TS", tone: "warm", img: "assets/photos/etude-bible-notes.jpg", span: "lg:col-span-1 lg:row-span-2", size: "tall" },
     { kicker: "03 · Vidéos & Live", title: "Vidéos", desc: "Cultes, lives, worship, conférences — chronologiquement.", href: "videos.html", tag: "YouTube · Facebook", tone: "warm", img: "assets/photos/culte-assemblee-1.jpg", span: "lg:col-span-1" },
-    { kicker: "04 · La Parole", title: "Prédications", desc: "Plus de 248 messages classés par série et thème.", href: "predications.html", tag: "Voir l'archive", tone: "deep", img: "assets/photos/pasteur-predication-2.jpg", span: "lg:col-span-1" },
+    { kicker: "04 · La Parole", title: "Prédications", desc: "Les messages du dimanche, classés par série et par thème.", href: "predications.html", tag: "Voir l'archive", tone: "deep", img: "assets/photos/pasteur-predication-2.jpg", span: "lg:col-span-1" },
     { kicker: "05 · Rassemblements", title: "Conférences", desc: "Famille & Foi, Leaders, Réveil — les grands moments.", href: "#programmes", tag: "Calendrier", tone: "warm", img: "assets/photos/pasteur-jubile-pupitre.jpg", span: "lg:col-span-1" },
     { kicker: "06 · Vie d'église", title: "Événements", desc: "Cultes, Vendredi Ngomba, jeunesse, baptêmes — tout le mois.", href: "#programmes", tag: "31 dates · Mai 2026", tone: "warm", img: "assets/photos/culte-assemblee-2.jpg", span: "sm:col-span-2 lg:col-span-2", size: "wide" },
     { kicker: "07 · Adoration", title: "Worship", desc: "Chants en français et en lingala, originaux et live.", href: "videos.html", tag: "Voix d'Éternité", tone: "warm", img: "assets/photos/chorale-scene.jpg", span: "lg:col-span-1" },

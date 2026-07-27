@@ -7,7 +7,6 @@ function Reels() {
     platform: "TikTok",
     tag: "Worship Live",
     title: "« Eternel mon Roc »",
-    views: "24,1K",
     href: "https://www.tiktok.com/@paroleternellengiringiri"
   }, {
     id: "reel-2",
@@ -15,7 +14,6 @@ function Reels() {
     platform: "TikTok",
     tag: "Extrait prédication",
     title: "L'autorité du croyant",
-    views: "12,4K",
     href: "https://www.tiktok.com/@paroleternellengiringiri"
   }, {
     id: "reel-3",
@@ -23,7 +21,6 @@ function Reels() {
     platform: "TikTok",
     tag: "Témoignage",
     title: "Restaurée par Sa grâce",
-    views: "31,8K",
     href: "https://www.tiktok.com/@paroleternellengiringiri"
   }, {
     id: "reel-4",
@@ -31,7 +28,6 @@ function Reels() {
     platform: "Facebook",
     tag: "Reel · NextGen",
     title: "Camp jeunesse 2026",
-    views: "8,9K",
     href: "https://www.facebook.com/cepeng/videos"
   }, {
     id: "reel-5",
@@ -39,7 +35,6 @@ function Reels() {
     platform: "TikTok",
     tag: "Lingala worship",
     title: "Nzambe na ngai",
-    views: "47,2K",
     href: "https://www.tiktok.com/@paroleternellengiringiri"
   }, {
     id: "reel-6",
@@ -47,7 +42,6 @@ function Reels() {
     platform: "YouTube",
     tag: "Short",
     title: "La prière qui change tout",
-    views: "16,5K",
     href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts"
   }, {
     id: "reel-7",
@@ -55,7 +49,6 @@ function Reels() {
     platform: "TikTok",
     tag: "Coulisses",
     title: "Avant le culte du dimanche",
-    views: "9,3K",
     href: "https://www.tiktok.com/@paroleternellengiringiri"
   }, {
     id: "reel-8",
@@ -63,7 +56,6 @@ function Reels() {
     platform: "Facebook",
     tag: "Reel",
     title: "Baptêmes · joie pure",
-    views: "21,7K",
     href: "https://www.facebook.com/cepeng/videos"
   }];
   const platformBadge = p => {
@@ -165,7 +157,6 @@ function ReelCard({
   platform,
   tag,
   title,
-  views,
   href,
   idx,
   badge
@@ -222,22 +213,7 @@ function ReelCard({
     className: "font-mono text-[9px] tracking-[.22em] uppercase text-gold-300/90 mb-1"
   }, tag), /*#__PURE__*/React.createElement("div", {
     className: "font-display text-[18px] leading-tight text-white"
-  }, title), /*#__PURE__*/React.createElement("div", {
-    className: "mt-1 flex items-center gap-2 text-[10px] text-white/75 font-mono"
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "10",
-    height: "10",
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"
-  }), /*#__PURE__*/React.createElement("circle", {
-    cx: "12",
-    cy: "12",
-    r: "3"
-  })), views))));
+  }, title))));
 }
 function SocialStat({
   icon,

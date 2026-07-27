@@ -80,12 +80,12 @@ function Media() {
           <div className="lg:col-span-4 flex flex-col gap-4">
             <LiveCard />
             <div className="bg-ink-700 border border-white/10 p-6">
-              <Eyebrow className="mb-3">Cette semaine</Eyebrow>
+              <Eyebrow className="mb-3">Nos rendez-vous</Eyebrow>
               <div className="space-y-3">
-                <Mini k="Vues sur YouTube" v="34 218" />
-                <Mini k="Nouveaux abonnés" v="+612" />
-                <Mini k="Téléchargements podcast" v="1 847" />
-                <Mini k="Pays touchés" v="27" />
+                <Mini k="Dimanche · 1ᵉʳ service" v="07h30" />
+                <Mini k="Dimanche · 2ᵉ service" v="10h00" />
+                <Mini k="Mercredi · étude" v="17h00" />
+                <Mini k="Vendredi Ngomba" v="17h00" />
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@ function Media() {
             {(sort === "serie" ? [...shownSermons].sort((a, b) => a.series.localeCompare(b.series)) : shownSermons).map((s, i) => <SermonCard key={s.vid || i} {...s} />)}
           </Reveal>
           <div className="mt-10 flex justify-center">
-            <Btn variant="ghost" href="predications.html">Voir toutes les prédications · 248 messages</Btn>
+            <Btn variant="ghost" href="predications.html">Voir toutes les prédications</Btn>
           </div>
           </>
         )}
@@ -195,6 +195,41 @@ function IconBtn({ children }) {
 }
 
 function LiveCard() {
+  // Compte à rebours réel jusqu'au prochain rendez-vous (heure de Kinshasa,
+  // UTC+1) : vendredi Ngomba 17h00, puis dimanche 07h30.
+  const nextMeeting = () => {
+    const now = new Date();
+    const kin = new Date(now.getTime() + (60 + now.getTimezoneOffset()) * 60000);
+    const cands = [];
+    for (let d = 0; d < 8; d++) {
+      const day = new Date(kin); day.setDate(kin.getDate() + d);
+      const wd = day.getDay();
+      if (wd === 5) cands.push({ when: new Date(new Date(day).setHours(17, 0, 0, 0)), label: "Vendredi Ngomba · Soirée de prière", sub: "Vendredi · 17h00 · YouTube + Facebook" });
+      else if (wd === 0) cands.push({ when: new Date(new Date(day).setHours(7, 30, 0, 0)), label: "Culte dominical · 1ᵉʳ service", sub: "Dimanche · 07h30 · YouTube + Facebook" });
+    }
+    const future = cands.filter((c) => c.when > kin).sort((a, b) => a.when - b.when);
+    return future[0] || cands[0];
+  };
+
+  const [meeting, setMeeting] = React.useState(nextMeeting);
+  const [left, setLeft] = React.useState({ d: 0, h: 0, m: 0, s: 0 });
+
+  React.useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const kin = new Date(now.getTime() + (60 + now.getTimezoneOffset()) * 60000);
+      let diff = meeting.when - kin;
+      if (diff <= 0) { const m = nextMeeting(); setMeeting(m); diff = Math.max(0, m.when - kin); }
+      const t = Math.max(0, Math.floor(diff / 1000));
+      setLeft({ d: Math.floor(t / 86400), h: Math.floor(t / 3600) % 24, m: Math.floor(t / 60) % 60, s: t % 60 });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [meeting]);
+
+  const pad = (n) => String(n).padStart(2, "0");
+
   return (
     <div className="relative overflow-hidden bg-ink-700 border border-gold-500/30 p-6 glow">
       <div className="flex items-center gap-2 mb-3">
@@ -202,12 +237,12 @@ function LiveCard() {
           <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-ping"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
         </span>
-        <span className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-50">En direct dimanche</span>
+        <span className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-50">Prochain direct</span>
       </div>
-      <div className="font-display text-[26px] leading-tight text-bone-50">Vendredi Ngomba · Soirée de prière</div>
-      <div className="mt-1.5 text-[12px] text-bone-300">Vendredi 15 mai · 17h00 · YouTube + Facebook</div>
+      <div className="font-display text-[26px] leading-tight text-bone-50">{meeting.label}</div>
+      <div className="mt-1.5 text-[12px] text-bone-300">{meeting.sub}</div>
       <div className="mt-5 grid grid-cols-4 gap-2 text-center">
-        {[["03","Jours"],["12","Heures"],["44","Min."],["18","Sec."]].map(([n,l]) => (
+        {[[pad(left.d),"Jours"],[pad(left.h),"Heures"],[pad(left.m),"Min."],[pad(left.s),"Sec."]].map(([n,l]) => (
           <div key={l} className="bg-ink-900 border border-white/5 py-2">
             <div className="font-display text-[24px] leading-none text-bone-50 tick">{n}</div>
             <div className="font-mono text-[9px] tracking-[.18em] uppercase text-bone-400 mt-0.5">{l}</div>
