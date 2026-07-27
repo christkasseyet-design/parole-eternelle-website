@@ -167,9 +167,11 @@
     // inside-mask crop and the outside-mask spill stay pixel-aligned.
     // touch-action doit rester libre : sinon le doigt ne fait plus défiler la
     // page dès qu'il se pose sur une photo (bug signalé sur mobile).
-    // Le verrouillage n'est appliqué que pendant le recadrage (mode auteur).
+    // « auto » laisse passer TOUS les gestes : défilement vertical de la page
+    // ET défilement horizontal des carrousels (reels). Le verrouillage n'est
+    // appliqué que pendant le recadrage (mode auteur).
     '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
-    '  -webkit-user-drag:none;user-select:none;touch-action:pan-y pinch-zoom}' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:auto}' +
     ':host([data-reframe]) .frame img{touch-action:none}' +
     // Reframe mode (double-click): the full image spills past the mask. The
     // spill layer is sized to the IMAGE bounds so its corners are where the

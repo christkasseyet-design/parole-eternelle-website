@@ -426,6 +426,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Parole Éternelle" />
+<style>
+  /* ── Défilement horizontal fluide sur téléphone ──────────────────────────
+     Sans ces règles, les carrousels (reels, filtres, onglets) répondent mal
+     au doigt sur iOS et le geste peut être « avalé » par la page. */
+  .overflow-x-auto{
+    -webkit-overflow-scrolling: touch;   /* inertie iOS */
+    overscroll-behavior-x: contain;      /* n'entraîne pas la page entière */
+    touch-action: pan-x pan-y pinch-zoom;
+  }
+  .reels-scroll{ scroll-snap-type: x proximity; }
+  .reels-scroll > div > a{ scroll-snap-align: start; }
+</style>
 </head>
 <body>
 <div id="root"></div>
