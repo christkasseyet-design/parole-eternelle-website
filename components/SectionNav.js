@@ -78,7 +78,7 @@ function SectionNav({
       transition: "transform .15s linear"
     }
   })), show && /*#__PURE__*/React.createElement("div", {
-    className: `section-nav ${past ? "sn-in" : "sn-out"} fixed inset-x-0 z-40`
+    className: `section-nav ${past ? "sn-in" : "sn-out"}`
   }, /*#__PURE__*/React.createElement("div", {
     className: "max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14"
   }, /*#__PURE__*/React.createElement("div", {

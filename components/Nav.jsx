@@ -1,4 +1,5 @@
 function Nav() {
+  const SectionNavRow = (typeof window !== "undefined" && window.SectionNav) || null;
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -101,6 +102,10 @@ function Nav() {
             </button>
           </div>
         </div>
+
+        {/* La barre de sections vit DANS l'en-tête : un seul élément, donc
+            impossible qu'ils se désolidarisent pendant l'animation. */}
+        {SectionNavRow ? <SectionNavRow /> : null}
       </header>
 
       {/* ── Menu plein écran ─────────────────────────────────────────────── */}

@@ -54,9 +54,7 @@ function App() {
   }, [t.ambiance]);
   return /*#__PURE__*/React.createElement("div", {
     className: t.compact ? "is-compact" : ""
-  }, /*#__PURE__*/React.createElement(Nav, null), /*#__PURE__*/React.createElement(SectionNav, {
-    show: t.showSectionNav
-  }), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, {
+  }, /*#__PURE__*/React.createElement(Nav, null), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, {
     showLive: t.showLiveBanner,
     variant: t.heroVariant
   }), /*#__PURE__*/React.createElement(Jubile, null), /*#__PURE__*/React.createElement(PhotoWall, null), /*#__PURE__*/React.createElement(Explore, null), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(Program, null), /*#__PURE__*/React.createElement(Media, null), /*#__PURE__*/React.createElement(Concours, null), /*#__PURE__*/React.createElement(Reels, null), /*#__PURE__*/React.createElement(Temple, null), /*#__PURE__*/React.createElement(Bible, null), /*#__PURE__*/React.createElement(Ministries, null), /*#__PURE__*/React.createElement(Gallery, null), /*#__PURE__*/React.createElement(Donate, null), /*#__PURE__*/React.createElement(Contact, null)), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(SupportBot, null), /*#__PURE__*/React.createElement(TweaksPanel, null, /*#__PURE__*/React.createElement(TweakSection, {

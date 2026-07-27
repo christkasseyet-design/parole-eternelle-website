@@ -37,7 +37,6 @@ function App() {
   return (
     <div className={t.compact ? "is-compact" : ""}>
       <Nav/>
-      <SectionNav show={t.showSectionNav}/>
       <main>
         <Hero showLive={t.showLiveBanner} variant={t.heroVariant}/>
         <Jubile/>

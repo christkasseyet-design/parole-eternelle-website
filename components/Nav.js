@@ -1,4 +1,5 @@
 function Nav() {
+  const SectionNavRow = typeof window !== "undefined" && window.SectionNav || null;
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -109,7 +110,7 @@ function Nav() {
     strokeLinecap: "round"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M4 7h16M4 12h16M4 17h16"
-  })))))), /*#__PURE__*/React.createElement("div", {
+  }))))), SectionNavRow ? /*#__PURE__*/React.createElement(SectionNavRow, null) : null), /*#__PURE__*/React.createElement("div", {
     className: `nav-menu ${open ? "is-open" : ""}`,
     onClick: () => setOpen(false)
   }, /*#__PURE__*/React.createElement("div", {

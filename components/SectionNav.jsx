@@ -74,7 +74,7 @@ function SectionNav({ show = true }) {
       </div>
 
       {show && (
-        <div className={`section-nav ${past ? "sn-in" : "sn-out"} fixed inset-x-0 z-40`}>
+        <div className={`section-nav ${past ? "sn-in" : "sn-out"}`}>
           <div className="max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14">
             <div ref={railRef} className="no-scrollbar flex items-center gap-1.5 overflow-x-auto h-[46px]">
               {links.map(([label, href]) => {
