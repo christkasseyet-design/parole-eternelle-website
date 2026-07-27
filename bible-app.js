@@ -39,8 +39,11 @@
   function renderChapter(){
     const book = currentBook();
     const lang = state.lang;
-    const data = SAMPLE_CHAPTER[lang];
-    const isDemoChapter = book.name === "Jean" && state.chapter === 3 && !!data;
+    // Les données de démonstration (Jean 3, quelques versets choisis) datent
+    // d'avant l'intégration du vrai texte biblique. Elles n'affichaient que
+    // 8 versets sur 36 — on charge désormais toujours le chapitre complet.
+    const data = null;
+    const isDemoChapter = false;
 
     $("#bookTitle").textContent = book.name;
     $("#chapterTitle").textContent = "Chapitre " + state.chapter;

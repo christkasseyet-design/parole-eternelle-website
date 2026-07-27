@@ -121,7 +121,7 @@ function SlideTile({ queue, delay, interval, playing, onOpen, className, cover }
     <button onClick={() => onOpen(it)} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
       className={`gtile group relative overflow-hidden rounded-[3px] bg-ink-700 ${className || ""}`}>
       {pv && <img key={"p" + pair.prev} src={pv.src} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />}
-      <img key={"c" + pair.cur} src={it.src} alt={it.label} className="gshow-fade gshow-kb absolute inset-0 w-full h-full object-cover" />
+      <img key={"c" + pair.cur} src={it.src} alt={it.label} loading="lazy" decoding="async" className="gshow-fade gshow-kb absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(7,7,8,0) 45%, rgba(7,7,8,.82) 100%)" }}></div>
       <div className="absolute top-3 left-3 px-2 py-1 font-mono text-[9px] tracking-[.22em] uppercase bg-ink-900/55 backdrop-blur-md border border-white/10 text-bone-100">
         {it.tag}

@@ -87,6 +87,8 @@ function SlideTile({
     key: "c" + pair.cur,
     src: it.src,
     alt: it.label,
+    loading: "lazy",
+    decoding: "async",
     className: "gshow-fade gshow-kb absolute inset-0 w-full h-full object-cover"
   }), /*#__PURE__*/React.createElement("div", {
     className: "absolute inset-0",

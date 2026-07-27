@@ -162,6 +162,8 @@ function FeaturedPlayer({ video }) {
             <img
               src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
               alt={video.title}
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/20 to-ink-900/30"></div>
