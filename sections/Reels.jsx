@@ -36,6 +36,9 @@ function Reels() {
             <Btn variant="ghost" href="https://www.facebook.com/cepeng/videos" icon={false}>
               <I.FB width="14" height="14"/> Facebook Reels
             </Btn>
+            <Btn variant="ghost" href="https://www.instagram.com/paroleternellengiringiri/" icon={false}>
+              <I.IG width="14" height="14"/> Instagram
+            </Btn>
           </div>
         </Reveal>
 
@@ -46,10 +49,11 @@ function Reels() {
         </Reveal>
 
         {/* Bottom strip */}
-        <Reveal className="mt-12 border-t border-white/10 pt-8 grid sm:grid-cols-3 gap-6">
-          <SocialStat icon={<I.TT width="18" height="18"/>}  label="TikTok"    handle="@paroleternellengiringiri" count="12,4K"  href="https://www.tiktok.com/@paroleternellengiringiri"/>
-          <SocialStat icon={<I.FB width="18" height="18"/>}  label="Facebook"  handle="cepeng"                  count="38,2K"  href="https://www.facebook.com/cepeng/"/>
-          <SocialStat icon={<I.YT width="18" height="18"/>}  label="YouTube"   handle="Parole Eternelle TV"  count="9,8K"   href="https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw"/>
+        <Reveal className="mt-12 border-t border-white/10 pt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <SocialStat icon={<I.TT width="18" height="18"/>} label="TikTok"    handle="@paroleternellengiringiri" href="https://www.tiktok.com/@paroleternellengiringiri"/>
+          <SocialStat icon={<I.FB width="18" height="18"/>} label="Facebook"  handle="C.E. Parole Eternelle"    href="https://www.facebook.com/cepeng/"/>
+          <SocialStat icon={<I.IG width="18" height="18"/>} label="Instagram" handle="@paroleternellengiringiri" href="https://www.instagram.com/paroleternellengiringiri/"/>
+          <SocialStat icon={<I.YT width="18" height="18"/>} label="YouTube"   handle="Parole Eternelle TV"      href="https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw"/>
         </Reveal>
       </div>
 
@@ -101,14 +105,14 @@ function ReelCard({ id, img, platform, tag, title, href, idx, badge }) {
   );
 }
 
-function SocialStat({ icon, label, handle, count, href }) {
+function SocialStat({ icon, label, handle, href }) {
   return (
     <a href={href} target="_blank" rel="noopener" className="group flex items-center gap-4 p-4 border border-white/10 hover:border-gold-400 transition bg-ink-700">
       <span className="w-12 h-12 rounded-full border border-gold-500/30 grid place-items-center text-gold-200 group-hover:bg-gold-500/10 transition shrink-0">{icon}</span>
       <div className="min-w-0 flex-1">
         <div className="font-mono text-[10px] tracking-[.22em] uppercase text-gold-300/80">{label}</div>
         <div className="font-display text-[20px] leading-none text-bone-50 mt-1 truncate">{handle}</div>
-        <div className="text-[11px] text-bone-400 mt-1 tick">{count} abonnés</div>
+        <div className="text-[11px] text-bone-400 mt-1">Voir le profil</div>
       </div>
       <I.ArrowR width="16" height="16" className="text-bone-400 group-hover:text-gold-200 group-hover:translate-x-1 transition shrink-0" />
     </a>

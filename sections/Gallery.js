@@ -200,7 +200,14 @@ function Gallery() {
   }, /*#__PURE__*/React.createElement(I.FB, {
     width: "14",
     height: "14"
-  }), " Facebook"))), /*#__PURE__*/React.createElement(Reveal, {
+  }), " Facebook"), /*#__PURE__*/React.createElement(Btn, {
+    variant: "dark",
+    href: "https://www.instagram.com/paroleternellengiringiri/",
+    icon: false
+  }, /*#__PURE__*/React.createElement(I.IG, {
+    width: "14",
+    height: "14"
+  }), " Instagram"))), /*#__PURE__*/React.createElement(Reveal, {
     className: "flex flex-wrap items-center gap-2 mb-8"
   }, albums.map(a => /*#__PURE__*/React.createElement("button", {
     key: a,

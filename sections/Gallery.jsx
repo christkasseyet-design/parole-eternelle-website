@@ -212,6 +212,7 @@ function Gallery() {
           <div className="flex gap-3">
             <Btn variant="gold" href="galerie.html">Tous les albums</Btn>
             <Btn variant="dark" href="https://www.facebook.com/cepeng/" icon={false}><I.FB width="14" height="14"/> Facebook</Btn>
+            <Btn variant="dark" href="https://www.instagram.com/paroleternellengiringiri/" icon={false}><I.IG width="14" height="14"/> Instagram</Btn>
           </div>
         </Reveal>
 

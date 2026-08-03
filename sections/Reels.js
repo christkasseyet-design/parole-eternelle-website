@@ -103,7 +103,14 @@ function Reels() {
   }, /*#__PURE__*/React.createElement(I.FB, {
     width: "14",
     height: "14"
-  }), " Facebook Reels"))), /*#__PURE__*/React.createElement(Reveal, {
+  }), " Facebook Reels"), /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: "https://www.instagram.com/paroleternellengiringiri/",
+    icon: false
+  }, /*#__PURE__*/React.createElement(I.IG, {
+    width: "14",
+    height: "14"
+  }), " Instagram"))), /*#__PURE__*/React.createElement(Reveal, {
     stagger: true,
     className: "-mx-6 sm:-mx-10 lg:-mx-14 overflow-x-auto pb-4 reels-scroll"
   }, /*#__PURE__*/React.createElement("div", {
@@ -117,7 +124,7 @@ function Reels() {
     idx: i + 1,
     badge: platformBadge(r.platform)
   })))), /*#__PURE__*/React.createElement(Reveal, {
-    className: "mt-12 border-t border-white/10 pt-8 grid sm:grid-cols-3 gap-6"
+    className: "mt-12 border-t border-white/10 pt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
   }, /*#__PURE__*/React.createElement(SocialStat, {
     icon: /*#__PURE__*/React.createElement(I.TT, {
       width: "18",
@@ -125,7 +132,6 @@ function Reels() {
     }),
     label: "TikTok",
     handle: "@paroleternellengiringiri",
-    count: "12,4K",
     href: "https://www.tiktok.com/@paroleternellengiringiri"
   }), /*#__PURE__*/React.createElement(SocialStat, {
     icon: /*#__PURE__*/React.createElement(I.FB, {
@@ -133,9 +139,16 @@ function Reels() {
       height: "18"
     }),
     label: "Facebook",
-    handle: "cepeng",
-    count: "38,2K",
+    handle: "C.E. Parole Eternelle",
     href: "https://www.facebook.com/cepeng/"
+  }), /*#__PURE__*/React.createElement(SocialStat, {
+    icon: /*#__PURE__*/React.createElement(I.IG, {
+      width: "18",
+      height: "18"
+    }),
+    label: "Instagram",
+    handle: "@paroleternellengiringiri",
+    href: "https://www.instagram.com/paroleternellengiringiri/"
   }), /*#__PURE__*/React.createElement(SocialStat, {
     icon: /*#__PURE__*/React.createElement(I.YT, {
       width: "18",
@@ -143,7 +156,6 @@ function Reels() {
     }),
     label: "YouTube",
     handle: "Parole Eternelle TV",
-    count: "9,8K",
     href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw"
   }))), /*#__PURE__*/React.createElement("style", null, `
         .reels-scroll{scrollbar-color:rgba(244,194,56,.3) transparent;}
@@ -219,7 +231,6 @@ function SocialStat({
   icon,
   label,
   handle,
-  count,
   href
 }) {
   return /*#__PURE__*/React.createElement("a", {
@@ -236,8 +247,8 @@ function SocialStat({
   }, label), /*#__PURE__*/React.createElement("div", {
     className: "font-display text-[20px] leading-none text-bone-50 mt-1 truncate"
   }, handle), /*#__PURE__*/React.createElement("div", {
-    className: "text-[11px] text-bone-400 mt-1 tick"
-  }, count, " abonnés")), /*#__PURE__*/React.createElement(I.ArrowR, {
+    className: "text-[11px] text-bone-400 mt-1"
+  }, "Voir le profil")), /*#__PURE__*/React.createElement(I.ArrowR, {
     width: "16",
     height: "16",
     className: "text-bone-400 group-hover:text-gold-200 group-hover:translate-x-1 transition shrink-0"

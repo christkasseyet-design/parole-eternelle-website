@@ -118,6 +118,13 @@ function PhotoWall() {
   }, /*#__PURE__*/React.createElement(I.TT, {
     width: "14",
     height: "14"
-  }), " TikTok"))));
+  }), " TikTok"), /*#__PURE__*/React.createElement(Btn, {
+    variant: "ghost",
+    href: "https://www.instagram.com/paroleternellengiringiri/",
+    icon: false
+  }, /*#__PURE__*/React.createElement(I.IG, {
+    width: "14",
+    height: "14"
+  }), " Instagram"))));
 }
 window.PhotoWall = PhotoWall;

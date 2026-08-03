@@ -52,6 +52,7 @@ function PhotoWall() {
           <Btn variant="ghost" href="https://www.facebook.com/cepeng/" icon={false}><I.FB width="14" height="14"/> Facebook</Btn>
           <Btn variant="ghost" href="https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw" icon={false}><I.YT width="14" height="14"/> YouTube</Btn>
           <Btn variant="ghost" href="https://www.tiktok.com/@paroleternellengiringiri" icon={false}><I.TT width="14" height="14"/> TikTok</Btn>
+          <Btn variant="ghost" href="https://www.instagram.com/paroleternellengiringiri/" icon={false}><I.IG width="14" height="14"/> Instagram</Btn>
         </Reveal>
       </div>
     </section>

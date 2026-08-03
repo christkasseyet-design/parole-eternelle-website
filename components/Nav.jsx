@@ -77,6 +77,7 @@ function Nav() {
     ["Facebook", "https://www.facebook.com/cepeng/"],
     ["YouTube", "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw"],
     ["TikTok", "https://www.tiktok.com/@paroleternellengiringiri"],
+    ["Instagram", "https://www.instagram.com/paroleternellengiringiri/"],
   ];
 
   return (

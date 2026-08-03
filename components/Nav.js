@@ -70,7 +70,7 @@ function Nav() {
     title: "Participer",
     links: [["Jubilé 2026", "#jubile"], ["Projet du temple", "#temple"], ["Faire un don", "#donner"], ["Nous contacter", "#contact"]]
   }];
-  const socials = [["Facebook", "https://www.facebook.com/cepeng/"], ["YouTube", "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw"], ["TikTok", "https://www.tiktok.com/@paroleternellengiringiri"]];
+  const socials = [["Facebook", "https://www.facebook.com/cepeng/"], ["YouTube", "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw"], ["TikTok", "https://www.tiktok.com/@paroleternellengiringiri"], ["Instagram", "https://www.instagram.com/paroleternellengiringiri/"]];
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("header", {
     className: `fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "nav-scrolled" : ""}`
   }, /*#__PURE__*/React.createElement("div", {
