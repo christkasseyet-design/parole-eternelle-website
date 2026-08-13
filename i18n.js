@@ -304,7 +304,7 @@ window.I18N_DICT = {
     if (!progress) {
       progress = document.createElement("div");
       progress.setAttribute("data-i18n-skip", "");
-      progress.style.cssText = "position:fixed;bottom:78px;left:24px;z-index:61;padding:7px 13px;border-radius:999px;background:rgba(6,26,68,.9);border:1px solid rgba(244,194,56,.3);color:#f4c238;font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em;backdrop-filter:blur(12px)";
+      progress.style.cssText = "position:fixed;bottom:calc(78px + env(safe-area-inset-bottom, 0px));left:calc(24px + env(safe-area-inset-left, 0px));z-index:61;padding:7px 13px;border-radius:999px;background:rgba(6,26,68,.9);border:1px solid rgba(244,194,56,.3);color:#f4c238;font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:.14em;backdrop-filter:blur(12px)";
       document.body.appendChild(progress);
     }
     progress.textContent = `TRADUCTION ${Math.round((done / total) * 100)}%`;
@@ -462,7 +462,7 @@ Réponds UNIQUEMENT par un tableau JSON de chaînes, même longueur et même ord
     host.id = "pe-lang-switcher";
     host.setAttribute("data-i18n-skip", "");
     host.style.cssText = `
-      position: fixed; bottom: 24px; left: 24px; z-index: 60;
+      position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: calc(24px + env(safe-area-inset-left, 0px)); z-index: 60;
       display: flex; align-items: center; gap: 4px;
       padding: 5px;
       background: rgba(6, 26, 68, 0.78);
@@ -486,10 +486,10 @@ Réponds UNIQUEMENT par un tableau JSON de chaînes, même longueur et même ord
         #pe-lang-switcher button:hover{ color:#f4c238; background:rgba(244,194,56,.10); }
         #pe-lang-switcher button.active{ background:#f4c238; color:#061a44; }
         @media (max-width: 1023px){
-          #pe-lang-switcher{ bottom: 20px !important; left: 20px !important; }
+          #pe-lang-switcher{ bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important; left: calc(20px + env(safe-area-inset-left, 0px)) !important; }
         }
         @media (max-width: 640px){
-          #pe-lang-switcher{ padding: 4px; bottom: 16px !important; left: 16px !important; }
+          #pe-lang-switcher{ padding: 4px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important; left: calc(16px + env(safe-area-inset-left, 0px)) !important; }
           #pe-lang-switcher button{ padding: 4px 8px; font-size: 9px; }
         }
       </style>

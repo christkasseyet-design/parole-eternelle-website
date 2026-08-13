@@ -551,7 +551,7 @@
       sb.style.top = "104px";
       sb.style.left = "16px";
       sb.style.right = "16px";
-      sb.style.bottom = "16px";
+      sb.style.bottom = "calc(16px + env(safe-area-inset-bottom, 0px))";
       sb.style.zIndex = "60";
       sb.style.background = "var(--paper, #fbf8f1)";
       sb.style.padding = "20px";
