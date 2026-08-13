@@ -1,4 +1,3 @@
-import { jsxDEV as _jsxDEV, Fragment as _Fragment } from "react/jsx-dev-runtime";
 // Quick section-jump banner under the header + slim scroll-progress line.
 // Desktop (lg+) only — on smaller screens the header drawer handles navigation.
 
@@ -70,37 +69,31 @@ function SectionNav({
       behavior: "smooth"
     });
   }, [active]);
-  return /*#__PURE__*/_jsxDEV(_Fragment, {
-    children: [/*#__PURE__*/_jsxDEV("div", {
-      className: "fixed progress-bar-top inset-x-0 z-[60] h-[3px] pointer-events-none",
-      children: /*#__PURE__*/_jsxDEV("div", {
-        className: "h-full bg-gold-300 origin-left",
-        style: {
-          transform: `scaleX(${progress})`,
-          transition: "transform .15s linear"
-        }
-      }, void 0, false)
-    }, void 0, false), show && /*#__PURE__*/_jsxDEV("div", {
-      className: `section-nav ${past ? "sn-in" : "sn-out"}`,
-      children: /*#__PURE__*/_jsxDEV("div", {
-        className: "max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14",
-        children: /*#__PURE__*/_jsxDEV("div", {
-          ref: railRef,
-          className: "no-scrollbar flex items-center gap-1.5 overflow-x-auto h-[46px]",
-          children: links.map(([label, href]) => {
-            const anchor = href.startsWith("#");
-            const id = anchor ? href.slice(1) : href;
-            return /*#__PURE__*/_jsxDEV("a", {
-              href: href,
-              "data-sec": id,
-              onClick: anchor ? () => setActive(id) : undefined,
-              className: `section-nav-chip ${anchor && active === id ? "is-active" : ""}`,
-              children: label
-            }, href, false);
-          })
-        }, void 0, false)
-      }, void 0, false)
-    }, void 0, false)]
-  }, void 0, true);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "fixed progress-bar-top inset-x-0 z-[60] h-[3px] pointer-events-none"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "h-full bg-gold-300 origin-left",
+    style: {
+      transform: `scaleX(${progress})`,
+      transition: "transform .15s linear"
+    }
+  })), show && /*#__PURE__*/React.createElement("div", {
+    className: `section-nav ${past ? "sn-in" : "sn-out"}`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14"
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: railRef,
+    className: "no-scrollbar flex items-center gap-1.5 overflow-x-auto h-[46px]"
+  }, links.map(([label, href]) => {
+    const anchor = href.startsWith("#");
+    const id = anchor ? href.slice(1) : href;
+    return /*#__PURE__*/React.createElement("a", {
+      key: href,
+      href: href,
+      "data-sec": id,
+      onClick: anchor ? () => setActive(id) : undefined,
+      className: `section-nav-chip ${anchor && active === id ? "is-active" : ""}`
+    }, label);
+  })))));
 }
 window.SectionNav = SectionNav;
