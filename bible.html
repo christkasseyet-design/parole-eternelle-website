@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/jpeg" href="assets/logo-parole-eternelle.jpg" />
 <title>Bible · Lire & Écouter — Parole Éternelle</title>
 <meta name="description" content="Lisez et écoutez la Bible en français et lingala. Gratuit, hors-ligne disponible." />
@@ -170,6 +170,13 @@
   }
   .reels-scroll{ scroll-snap-type: x proximity; }
   .reels-scroll > div > a{ scroll-snap-align: start; }
+
+  /* PWA / iOS standalone : status bar translucide (black-translucent) recouvre
+     le contenu sans compensation. On pousse le header sous l'encoche et on
+     ajoute de l'air sous la barre audio pour ne pas être recouvert par la
+     zone du bouton Home. 0px partout ailleurs. */
+  header.top{padding-top:env(safe-area-inset-top,0px)}
+  footer#audioBar{padding-bottom:env(safe-area-inset-bottom,0px)}
 </style>
 <link rel="canonical" href="https://paroleeternelle.com/bible.html" />
 </head>

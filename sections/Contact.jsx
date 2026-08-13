@@ -82,7 +82,7 @@ function Contact() {
       </div>
 
       {/* Floating WhatsApp */}
-      <a href="https://wa.me/243897297625?text=Bonjour%20Parole%20%C3%89ternelle%20%F0%9F%99%8F" target="_blank" rel="noopener" aria-label="WhatsApp" className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white grid place-items-center shadow-2xl transition hover:scale-105">
+      <a href="https://wa.me/243897297625?text=Bonjour%20Parole%20%C3%89ternelle%20%F0%9F%99%8F" target="_blank" rel="noopener" aria-label="WhatsApp" className="fixed right-6 z-40 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white grid place-items-center shadow-2xl transition hover:scale-105" style={{ bottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}>
         <I.Whatsapp width="22" height="22"/>
       </a>
     </section>

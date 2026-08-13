@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/jpeg" href="assets/logo-parole-eternelle.jpg" />
 <title>Vidéos & Prédications — C.E. Parole Éternelle</title>
 <meta name="description" content="Cultes en direct, extraits TikTok et vidéos de l'église Parole Éternelle Ngiri-Ngiri, Kinshasa." />
@@ -101,6 +101,11 @@
   }
   .reels-scroll{ scroll-snap-type: x proximity; }
   .reels-scroll > div > a{ scroll-snap-align: start; }
+
+  /* PWA / iOS standalone : status bar translucide (black-translucent) recouvre
+     le contenu sans compensation. On pousse le header sous l'encoche. 0px
+     partout ailleurs (aucun effet dans un onglet de navigateur normal). */
+  header{padding-top:env(safe-area-inset-top,0px)}
 </style>
 <link rel="canonical" href="https://paroleeternelle.com/videos.html" />
 </head>

@@ -69,7 +69,7 @@ function SectionNav({ show = true }) {
 
   return (
     <>
-      <div className="fixed top-0 inset-x-0 z-[60] h-[3px] pointer-events-none">
+      <div className="fixed progress-bar-top inset-x-0 z-[60] h-[3px] pointer-events-none">
         <div className="h-full bg-gold-300 origin-left" style={{ transform: `scaleX(${progress})`, transition: "transform .15s linear" }}></div>
       </div>
 

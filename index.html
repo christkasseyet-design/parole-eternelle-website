@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/jpeg" href="assets/logo-parole-eternelle.jpg" />
 <title>Parole Éternelle — Une église vivante pour une génération transformée</title>
 <meta name="description" content="C.E. Parole Éternelle Ngiri-Ngiri, église des Assemblées de Dieu à Kinshasa. Cultes dimanche 07h30 & 10h00, Jubilé 2026, prière, jeunesse, médias." />
@@ -219,7 +219,7 @@
   main img[class*="object-cover"]{background-color:#101014}
 
   /* assistance IA */
-  .sb-root{position:fixed;right:22px;bottom:22px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-family:'Manrope',system-ui,sans-serif}
+  .sb-root{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-family:'Manrope',system-ui,sans-serif}
   .sb-fab{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:999px;background:var(--gold-300,#d8b66a);color:#0a0a0c;border:none;cursor:pointer;font-weight:700;font-size:13px;letter-spacing:.04em;box-shadow:0 18px 40px -18px rgba(0,0,0,.8);transition:transform .25s ease,background .25s ease}
   .sb-fab:hover{transform:translateY(-2px);background:var(--gold-200,#e3c98a)}
   .sb-fab-label{text-transform:uppercase}
@@ -249,7 +249,7 @@
   .sb-form input:focus{border-color:var(--gold-300,#d8b66a)}
   .sb-form button{width:42px;height:42px;flex:none;border-radius:999px;border:none;background:var(--gold-300,#d8b66a);color:#0a0a0c;display:grid;place-items:center;cursor:pointer;transition:.2s}
   .sb-form button:disabled{opacity:.4;cursor:default}
-  @media (max-width:560px){.sb-root{right:14px;bottom:14px}.sb-fab-label{display:none}.sb-fab{padding:14px}}
+  @media (max-width:560px){.sb-root{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}.sb-fab-label{display:none}.sb-fab{padding:14px}}
 
   /* galerie · mosaïque de diaporamas */
   .gmosaic{display:grid;gap:14px;grid-template-columns:1fr}
@@ -298,6 +298,13 @@
     @keyframes dotPulse{0%,100%{opacity:1}50%{opacity:.35}}
     .eyebrow .dot{animation:dotPulse 3.2s ease-in-out infinite}
   }
+
+  /* PWA / iOS standalone : la barre de statut est translucide (black-translucent) et
+     recouvre le contenu si on ne compense pas. On pousse le header et la barre de
+     progression sous l'encoche/la barre de statut ; 0px partout ailleurs (aucun effet
+     dans un onglet de navigateur normal). */
+  header{padding-top:env(safe-area-inset-top,0px)}
+  .progress-bar-top{top:env(safe-area-inset-top,0px)}
 </style>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/jpeg" href="assets/logo-parole-eternelle.jpg" />
 <title>Prédications — Parole Éternelle</title>
 <meta name="description" content="Toutes les prédications de l'église Parole Éternelle Ngiri-Ngiri : vidéos YouTube, séries et messages récents." />
@@ -101,6 +101,10 @@
   }
   .reels-scroll{ scroll-snap-type: x proximity; }
   .reels-scroll > div > a{ scroll-snap-align: start; }
+
+  /* PWA / iOS standalone : status bar translucide (black-translucent). Marge
+     de securite meme si ce header n'est pas fixe/sticky ici. 0px ailleurs. */
+  header{padding-top:env(safe-area-inset-top,0px)}
 </style>
 <link rel="canonical" href="https://paroleeternelle.com/predications.html" />
 </head>
