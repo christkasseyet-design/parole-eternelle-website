@@ -61,8 +61,12 @@ function Hero({
   }, "Programme des cultes"), /*#__PURE__*/React.createElement("a", {
     href: "#a-propos",
     className: "inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/30 bg-white/5 backdrop-blur-sm text-white text-[14px] font-semibold hover:bg-white/10 hover:border-white/60 transition"
-  }, "Découvrir l'église")), showLive && /*#__PURE__*/React.createElement("div", {
-    className: "mt-10 inline-flex items-center gap-3"
+  }, "Découvrir l'église")), showLive && /*#__PURE__*/React.createElement("a", {
+    href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/live",
+    target: "_blank",
+    rel: "noopener",
+    "aria-label": "Suivre le culte en direct sur YouTube",
+    className: "mt-10 inline-flex items-center gap-3 hover:opacity-80 transition"
   }, /*#__PURE__*/React.createElement("span", {
     className: "relative flex h-2 w-2"
   }, /*#__PURE__*/React.createElement("span", {

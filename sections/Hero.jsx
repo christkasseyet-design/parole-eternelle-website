@@ -38,13 +38,13 @@ function Hero({ showLive = true, variant = "cinematic" }) {
             <a href="#a-propos" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/30 bg-white/5 backdrop-blur-sm text-white text-[14px] font-semibold hover:bg-white/10 hover:border-white/60 transition">Découvrir l'église</a>
           </div>
           {showLive && (
-            <div className="mt-10 inline-flex items-center gap-3">
+            <a href="https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/live" target="_blank" rel="noopener" aria-label="Suivre le culte en direct sur YouTube" className="mt-10 inline-flex items-center gap-3 hover:opacity-80 transition">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-ping"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
               </span>
               <span className="font-mono text-[10px] sm:text-[11px] tracking-[.2em] uppercase text-white/80">Dimanche · 07h30 &amp; 10h00 · En direct</span>
-            </div>
+            </a>
           )}
         </div>
 
