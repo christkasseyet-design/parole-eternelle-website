@@ -33,6 +33,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Optimize new photos (assets/photos/ajouts only)
+        continue-on-error: true   # en cas de problème, on publie quand même (sans réduction)
+        run: |
+          if [ -d assets/photos/ajouts ]; then
+            mkdir -p "$RUNNER_TEMP/opt" && cd "$RUNNER_TEMP/opt" && npm init -y >/dev/null && npm i sharp >/dev/null 2>&1
+            cd "$GITHUB_WORKSPACE"
+            NODE_PATH="$RUNNER_TEMP/opt/node_modules" node .github/scripts/optimize-images.cjs assets/photos/ajouts
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
