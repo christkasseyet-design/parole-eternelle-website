@@ -1,63 +1,75 @@
 function Reels() {
-  // Vertical 9:16 reels — placeholders + TikTok / FB / YouTube Shorts links
-  // Users drop their actual reel thumbnails into the image-slots
-  const reels = [{
-    id: "reel-1",
-    img: "assets/photos/chorale-scene.jpg",
-    platform: "TikTok",
-    tag: "Worship Live",
-    title: "« Eternel mon Roc »",
-    href: "https://www.tiktok.com/@paroleternellengiringiri"
-  }, {
-    id: "reel-2",
-    img: "assets/photos/serie/pe-17.jpg",
-    platform: "TikTok",
-    tag: "Extrait prédication",
-    title: "L'autorité du croyant",
-    href: "https://www.tiktok.com/@paroleternellengiringiri"
-  }, {
-    id: "reel-3",
-    img: "assets/photos/serie/pe-68.jpg",
-    platform: "TikTok",
-    tag: "Témoignage",
-    title: "Restaurée par Sa grâce",
-    href: "https://www.tiktok.com/@paroleternellengiringiri"
-  }, {
-    id: "reel-4",
-    img: "assets/photos/jeunesse-etude.jpg",
-    platform: "Facebook",
-    tag: "Reel · NextGen",
-    title: "Camp jeunesse 2026",
-    href: "https://www.facebook.com/cepeng/videos"
-  }, {
-    id: "reel-5",
-    img: "assets/photos/serie/pe-58.jpg",
-    platform: "TikTok",
-    tag: "Lingala worship",
-    title: "Nzambe na ngai",
-    href: "https://www.tiktok.com/@paroleternellengiringiri"
-  }, {
-    id: "reel-6",
-    img: "assets/photos/serie/pe-08.jpg",
-    platform: "YouTube",
-    tag: "Short",
-    title: "La prière qui change tout",
-    href: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts"
-  }, {
-    id: "reel-7",
-    img: "assets/photos/accueil-entree.jpg",
-    platform: "TikTok",
-    tag: "Coulisses",
-    title: "Avant le culte du dimanche",
-    href: "https://www.tiktok.com/@paroleternellengiringiri"
-  }, {
-    id: "reel-8",
-    img: "assets/photos/sainte-cene.jpg",
-    platform: "Facebook",
-    tag: "Reel",
-    title: "Baptêmes · joie pure",
-    href: "https://www.facebook.com/cepeng/videos"
-  }];
+  // Reels verticaux — liste modifiable depuis /admin (content/reels.json).
+  // La liste ci-dessous n'est qu'un filet de sécurité si le fichier est illisible.
+  const FALLBACK = {
+    reels: [{
+      image: "assets/photos/chorale-scene.jpg",
+      platform: "TikTok",
+      tag: "Worship Live",
+      title: "« Eternel mon Roc »",
+      link: "https://www.tiktok.com/@paroleternellengiringiri"
+    }, {
+      image: "assets/photos/serie/pe-17.jpg",
+      platform: "TikTok",
+      tag: "Extrait prédication",
+      title: "L'autorité du croyant",
+      link: "https://www.tiktok.com/@paroleternellengiringiri"
+    }, {
+      image: "assets/photos/serie/pe-68.jpg",
+      platform: "TikTok",
+      tag: "Témoignage",
+      title: "Restaurée par Sa grâce",
+      link: "https://www.tiktok.com/@paroleternellengiringiri"
+    }, {
+      image: "assets/photos/jeunesse-etude.jpg",
+      platform: "Facebook",
+      tag: "Reel · NextGen",
+      title: "Camp jeunesse 2026",
+      link: "https://www.facebook.com/cepeng/videos"
+    }, {
+      image: "assets/photos/serie/pe-58.jpg",
+      platform: "TikTok",
+      tag: "Lingala worship",
+      title: "Nzambe na ngai",
+      link: "https://www.tiktok.com/@paroleternellengiringiri"
+    }, {
+      image: "assets/photos/serie/pe-08.jpg",
+      platform: "YouTube",
+      tag: "Short",
+      title: "La prière qui change tout",
+      link: "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts"
+    }, {
+      image: "assets/photos/accueil-entree.jpg",
+      platform: "TikTok",
+      tag: "Coulisses",
+      title: "Avant le culte du dimanche",
+      link: "https://www.tiktok.com/@paroleternellengiringiri"
+    }, {
+      image: "assets/photos/sainte-cene.jpg",
+      platform: "Facebook",
+      tag: "Reel",
+      title: "Baptêmes · joie pure",
+      link: "https://www.facebook.com/cepeng/videos"
+    }]
+  };
+  const [reels, setReels] = React.useState(null);
+  React.useEffect(() => {
+    let alive = true;
+    window.peContent("reels", FALLBACK).then(d => {
+      const list = (d && Array.isArray(d.reels) ? d.reels : FALLBACK.reels).filter(r => r && r.title && r.link).map((r, i) => ({
+        id: "reel-" + (i + 1),
+        img: r.image || "assets/logo-original.png",
+        platform: r.platform || "TikTok",
+        tag: r.tag || "",
+        title: r.title,
+        href: r.link
+      }));
+      if (alive) setReels(list);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
   const platformBadge = p => {
     if (p === "TikTok") return {
       bg: "#000",
@@ -118,8 +130,8 @@ function Reels() {
     style: {
       width: "max-content"
     }
-  }, reels.map((r, i) => /*#__PURE__*/React.createElement(ReelCard, {
-    key: i,
+  }, (reels || []).map((r, i) => /*#__PURE__*/React.createElement(ReelCard, {
+    key: r.id + r.href,
     ...r,
     idx: i + 1,
     badge: platformBadge(r.platform)

@@ -1,37 +1,80 @@
 function Program() {
-  // Juillet 2026 — mois du Jubilé (08 juillet – 02 août) + rythme hebdomadaire réel
-  const events = [
-    { d: 1,  day: "MER", h: "17:00", title: "Étude biblique · La Parole qui demeure",   tag: "Étude",      color: "azur",   icon: <I.Bible/>,   duration: "2h00", ministers: "Équipe pastorale" },
-    { d: 3,  day: "VEN", h: "12:30", title: "Module de prière · Intercession",         tag: "Prière",     color: "rose",   icon: <I.Flame/>,   duration: "2h30", ministers: "Min. Intercession" },
-    { d: 3,  day: "VEN", h: "17:00", title: "Vendredi Ngomba · Soirée de puissance",   tag: "Prière",     color: "rose",   icon: <I.Flame/>,   duration: "2h30", ministers: "Tous les pasteurs" },
-    { d: 5,  day: "DIM", h: "07:30", title: "Culte dominical · 1ᵉʳ service",           tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Past. Raphaël Kaseya Bin Moningo" },
-    { d: 5,  day: "DIM", h: "10:00", title: "Culte dominical · 2ᵉ service",            tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Équipe pastorale" },
-    { d: 8,  day: "MER", h: "17:00", title: "Jubilé 2026 · Ouverture officielle",      tag: "Conférence", color: "or",     icon: <I.Mic/>,     duration: "3h00", ministers: "Past. Raphaël Kaseya Bin Moningo" },
-    { d: 10, day: "VEN", h: "12:30", title: "Module de prière · Spécial Jubilé",       tag: "Prière",     color: "rose",   icon: <I.Flame/>,   duration: "2h30", ministers: "Min. Intercession" },
-    { d: 10, day: "VEN", h: "17:00", title: "Soirée du Jubilé · Louange & Parole",     tag: "Conférence", color: "or",     icon: <I.Mic/>,     duration: "3h00", ministers: "Past. Kondo Wa Kondo · invité" },
-    { d: 12, day: "DIM", h: "07:30", title: "Culte du Jubilé · 1ᵉʳ service",           tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Past. Raphaël Kaseya Bin Moningo" },
-    { d: 12, day: "DIM", h: "10:00", title: "Culte du Jubilé · 2ᵉ service",            tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Past. Kondo Wa Kondo · invité" },
-    { d: 15, day: "MER", h: "17:00", title: "Étude biblique · Genèse 18:14",           tag: "Étude",      color: "azur",   icon: <I.Bible/>,   duration: "2h00", ministers: "Équipe pastorale" },
-    { d: 17, day: "VEN", h: "17:00", title: "Soirée du Jubilé · Y a-t-il rien d'étonnant ?", tag: "Conférence", color: "or", icon: <I.Mic/>,  duration: "3h00", ministers: "Past. Dieudonné Mongu · invité" },
-    { d: 18, day: "SAM", h: "16:00", title: "Jeunesse · Soirée NextGen",               tag: "Jeunesse",   color: "violet", icon: <I.Sparkle/>, duration: "3h00", ministers: "Équipe NextGen" },
-    { d: 19, day: "DIM", h: "07:30", title: "Culte du Jubilé · 1ᵉʳ service",           tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Past. Dieudonné Mongu · invité" },
-    { d: 19, day: "DIM", h: "10:00", title: "Culte du Jubilé · 2ᵉ service",            tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Past. Raphaël Kaseya Bin Moningo" },
-    { d: 22, day: "MER", h: "17:00", title: "Étude biblique · Les promesses de Dieu",  tag: "Étude",      color: "azur",   icon: <I.Bible/>,   duration: "2h00", ministers: "Équipe pastorale" },
-    { d: 24, day: "VEN", h: "12:30", title: "Module de prière · Pour les familles",    tag: "Prière",     color: "rose",   icon: <I.Flame/>,   duration: "2h30", ministers: "Min. Intercession" },
-    { d: 24, day: "VEN", h: "17:00", title: "Soirée du Jubilé · Action de grâce",      tag: "Conférence", color: "or",     icon: <I.Mic/>,     duration: "3h00", ministers: "Tous les pasteurs" },
-    { d: 25, day: "SAM", h: "14:00", title: "École des enfants · Kids Royaume",        tag: "Enfants",    color: "violet", icon: <I.Sparkle/>, duration: "3h00", ministers: "Min. Kids" },
-    { d: 26, day: "DIM", h: "07:30", title: "Culte du Jubilé · 1ᵉʳ service",           tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Past. Raphaël Kaseya Bin Moningo" },
-    { d: 26, day: "DIM", h: "10:00", title: "Culte du Jubilé · 2ᵉ service",            tag: "Culte",      color: "gold",   icon: <I.Cross/>,   duration: "2h00", ministers: "Équipe pastorale" },
-    { d: 29, day: "MER", h: "17:00", title: "Étude biblique · Préparer la clôture",    tag: "Étude",      color: "azur",   icon: <I.Bible/>,   duration: "2h00", ministers: "Équipe pastorale" },
-    { d: 31, day: "VEN", h: "17:00", title: "Veillée du Jubilé · Vers la clôture",     tag: "Prière",     color: "rose",   icon: <I.Flame/>,   duration: "3h00", ministers: "Tous les pasteurs" },
-  ];
+  // Le programme vient de content/events.json (événements datés) et de
+  // content/weekly.json (rythme hebdomadaire) — tous deux modifiables depuis /admin.
+  const MONTHS = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+  const MON_ABBR = ["JANV","FÉVR","MARS","AVR","MAI","JUIN","JUIL","AOÛT","SEPT","OCT","NOV","DÉC"];
+  const DAY_ABBR = ["DIM","LUN","MAR","MER","JEU","VEN","SAM"];
+  const WEEKDAY = { dim: 0, lun: 1, mar: 2, mer: 3, jeu: 4, ven: 5, sam: 6 };
+  const ICONS = { "Culte": I.Cross, "Prière": I.Flame, "Étude": I.Bible, "Conférence": I.Mic, "Séminaire": I.Mic, "Jeunesse": I.Sparkle, "Enfants": I.Sparkle, "Louange": I.Music, "Mission": I.People };
 
+  // Filet de sécurité si content/weekly.json est illisible
+  const WEEKLY_FALLBACK = { weekly: [
+    { weekday: "mer", time: "17:00", title: "Étude biblique", category: "Étude", duration: "2h00", ministers: "Équipe pastorale" },
+    { weekday: "ven", time: "17:00", title: "Vendredi Ngomba · Soirée de puissance", category: "Prière", duration: "2h30", ministers: "Tous les pasteurs" },
+    { weekday: "dim", time: "07:30", title: "Culte dominical · 1ᵉʳ service", category: "Culte", duration: "2h00", ministers: "Équipe pastorale" },
+    { weekday: "dim", time: "10:00", title: "Culte dominical · 2ᵉ service", category: "Culte", duration: "2h00", ministers: "Équipe pastorale" },
+  ] };
+
+  const today = new Date();
+  const [cur, setCur] = React.useState({ y: today.getFullYear(), m: today.getMonth() });
+  const [data, setData] = React.useState(null);
   const [filter, setFilter] = React.useState("Tous");
   const [view, setView] = React.useState("liste"); // liste | calendrier
 
-  // Only categories that actually occur this month — no dead filters, no empty states
+  React.useEffect(() => {
+    let alive = true;
+    Promise.all([
+      window.peContent("events", { events: [] }),
+      window.peContent("weekly", WEEKLY_FALLBACK),
+    ]).then(([ev, wk]) => {
+      if (alive) setData({ events: (ev && ev.events) || [], weekly: (wk && wk.weekly) || [] });
+    });
+    return () => { alive = false; };
+  }, []);
+
+  // Construit la liste d'un mois : événements datés + rythme hebdomadaire
+  // (un événement daté remplace le rythme hebdomadaire au même jour et à la même heure)
+  const monthEvents = React.useMemo(() => {
+    if (!data) return [];
+    const { y, m } = cur;
+    const items = [];
+    const taken = {};
+    const mk = (d, e) => {
+      const category = e.category || "Culte";
+      return {
+        d, day: DAY_ABBR[new Date(y, m, d).getDay()], h: String(e.time || "").slice(0, 5),
+        title: e.title || "", tag: category, icon: ICONS[category] || I.Cross,
+        duration: e.duration || "2h00", ministers: e.ministers || "", link: e.link || "",
+      };
+    };
+    (data.events || []).forEach((e) => {
+      const mm = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(e.date || ""));
+      if (!mm || +mm[1] !== y || +mm[2] - 1 !== m) return;
+      const it = mk(+mm[3], e);
+      taken[it.d + "|" + it.h] = true;
+      items.push(it);
+    });
+    const dim = new Date(y, m + 1, 0).getDate();
+    (data.weekly || []).forEach((w) => {
+      const wd = WEEKDAY[String(w.weekday || "").toLowerCase().slice(0, 3)];
+      if (wd === undefined) return;
+      for (let d = 1; d <= dim; d++) {
+        if (new Date(y, m, d).getDay() !== wd) continue;
+        const it = mk(d, w);
+        if (taken[it.d + "|" + it.h]) continue;
+        items.push(it);
+      }
+    });
+    return items.sort((a, b) => a.d - b.d || a.h.localeCompare(b.h));
+  }, [data, cur]);
+
+  // Seulement les catégories présentes ce mois-ci — pas de filtre vide
+  const events = monthEvents;
   const filters = ["Tous", ...Array.from(new Set(events.map(e => e.tag)))];
-  const filtered = filter === "Tous" ? events : events.filter(e => e.tag === filter);
+  const activeFilter = filters.includes(filter) ? filter : "Tous";
+  const filtered = activeFilter === "Tous" ? events : events.filter(e => e.tag === activeFilter);
+  const monthLabel = MONTHS[cur.m] + " " + cur.y;
+  const goMonth = (delta) => { setFilter("Tous"); setCur(({ y, m }) => { const n = new Date(y, m + delta, 1); return { y: n.getFullYear(), m: n.getMonth() }; }); };
 
   const tagColor = (t) => ({
     "Culte":      "text-gold-200 border-gold-500/40 bg-gold-500/[.06]",
@@ -43,14 +86,14 @@ function Program() {
     "Conférence": "text-gold-200 border-gold-500/40 bg-gold-500/[.06]",
     "Séminaire":  "text-gold-200 border-gold-500/40 bg-gold-500/[.06]",
     "Enfants":    "text-violet-200 border-violet-300/30 bg-violet-300/[.04]",
-  }[t]);
+  }[t] || "text-gold-200 border-gold-500/40 bg-gold-500/[.06]");
 
   // Lien « Ajouter au calendrier » — Google Calendar, fuseau Kinshasa
   const gcal = (e) => {
-    const [hh, mm] = e.h.split(":").map(Number);
-    const [dh, dmRaw] = e.duration.split("h");
+    const [hh, mm] = (e.h || "10:00").split(":").map(Number);
+    const [dh, dmRaw] = String(e.duration).split("h");
     const mins = (parseInt(dh) || 2) * 60 + (parseInt(dmRaw) || 0);
-    const start = new Date(Date.UTC(2026, 6, e.d, hh, mm));
+    const start = new Date(Date.UTC(cur.y, cur.m, e.d, hh || 0, mm || 0));
     const end = new Date(start.getTime() + mins * 60000);
     const f = (d) => d.toISOString().replace(/[-:]/g, "").slice(0, 15);
     return "https://calendar.google.com/calendar/render?action=TEMPLATE"
@@ -67,9 +110,9 @@ function Program() {
 
         <Reveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
-            <Eyebrow className="mb-5">Programme du mois · Juillet 2026</Eyebrow>
+            <Eyebrow className="mb-5">Programme du mois · {monthLabel}</Eyebrow>
             <Heading>
-              Trente jours pour
+              Un mois pour
               <br/><em className="italic text-gold-200 font-light">rencontrer Dieu</em> ensemble.
             </Heading>
           </div>
@@ -83,12 +126,15 @@ function Program() {
         <Reveal className="mb-10 flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between border-y border-white/10 py-4">
           <div className="flex items-center gap-2 overflow-x-auto pb-1 -mx-1 px-1">
             {filters.map(f => (
-              <button key={f} onClick={() => setFilter(f)} className={`shrink-0 text-[12px] font-mono tracking-[.18em] uppercase px-3 py-1.5 rounded-full border transition ${filter === f ? "bg-gold-300 text-ink-900 border-gold-300" : "border-white/10 text-bone-300 hover:text-bone-100 hover:border-white/30"}`}>
+              <button key={f} onClick={() => setFilter(f)} className={`shrink-0 text-[12px] font-mono tracking-[.18em] uppercase px-3 py-1.5 rounded-full border transition ${activeFilter === f ? "bg-gold-300 text-ink-900 border-gold-300" : "border-white/10 text-bone-300 hover:text-bone-100 hover:border-white/30"}`}>
                 {f}
               </button>
             ))}
           </div>
           <div className="flex items-center gap-2 shrink-0">
+            <button onClick={() => goMonth(-1)} aria-label="Mois précédent" className="text-[12px] px-3 py-1.5 rounded-full border border-white/10 text-bone-300 hover:border-white/30 transition">‹</button>
+            <span className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400 px-1">{MONTHS[cur.m]}</span>
+            <button onClick={() => goMonth(1)} aria-label="Mois suivant" style={{ marginRight: 12 }} className="text-[12px] px-3 py-1.5 rounded-full border border-white/10 text-bone-300 hover:border-white/30 transition">›</button>
             <span className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400 mr-2">Vue</span>
             {["liste", "calendrier"].map(v => (
               <button key={v} onClick={() => setView(v)} className={`text-[12px] px-3 py-1.5 rounded-full border transition capitalize ${view === v ? "bg-bone-50 text-ink-900 border-bone-50" : "border-white/10 text-bone-300 hover:border-white/30"}`}>{v}</button>
@@ -99,9 +145,9 @@ function Program() {
         {view === "liste" ? (
           filtered.length === 0 ? (
             <Reveal className="border border-dashed border-white/15 py-16 px-6 text-center">
-              <div className="font-display text-[24px] md:text-[28px] text-bone-100 mb-2">Aucun événement « {filter} » en juillet</div>
-              <p className="text-[13px] text-bone-400 max-w-md mx-auto leading-relaxed">Cette catégorie est réservée aux programmes des prochains mois. Revenez bientôt ou consultez toutes les activités.</p>
-              <button onClick={() => setFilter("Tous")} className="mt-6 text-[12px] font-mono tracking-[.18em] uppercase px-4 py-2 rounded-full border border-gold-500/40 text-gold-200 hover:bg-gold-500/10 transition">Voir tout le programme</button>
+              <div className="font-display text-[24px] md:text-[28px] text-bone-100 mb-2">{data === null ? "Chargement du programme…" : `Le programme de ${MONTHS[cur.m].toLowerCase()} sera publié bientôt`}</div>
+              <p className="text-[13px] text-bone-400 max-w-md mx-auto leading-relaxed">Revenez bientôt ou consultez les autres mois avec les flèches.</p>
+              <button onClick={() => { setFilter("Tous"); setCur({ y: today.getFullYear(), m: today.getMonth() }); }} className="mt-6 text-[12px] font-mono tracking-[.18em] uppercase px-4 py-2 rounded-full border border-gold-500/40 text-gold-200 hover:bg-gold-500/10 transition">Revenir au mois en cours</button>
             </Reveal>
           ) : (
           <Reveal stagger className="grid gap-0 divide-y divide-white/5">
@@ -109,13 +155,13 @@ function Program() {
               <article key={i} className="group grid grid-cols-[80px_1fr] md:grid-cols-[100px_1fr_auto] gap-6 md:gap-10 items-center py-6 hover:bg-white/[.02] -mx-4 px-4 transition cursor-default">
                 <div className="text-center md:text-left">
                   <div className="font-display text-[44px] md:text-[56px] leading-none text-bone-50 tick">{String(e.d).padStart(2,'0')}</div>
-                  <div className="font-mono text-[10px] tracking-[.28em] uppercase text-gold-300/80 mt-1">{e.day} · JUIL</div>
+                  <div className="font-mono text-[10px] tracking-[.28em] uppercase text-gold-300/80 mt-1">{e.day} · {MON_ABBR[cur.m]}</div>
                 </div>
 
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1.5">
                     <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono tracking-[.18em] uppercase px-2 py-1 rounded-full border ${tagColor(e.tag)}`}>
-                      <span className="opacity-90">{React.cloneElement(e.icon, { width: 11, height: 11 })}</span>
+                      <span className="opacity-90">{React.createElement(e.icon, { width: 11, height: 11 })}</span>
                       {e.tag}
                     </span>
                     <span className="font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">{e.h} · {e.duration}</span>
@@ -129,14 +175,14 @@ function Program() {
                     <I.Calendar width="12" height="12"/>
                     Ajouter
                   </a>
-                  <a href="https://www.facebook.com/cepeng/" target="_blank" rel="noopener" className="text-[11px] font-mono tracking-[.18em] uppercase text-bone-400 hover:text-gold-200 transition">Détails ▸</a>
+                  <a href={e.link || "https://www.facebook.com/cepeng/"} target="_blank" rel="noopener" className="text-[11px] font-mono tracking-[.18em] uppercase text-bone-400 hover:text-gold-200 transition">Détails ▸</a>
                 </div>
               </article>
             ))}
           </Reveal>
           )
         ) : (
-          <CalendarView events={events} tagColor={tagColor} />
+          <CalendarView events={events} tagColor={tagColor} y={cur.y} m={cur.m} />
         )}
 
         {/* Subscribe strip */}
@@ -159,15 +205,12 @@ function Program() {
   );
 }
 
-function CalendarView({ events, tagColor }) {
-  // Juillet 2026 : commence un mercredi
-  const firstDay = 3; // 0=Dim, 3=Mer
-  const days = 31;
-  const cells = [];
-  for (let i = 0; i < firstDay; i++) cells.push(null);
-  for (let d = 1; d <= days; d++) cells.push(d);
-
+function CalendarView({ events, tagColor, y, m }) {
+  // Grille du mois affiché, alignée sur le lundi
+  const offset = (new Date(y, m, 1).getDay() + 6) % 7; // 0 = lundi
+  const days = new Date(y, m + 1, 0).getDate();
   const evByDay = events.reduce((acc, e) => { (acc[e.d] = acc[e.d] || []).push(e); return acc; }, {});
+  const now = new Date();
 
   return (
     <Reveal>
@@ -175,15 +218,12 @@ function CalendarView({ events, tagColor }) {
         {["LUN","MAR","MER","JEU","VEN","SAM","DIM"].map(d => (
           <div key={d} className="bg-ink-700 py-3 text-center font-mono text-[10px] tracking-[.22em] uppercase text-bone-400">{d}</div>
         ))}
-        {/* Alignement lundi : le 1ᵉʳ juillet 2026 est un mercredi → décalage de 2 */}
-        {Array.from({length: 2}).map((_, i) => <div key={"e"+i} className="bg-ink-800 min-h-[64px] sm:min-h-[110px]"></div>)}
-        {Array.from({length: 31}).map((_, i) => {
+        {Array.from({length: offset}).map((_, i) => <div key={"e"+i} className="bg-ink-800 min-h-[64px] sm:min-h-[110px]"></div>)}
+        {Array.from({length: days}).map((_, i) => {
           const d = i + 1;
           const evs = evByDay[d] || [];
-          // Marque le vrai jour courant, et seulement si l'on se trouve
-          // effectivement dans le mois affiché (juillet 2026).
-          const now = new Date();
-          const isToday = now.getFullYear() === 2026 && now.getMonth() === 6 && now.getDate() === d;
+          // Marque le vrai jour courant, seulement dans le mois affiché.
+          const isToday = now.getFullYear() === y && now.getMonth() === m && now.getDate() === d;
           return (
             <div key={d} className={`bg-ink-700 min-h-[64px] sm:min-h-[110px] p-1 sm:p-2 flex flex-col gap-1 ${isToday ? "ring-1 ring-gold-400 ring-inset" : ""}`}>
               <div className="flex items-center justify-between">

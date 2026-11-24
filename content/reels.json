@@ -1,0 +1,60 @@
+{
+  "reels": [
+    {
+      "image": "assets/photos/chorale-scene.jpg",
+      "platform": "TikTok",
+      "tag": "Worship Live",
+      "title": "« Eternel mon Roc »",
+      "link": "https://www.tiktok.com/@paroleternellengiringiri"
+    },
+    {
+      "image": "assets/photos/serie/pe-17.jpg",
+      "platform": "TikTok",
+      "tag": "Extrait prédication",
+      "title": "L'autorité du croyant",
+      "link": "https://www.tiktok.com/@paroleternellengiringiri"
+    },
+    {
+      "image": "assets/photos/serie/pe-68.jpg",
+      "platform": "TikTok",
+      "tag": "Témoignage",
+      "title": "Restaurée par Sa grâce",
+      "link": "https://www.tiktok.com/@paroleternellengiringiri"
+    },
+    {
+      "image": "assets/photos/jeunesse-etude.jpg",
+      "platform": "Facebook",
+      "tag": "Reel · NextGen",
+      "title": "Camp jeunesse 2026",
+      "link": "https://www.facebook.com/cepeng/videos"
+    },
+    {
+      "image": "assets/photos/serie/pe-58.jpg",
+      "platform": "TikTok",
+      "tag": "Lingala worship",
+      "title": "Nzambe na ngai",
+      "link": "https://www.tiktok.com/@paroleternellengiringiri"
+    },
+    {
+      "image": "assets/photos/serie/pe-08.jpg",
+      "platform": "YouTube",
+      "tag": "Short",
+      "title": "La prière qui change tout",
+      "link": "https://www.youtube.com/channel/UCPmV9FMnv9imGbnxJdFiMcw/shorts"
+    },
+    {
+      "image": "assets/photos/accueil-entree.jpg",
+      "platform": "TikTok",
+      "tag": "Coulisses",
+      "title": "Avant le culte du dimanche",
+      "link": "https://www.tiktok.com/@paroleternellengiringiri"
+    },
+    {
+      "image": "assets/photos/sainte-cene.jpg",
+      "platform": "Facebook",
+      "tag": "Reel",
+      "title": "Baptêmes · joie pure",
+      "link": "https://www.facebook.com/cepeng/videos"
+    }
+  ]
+}

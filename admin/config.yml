@@ -1,0 +1,177 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Panneau d'administration — C.E. Parole Éternelle Ngiri-Ngiri
+# Outil : Decap CMS (libre, gratuit). Chaque formulaire modifie un fichier du
+# dossier content/ ; la page d'accueil lit ces fichiers. Après « Publier », le
+# site se met à jour tout seul en 1 à 3 minutes.
+# ─────────────────────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: christkasseyet-design/parole-eternelle-website
+  branch: main
+  base_url: https://REMPLACER-PAR-L-ADRESSE-DU-SERVEUR-DE-CONNEXION
+  auth_endpoint: auth
+  commit_messages:
+    create: "Contenu : ajout dans « {{collection}} » (via /admin)"
+    update: "Contenu : modification de « {{collection}} » (via /admin)"
+    delete: "Contenu : suppression dans « {{collection}} » (via /admin)"
+    uploadMedia: "Média : ajout de {{path}} (via /admin)"
+    deleteMedia: "Média : suppression de {{path}} (via /admin)"
+
+locale: fr
+publish_mode: simple
+site_url: https://paroleeternelle.com
+display_url: https://paroleeternelle.com
+logo_url: https://paroleeternelle.com/assets/icon-192.png
+
+# Les nouvelles photos envoyées depuis le panneau arrivent dans ce dossier
+media_folder: assets/photos/ajouts
+public_folder: assets/photos/ajouts
+
+collections:
+
+  # ───────────────────────────── PROGRAMME ─────────────────────────────
+  - name: programme
+    label: "Programme"
+    label_singular: "Programme"
+    description: "Les horaires affichés dans la section « Programme » du site."
+    files:
+      - name: events
+        label: "Événements spéciaux (datés)"
+        file: content/events.json
+        format: json
+        fields:
+          - label: "Événements"
+            label_singular: "Événement"
+            name: events
+            widget: list
+            add_to_top: true
+            summary: "{{fields.date}} · {{fields.time}} · {{fields.title}}"
+            hint: "Un culte spécial, une conférence, une soirée de jeunesse… Si un événement tombe le même jour et à la même heure qu'un rendez-vous hebdomadaire, il le remplace (pratique pour donner un titre précis à un culte)."
+            fields:
+              - { label: "Date", name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Heure", name: time, widget: string, hint: "Au format 17:00 ou 07:30", pattern: ["^([01]\\d|2[0-3]):[0-5]\\d$", "Écrivez l'heure comme 17:00 ou 07:30"] }
+              - { label: "Titre", name: title, widget: string }
+              - { label: "Catégorie", name: category, widget: select, options: ["Culte", "Prière", "Étude", "Conférence", "Séminaire", "Jeunesse", "Enfants", "Louange", "Mission"], default: "Culte" }
+              - { label: "Durée", name: duration, widget: string, default: "2h00", hint: "Par exemple 2h00 ou 2h30" }
+              - { label: "Orateur / ministère", name: ministers, widget: string, required: false }
+              - { label: "Lien « Détails » (facultatif)", name: link, widget: string, required: false, hint: "Adresse complète d'une page ou d'une publication Facebook. Vide = page Facebook de l'église." }
+
+      - name: weekly
+        label: "Rythme de la semaine (chaque semaine)"
+        file: content/weekly.json
+        format: json
+        fields:
+          - label: "Rendez-vous hebdomadaires"
+            label_singular: "Rendez-vous"
+            name: weekly
+            widget: list
+            summary: "{{fields.weekday}} · {{fields.time}} · {{fields.title}}"
+            hint: "Ces rendez-vous apparaissent automatiquement chaque semaine, dans tous les mois."
+            fields:
+              - label: "Jour"
+                name: weekday
+                widget: select
+                options:
+                  - { label: "Lundi", value: "lun" }
+                  - { label: "Mardi", value: "mar" }
+                  - { label: "Mercredi", value: "mer" }
+                  - { label: "Jeudi", value: "jeu" }
+                  - { label: "Vendredi", value: "ven" }
+                  - { label: "Samedi", value: "sam" }
+                  - { label: "Dimanche", value: "dim" }
+              - { label: "Heure", name: time, widget: string, hint: "Au format 17:00 ou 07:30", pattern: ["^([01]\\d|2[0-3]):[0-5]\\d$", "Écrivez l'heure comme 17:00 ou 07:30"] }
+              - { label: "Titre", name: title, widget: string }
+              - { label: "Catégorie", name: category, widget: select, options: ["Culte", "Prière", "Étude", "Conférence", "Séminaire", "Jeunesse", "Enfants", "Louange", "Mission"], default: "Culte" }
+              - { label: "Durée", name: duration, widget: string, default: "2h00" }
+              - { label: "Orateur / ministère", name: ministers, widget: string, required: false }
+
+  # ───────────────────────────── PAGE D'ACCUEIL ─────────────────────────────
+  - name: accueil
+    label: "Page d'accueil"
+    label_singular: "Page d'accueil"
+    description: "Le grand bandeau d'événement, la vidéo à la une et les reels."
+    files:
+      - name: highlight
+        label: "Bandeau « événement phare »"
+        file: content/highlight.json
+        format: json
+        fields:
+          - { label: "Afficher ce bandeau sur le site", name: visible, widget: boolean, default: true, hint: "Décochez pour le cacher quand l'événement est terminé." }
+          - { label: "Petit titre au-dessus", name: eyebrow, widget: string, required: false }
+          - { label: "Titre (mots blancs)", name: title_main, widget: string }
+          - { label: "Titre (mots dorés, par ex. l'année)", name: title_accent, widget: string, required: false }
+          - { label: "Verset ou citation", name: quote, widget: string, required: false }
+          - { label: "Référence (verset, thème)", name: reference, widget: string, required: false }
+          - { label: "Texte de présentation", name: text, widget: text, required: false }
+          - { label: "Informations pratiques (dates, horaires, lieu)", label_singular: "Information", name: infos, widget: list, field: { label: "Information", name: info, widget: string }, required: false }
+          - { label: "Affiche", name: poster, widget: image, required: false, hint: "Format portrait de préférence (7 × 10)." }
+          - { label: "Description de l'affiche", name: poster_label, widget: string, required: false }
+          - { label: "Bouton 1 · texte", name: button1_label, widget: string, required: false }
+          - { label: "Bouton 1 · lien", name: button1_link, widget: string, required: false, hint: "Par ex. #programmes (descend au programme) ou une adresse complète." }
+          - { label: "Bouton 2 · texte", name: button2_label, widget: string, required: false }
+          - { label: "Bouton 2 · lien", name: button2_link, widget: string, required: false }
+
+      - name: featured
+        label: "Vidéo à la une"
+        file: content/featured.json
+        format: json
+        fields:
+          - { label: "Lien YouTube de la vidéo", name: url, widget: string, hint: "Copiez l'adresse de la vidéo sur YouTube, par ex. https://www.youtube.com/watch?v=..." }
+          - { label: "Titre affiché", name: title, widget: string }
+          - { label: "Prédicateur", name: speaker, widget: string }
+          - { label: "Série / description courte", name: series, widget: string, required: false }
+
+      - name: reels
+        label: "Reels (TikTok, Facebook, YouTube)"
+        file: content/reels.json
+        format: json
+        fields:
+          - label: "Reels"
+            label_singular: "Reel"
+            name: reels
+            widget: list
+            add_to_top: true
+            summary: "{{fields.platform}} · {{fields.title}}"
+            hint: "Mettez une image de couverture et le lien de la vidéo : un clic sur la carte ouvre la vidéo sur sa plateforme."
+            fields:
+              - { label: "Image de couverture", name: image, widget: image, hint: "Format vertical 9:16 de préférence." }
+              - { label: "Plateforme", name: platform, widget: select, options: ["TikTok", "Facebook", "YouTube"], default: "TikTok" }
+              - { label: "Étiquette (ex. Témoignage)", name: tag, widget: string, required: false }
+              - { label: "Titre", name: title, widget: string }
+              - { label: "Lien de la vidéo", name: link, widget: string }
+
+  # ───────────────────────────── GALERIE ─────────────────────────────
+  - name: galerie
+    label: "Galerie photos"
+    label_singular: "Galerie"
+    description: "Les albums photos du site (page d'accueil et page « Galerie »)."
+    files:
+      - name: albums
+        label: "Albums et photos"
+        file: content/galerie.json
+        format: json
+        fields:
+          - label: "Albums"
+            label_singular: "Album"
+            name: albums
+            widget: list
+            collapsed: true
+            summary: "{{fields.name}}"
+            hint: "Ouvrez un album pour ajouter des photos (bouton « Ajouter photo »). Les nouvelles photos arrivent en premier."
+            fields:
+              - { label: "Identifiant", name: key, widget: string, pattern: ["^[a-z0-9-]+$", "Seulement des lettres minuscules, chiffres et tirets (ex. jubile-2027)"], hint: "Court, sans espace ni accent. Ne le changez pas pour un album existant." }
+              - { label: "Nom de l'album", name: name, widget: string }
+              - { label: "Nom court (filtre de la page d'accueil)", name: short, widget: string, required: false }
+              - { label: "Description", name: desc, widget: string, required: false }
+              - { label: "Photo de couverture", name: cover, widget: image }
+              - label: "Photos"
+                label_singular: "Photo"
+                name: photos
+                widget: list
+                add_to_top: true
+                collapsed: true
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "Photo", name: image, widget: image }
+                  - { label: "Légende", name: label, widget: string }

@@ -7,6 +7,22 @@ Tout y est expliqué simplement, étape par étape.
 
 ---
 
+## 0. Nouveau : le panneau d'administration (recommandé pour le quotidien)
+
+Programme, photos, reels, vidéo à la une et bandeau d'événement se modifient
+désormais **sans toucher au code**, depuis `https://paroleeternelle.com/admin`.
+Mode d'emploi pour l'éditeur : `GUIDE-ADMIN.md`.
+
+Techniquement : le panneau (Decap CMS) modifie les fichiers du dossier
+`content/` (`events.json`, `weekly.json`, `highlight.json`, `featured.json`,
+`reels.json`, `galerie.json`). Les sections du site les lisent au chargement.
+Les formulaires sont définis dans `admin/config.yml`.
+
+Les tableaux « Programme des cultes », « Nouvelles photos » (section 3 plus bas)
+ne sont donc plus à modifier à la main dans `Program.jsx` ou `galerie.html`.
+
+---
+
 ## 1. La règle la plus importante : recompiler après chaque modification
 
 Le site ne compile plus rien dans le navigateur — c'est ce qui le rend rapide.
@@ -67,9 +83,9 @@ script ne pèse que 3 Ko — important pour les connexions lentes à Kinshasa.
 
 | Quoi | Où | Quand | Recompiler ? |
 |---|---|---|---|
-| Programme des cultes | `sections/Program.jsx` | chaque mois | oui (.js) |
+| Programme des cultes | panneau `/admin` → Programme | chaque mois | non |
 | Questions du concours | `concours-app.js` | chaque mois | non |
-| Nouvelles photos | `assets/photos/` + `galerie.html` | selon les événements | non |
+| Nouvelles photos | panneau `/admin` → Galerie photos | selon les événements | non |
 | Réponses de l'assistant | `components/SupportBot.jsx` | au besoin | oui (.js) |
 | Traductions | `i18n.js` | au besoin | non |
 

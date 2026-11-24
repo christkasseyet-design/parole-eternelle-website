@@ -1,6 +1,7 @@
 // Galerie — mosaïque de diaporamas : chaque tuile fait défiler des dizaines de
 // photos en fondu enchaîné + léger zoom (Ken Burns). Clic = plein écran.
-const G_POOL = (() => {
+// Photos de secours (si content/galerie.json est illisible)
+const G_POOL_FALLBACK = (() => {
   const mk = (tag, list) => list.map((s) => {
     const i = s.indexOf('|'), f = s.slice(0, i), l = s.slice(i + 1);
     return { src: f.startsWith('assets/') ? f : 'assets/photos/' + f, label: l, tag };
@@ -79,6 +80,17 @@ const G_POOL = (() => {
   );
 })();
 
+// Transforme content/galerie.json (albums → photos) en liste plate de photos
+function galleryPoolFrom(d) {
+  if (!d || !Array.isArray(d.albums)) return null;
+  const out = [];
+  d.albums.forEach((a) => {
+    const tag = a.short || a.name;
+    (a.photos || []).forEach((p) => { if (p && p.image) out.push({ src: p.image, label: p.label || "", tag }); });
+  });
+  return out.length ? out : null;
+}
+
 // mélange déterministe (même ordre à chaque visite, pas de saut au re-render)
 function gShuffle(arr, seed) {
   const a = arr.slice();
@@ -141,7 +153,15 @@ function SlideTile({ queue, delay, interval, playing, onOpen, className, cover }
 }
 
 function Gallery() {
-  const albums = ["Tous", "Culte", "Louange", "Enfants", "Jeunesse & Étude", "Jubilé 2026", "Événements", "Temple"];
+  // Les photos viennent de content/galerie.json (modifiable depuis /admin)
+  const [pool, setPool] = React.useState(null);
+  React.useEffect(() => {
+    let alive = true;
+    window.peContent("galerie", null).then((d) => { if (alive) setPool(galleryPoolFrom(d) || G_POOL_FALLBACK); });
+    return () => { alive = false; };
+  }, []);
+  const G_POOL = pool || [];
+  const albums = ["Tous", ...Array.from(new Set(G_POOL.map((p) => p.tag)))];
   const [album, setAlbum] = React.useState("Tous");
   const [playing, setPlaying] = React.useState(true);
   const [awake, setAwake] = React.useState(true); // onglet actif + section proche de l'écran
@@ -169,7 +189,7 @@ function Gallery() {
 
   const shown = React.useMemo(
     () => (album === "Tous" ? G_POOL : G_POOL.filter((p) => p.tag === album)),
-    [album]
+    [album, pool]
   );
 
   // 6 files d'attente réparties sur les tuiles
@@ -196,6 +216,9 @@ function Gallery() {
 
   const openPhoto = (it) => setOpen(Math.max(0, shown.findIndex((p) => p.src === it.src)));
   const spans = ["gt-a", "gt-b", "gt-c", "gt-d", "gt-e", "gt-f"];
+
+  // Pendant le chargement : un cadre vide de même hauteur (pas de saut de page)
+  if (pool === null) return <section id="galerie" ref={secRef} data-screen-label="Galerie" className="sec-light relative bg-ink-800" style={{ minHeight: 900 }}></section>;
 
   return (
     <section id="galerie" ref={secRef} data-screen-label="Galerie" className="sec-light relative bg-ink-800 py-28 md:py-40">

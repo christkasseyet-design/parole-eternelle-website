@@ -1,6 +1,7 @@
 // Galerie — mosaïque de diaporamas : chaque tuile fait défiler des dizaines de
 // photos en fondu enchaîné + léger zoom (Ken Burns). Clic = plein écran.
-const G_POOL = (() => {
+// Photos de secours (si content/galerie.json est illisible)
+const G_POOL_FALLBACK = (() => {
   const mk = (tag, list) => list.map(s => {
     const i = s.indexOf('|'),
       f = s.slice(0, i),
@@ -13,6 +14,23 @@ const G_POOL = (() => {
   });
   return [].concat(mk("Culte", ["culte-assemblee-2.jpg|L'assemblée au culte", "culte-assemblee-1.jpg|Recueillement", "pasteur-predication-1.jpg|Prédication · Past. Raphaël Kaseya", "pasteur-predication-2.jpg|Past. Kaseya au pupitre", "sainte-cene.jpg|Sainte cène", "femmes-culte.jpg|Les sœurs au culte", "accueil-entree.jpg|L'accueil à l'entrée", "pasteurs-adoration.jpg|L'équipe pastorale", "couple-pastoral-sourire.jpg|Nos pasteurs · Raphaël & Denise", "accolade-pasteurs.jpg|Accueil d'un serviteur de Dieu", "serie/pe-21.jpg|L'assemblée, mains levées", "serie/pe-22.jpg|Le temple plein au culte", "serie/pe-23.jpg|Les sœurs dans l'assemblée", "serie/pe-17.jpg|Prédication au pupitre", "serie/pe-18.jpg|Interprétation en langue des signes", "serie/pe-08.jpg|La Parole prêchée", "serie/pe-72.jpg|La Bible ouverte au pupitre", "serie/pe-74.jpg|Avec sa Bible, dans l'assemblée", "serie/pe-76.jpg|Le message du dimanche", "serie/pe-02.jpg|Recueillement avant le culte"]), mk("Louange", ["chorale-danse.jpg|La chorale en mouvement", "chorale-scene.jpg|Sur scène", "chorale-femmes.jpg|Le chœur des sœurs", "orchestre-guitare.jpg|L'orchestre au service", "louange-assemblee-nb.jpg|Toute l'assemblée", "hommes-louange-nb.jpg|Les hommes dans la louange", "pasteur-adoration.jpg|Past. Kaseya dans l'adoration", "serie/pe-03.jpg|Dans l'adoration", "serie/pe-58.jpg|Les voix du chœur", "serie/pe-59.jpg|Le conducteur de louange", "serie/pe-67.jpg|Chant au pupitre", "serie/pe-20.jpg|L'équipe de louange", "serie/pe-13.jpg|Journée Louange & Adoration"]), mk("Enfants", ["enfants-mains-1.jpg|Mains levées", "enfants-mains-2.jpg|Évaluation · tous ensemble", "enfants-classe-1.jpg|Les petits en classe", "enfants-question.jpg|Une réponse !", "enfants-mains-nb.jpg|École du dimanche", "serie/pe-25.jpg|Prière d'un jeune", "serie/pe-26.jpg|La monitrice avec les petits", "serie/pe-27.jpg|Regard attentif", "serie/pe-28.jpg|À l'école du dimanche", "serie/pe-30.jpg|Mains jointes", "serie/pe-31.jpg|Sourires du Royaume", "serie/pe-32.jpg|La Bible entre les mains", "serie/pe-33.jpg|À l'écoute de la Parole", "serie/pe-34.jpg|Les garçons du Royaume", "serie/pe-35.jpg|Toute la classe", "serie/pe-36.jpg|Prière des enfants"]), mk("Jeunesse & Étude", ["jeunesse-etude.jpg|Jeunesse à l'écoute", "etude-bible-notes.jpg|La Parole ouverte", "pasteur-etude-biblique.jpg|Étude biblique · enseignement", "mission-ecole-1.jpg|Mission · dans les écoles", "mission-ecole-2.jpg|Évangélisation scolaire", "serie/pe-29.jpg|Les jeunes dans la prière", "serie/pe-06.jpg|NextGen · portrait", "serie/pe-41.jpg|« Jésus-Christ est Seigneur »"]), mk("Jubilé 2026", ["assets/jubile-affiche.jpg|Affiche officielle · Jubilé 2026", "pasteur-jubile-pupitre.jpg|Au pupitre du Jubilé", "serie/pe-09.jpg|Affiche · Jubilé 2026", "serie/pe-10.jpg|Past. Raphaël Kaseya Bin Moningo", "serie/pe-11.jpg|Past. Kondo Wa Kondo · invité", "serie/pe-12.jpg|Past. Dieudonné Mongu · invité", "serie/pe-14.jpg|Jubilé · Jour 6", "serie/pe-37.jpg|Jubilé · Jour 2", "serie/pe-15.jpg|Déblocage du mois de juillet", "serie/pe-40.jpg|L'écharpe du Jubilé", "serie/pe-42.jpg|Ferveur dans la prière", "serie/pe-44.jpg|Exhortation des sœurs", "serie/pe-50.jpg|Past. Mongu au micro", "serie/pe-51.jpg|La prédication du soir", "serie/pe-52.jpg|Sous les couleurs du Jubilé", "serie/pe-53.jpg|Moment solennel", "serie/pe-54.jpg|Les invitées d'honneur", "serie/pe-61.jpg|Enseignement · Jour 3", "serie/pe-62.jpg|Joie entre serviteurs", "serie/pe-63.jpg|Les hôtes du Jubilé", "serie/pe-64.jpg|La Parole au centre", "serie/pe-65.jpg|Le temple comble", "serie/pe-66.jpg|« Y a-t-il rien d'étonnant… »", "serie/pe-70.jpg|La banderole sur l'avenue Monkoto", "serie/pe-77.jpg|Ministration du Jubilé", "serie/pe-46.jpg|« Ni ton âge, ni ton corps »", "serie/pe-47.jpg|« Rien d'étonnant pour Dieu »", "serie/pe-48.jpg|« La grandeur de ton problème »", "serie/pe-49.jpg|« Celui qui a créé l'or »", "serie/pe-55.jpg|« Dieu parle toujours »", "serie/pe-56.jpg|« La bénédiction »", "serie/pe-57.jpg|« Une seule manière d'agir »"]), mk("Événements", ["mariage-ngomba.jpg|Mariage chrétien · Vendredi Ngomba", "couple-pastoral-priere.jpg|Couple pastoral dans la prière", "serie/pe-01.jpg|L'accolade fraternelle", "serie/pe-04.jpg|Arrivée des serviteurs de Dieu", "serie/pe-05.jpg|Prière de départ", "serie/pe-07.jpg|Le service dans l'humilité", "serie/pe-19.jpg|L'équipe d'accueil et parking", "serie/pe-24.jpg|Protocole au service", "serie/pe-38.jpg|Anniversaire · Sylver Beyo", "serie/pe-43.jpg|Devant le temple", "serie/pe-45.jpg|Élégance du dimanche", "serie/pe-60.jpg|En famille après le culte", "serie/pe-69.jpg|L'assistance en plein air", "serie/pe-71.jpg|Le public du soir", "serie/pe-73.jpg|Invités dans la joie", "serie/pe-75.jpg|Sur l'avenue, après le culte", "serie/pe-68.jpg|Témoignage au micro", "serie/pe-39.jpg|Exhortation du soir"]), mk("Temple", ["assets/temple-projet.jpg|Le futur temple · maquette", "temple-affiche.jpg|Coordonnées de transfert", "pasteur-temple-message.jpg|« Levons-nous et bâtissons »"]));
 })();
+
+// Transforme content/galerie.json (albums → photos) en liste plate de photos
+function galleryPoolFrom(d) {
+  if (!d || !Array.isArray(d.albums)) return null;
+  const out = [];
+  d.albums.forEach(a => {
+    const tag = a.short || a.name;
+    (a.photos || []).forEach(p => {
+      if (p && p.image) out.push({
+        src: p.image,
+        label: p.label || "",
+        tag
+      });
+    });
+  });
+  return out.length ? out : null;
+}
 
 // mélange déterministe (même ordre à chaque visite, pas de saut au re-render)
 function gShuffle(arr, seed) {
@@ -118,7 +136,19 @@ function SlideTile({
   }));
 }
 function Gallery() {
-  const albums = ["Tous", "Culte", "Louange", "Enfants", "Jeunesse & Étude", "Jubilé 2026", "Événements", "Temple"];
+  // Les photos viennent de content/galerie.json (modifiable depuis /admin)
+  const [pool, setPool] = React.useState(null);
+  React.useEffect(() => {
+    let alive = true;
+    window.peContent("galerie", null).then(d => {
+      if (alive) setPool(galleryPoolFrom(d) || G_POOL_FALLBACK);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  const G_POOL = pool || [];
+  const albums = ["Tous", ...Array.from(new Set(G_POOL.map(p => p.tag)))];
   const [album, setAlbum] = React.useState("Tous");
   const [playing, setPlaying] = React.useState(true);
   const [awake, setAwake] = React.useState(true); // onglet actif + section proche de l'écran
@@ -144,7 +174,7 @@ function Gallery() {
       document.removeEventListener("visibilitychange", check);
     };
   }, []);
-  const shown = React.useMemo(() => album === "Tous" ? G_POOL : G_POOL.filter(p => p.tag === album), [album]);
+  const shown = React.useMemo(() => album === "Tous" ? G_POOL : G_POOL.filter(p => p.tag === album), [album, pool]);
 
   // 6 files d'attente réparties sur les tuiles
   const queues = React.useMemo(() => {
@@ -173,6 +203,17 @@ function Gallery() {
   }, [open, shown]);
   const openPhoto = it => setOpen(Math.max(0, shown.findIndex(p => p.src === it.src)));
   const spans = ["gt-a", "gt-b", "gt-c", "gt-d", "gt-e", "gt-f"];
+
+  // Pendant le chargement : un cadre vide de même hauteur (pas de saut de page)
+  if (pool === null) return /*#__PURE__*/React.createElement("section", {
+    id: "galerie",
+    ref: secRef,
+    "data-screen-label": "Galerie",
+    className: "sec-light relative bg-ink-800",
+    style: {
+      minHeight: 900
+    }
+  });
   return /*#__PURE__*/React.createElement("section", {
     id: "galerie",
     ref: secRef,

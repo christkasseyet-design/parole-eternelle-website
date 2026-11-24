@@ -1,0 +1,36 @@
+{
+  "weekly": [
+    {
+      "weekday": "mer",
+      "time": "17:00",
+      "title": "Étude biblique",
+      "category": "Étude",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "weekday": "ven",
+      "time": "17:00",
+      "title": "Vendredi Ngomba · Soirée de puissance",
+      "category": "Prière",
+      "duration": "2h30",
+      "ministers": "Tous les pasteurs"
+    },
+    {
+      "weekday": "dim",
+      "time": "07:30",
+      "title": "Culte dominical · 1ᵉʳ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "weekday": "dim",
+      "time": "10:00",
+      "title": "Culte dominical · 2ᵉ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    }
+  ]
+}

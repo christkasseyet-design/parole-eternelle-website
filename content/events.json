@@ -1,0 +1,188 @@
+{
+  "events": [
+    {
+      "date": "2026-07-01",
+      "time": "17:00",
+      "title": "Étude biblique · La Parole qui demeure",
+      "category": "Étude",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "date": "2026-07-03",
+      "time": "12:30",
+      "title": "Module de prière · Intercession",
+      "category": "Prière",
+      "duration": "2h30",
+      "ministers": "Min. Intercession"
+    },
+    {
+      "date": "2026-07-03",
+      "time": "17:00",
+      "title": "Vendredi Ngomba · Soirée de puissance",
+      "category": "Prière",
+      "duration": "2h30",
+      "ministers": "Tous les pasteurs"
+    },
+    {
+      "date": "2026-07-05",
+      "time": "07:30",
+      "title": "Culte dominical · 1ᵉʳ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Past. Raphaël Kaseya Bin Moningo"
+    },
+    {
+      "date": "2026-07-05",
+      "time": "10:00",
+      "title": "Culte dominical · 2ᵉ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "date": "2026-07-08",
+      "time": "17:00",
+      "title": "Jubilé 2026 · Ouverture officielle",
+      "category": "Conférence",
+      "duration": "3h00",
+      "ministers": "Past. Raphaël Kaseya Bin Moningo"
+    },
+    {
+      "date": "2026-07-10",
+      "time": "12:30",
+      "title": "Module de prière · Spécial Jubilé",
+      "category": "Prière",
+      "duration": "2h30",
+      "ministers": "Min. Intercession"
+    },
+    {
+      "date": "2026-07-10",
+      "time": "17:00",
+      "title": "Soirée du Jubilé · Louange & Parole",
+      "category": "Conférence",
+      "duration": "3h00",
+      "ministers": "Past. Kondo Wa Kondo · invité"
+    },
+    {
+      "date": "2026-07-12",
+      "time": "07:30",
+      "title": "Culte du Jubilé · 1ᵉʳ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Past. Raphaël Kaseya Bin Moningo"
+    },
+    {
+      "date": "2026-07-12",
+      "time": "10:00",
+      "title": "Culte du Jubilé · 2ᵉ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Past. Kondo Wa Kondo · invité"
+    },
+    {
+      "date": "2026-07-15",
+      "time": "17:00",
+      "title": "Étude biblique · Genèse 18:14",
+      "category": "Étude",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "date": "2026-07-17",
+      "time": "17:00",
+      "title": "Soirée du Jubilé · Y a-t-il rien d'étonnant ?",
+      "category": "Conférence",
+      "duration": "3h00",
+      "ministers": "Past. Dieudonné Mongu · invité"
+    },
+    {
+      "date": "2026-07-18",
+      "time": "16:00",
+      "title": "Jeunesse · Soirée NextGen",
+      "category": "Jeunesse",
+      "duration": "3h00",
+      "ministers": "Équipe NextGen"
+    },
+    {
+      "date": "2026-07-19",
+      "time": "07:30",
+      "title": "Culte du Jubilé · 1ᵉʳ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Past. Dieudonné Mongu · invité"
+    },
+    {
+      "date": "2026-07-19",
+      "time": "10:00",
+      "title": "Culte du Jubilé · 2ᵉ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Past. Raphaël Kaseya Bin Moningo"
+    },
+    {
+      "date": "2026-07-22",
+      "time": "17:00",
+      "title": "Étude biblique · Les promesses de Dieu",
+      "category": "Étude",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "date": "2026-07-24",
+      "time": "12:30",
+      "title": "Module de prière · Pour les familles",
+      "category": "Prière",
+      "duration": "2h30",
+      "ministers": "Min. Intercession"
+    },
+    {
+      "date": "2026-07-24",
+      "time": "17:00",
+      "title": "Soirée du Jubilé · Action de grâce",
+      "category": "Conférence",
+      "duration": "3h00",
+      "ministers": "Tous les pasteurs"
+    },
+    {
+      "date": "2026-07-25",
+      "time": "14:00",
+      "title": "École des enfants · Kids Royaume",
+      "category": "Enfants",
+      "duration": "3h00",
+      "ministers": "Min. Kids"
+    },
+    {
+      "date": "2026-07-26",
+      "time": "07:30",
+      "title": "Culte du Jubilé · 1ᵉʳ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Past. Raphaël Kaseya Bin Moningo"
+    },
+    {
+      "date": "2026-07-26",
+      "time": "10:00",
+      "title": "Culte du Jubilé · 2ᵉ service",
+      "category": "Culte",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "date": "2026-07-29",
+      "time": "17:00",
+      "title": "Étude biblique · Préparer la clôture",
+      "category": "Étude",
+      "duration": "2h00",
+      "ministers": "Équipe pastorale"
+    },
+    {
+      "date": "2026-07-31",
+      "time": "17:00",
+      "title": "Veillée du Jubilé · Vers la clôture",
+      "category": "Prière",
+      "duration": "3h00",
+      "ministers": "Tous les pasteurs"
+    }
+  ]
+}

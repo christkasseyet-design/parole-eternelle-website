@@ -1,4 +1,5 @@
-const ALBUMS = [{
+// Albums de secours — la liste réelle vient de content/galerie.json (modifiable depuis /admin).
+let ALBUMS = [{
   key: "culte",
   name: "Culte dominical",
   desc: "Dimanche 07h30 & 10h00 — prédication, communion et famille.",
@@ -373,7 +374,7 @@ const ALBUMS = [{
 }];
 const DROP_SLOTS = typeof window !== "undefined" && window.omelette && window.omelette.writeFile ? 6 : 0;
 function readHash() {
-  const m = window.location.hash.match(/album=([a-z]+)/);
+  const m = window.location.hash.match(/album=([a-z0-9-]+)/);
   return m && ALBUMS.some(a => a.key === m[1]) ? m[1] : null;
 }
 function TopBar() {
@@ -620,4 +621,13 @@ function App() {
     rel: "noopener"
   }, "YouTube")))));
 }
-ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+// Charge les albums publiés ; en cas d'échec on garde les albums de secours ci-dessus.
+fetch("content/galerie.json?v=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
+  const list = ((d && d.albums) || []).filter(a => a && a.key && a.name && Array.isArray(a.photos)).map(a => {
+    const photos = a.photos.filter(p => p && p.image).map(p => ({ src: p.image, label: p.label || "" }));
+    return { key: a.key, name: a.name, desc: a.desc || "", cover: a.cover || (photos[0] && photos[0].src) || "", photos };
+  }).filter(a => a.photos.length);
+  if (list.length) ALBUMS = list;
+}).catch(() => {}).then(() => {
+  ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+});

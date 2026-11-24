@@ -6,8 +6,9 @@ const YT_LIVE_EMBED = `https://www.youtube.com/embed/live_stream?channel=${YT_CH
 const FB_PAGE_URL = "https://www.facebook.com/cepeng/";
 const FB_VIDEOS_URL = "https://www.facebook.com/cepeng/videos";
 
-// Extrait réel de prédication — chaîne officielle Parole Eternelle Ngiri-ngiri TV
-const FEATURED_VIDEO = {
+// Vidéo à la une — modifiable depuis /admin (content/featured.json).
+// Valeur de secours si le fichier est illisible : extrait réel de la chaîne officielle.
+const FEATURED_FALLBACK = {
   id: "OBPAIOklLYg",
   title: "Extrait · Campagne « Épouse Parole »",
   speaker: "Past. Raphaël Kaseya Bin Moningo",
@@ -18,6 +19,13 @@ function Media() {
   const [tab, setTab] = React.useState("Prédications");
   const [sort, setSort] = React.useState("recent");
   const [realVids, setRealVids] = React.useState(null);
+  const [featured, setFeatured] = React.useState(null);
+  React.useEffect(() => {
+    window.peContent("featured", null).then((f) => {
+      const id = f && window.peYtId(f.url);
+      setFeatured(id ? { id, title: f.title || FEATURED_FALLBACK.title, speaker: f.speaker || FEATURED_FALLBACK.speaker, series: f.series || FEATURED_FALLBACK.series } : FEATURED_FALLBACK);
+    });
+  }, []);
   const tabs = ["Prédications", "Worship", "Podcast", "Direct"];
 
   React.useEffect(() => {
@@ -75,7 +83,7 @@ function Media() {
 
         {/* Featured player — vraie vidéo YouTube de la chaîne */}
         <Reveal id="messages" data-screen-label="Messages" className="grid lg:grid-cols-12 gap-8 mb-16">
-          <FeaturedPlayer video={FEATURED_VIDEO} />
+          {featured ? <FeaturedPlayer key={featured.id} video={featured} /> : <div className="lg:col-span-8"><div className="aspect-[16/9] bg-ink-900 border border-white/10"></div></div>}
           {/* Right column: live + stats */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             <LiveCard />
