@@ -9,7 +9,7 @@ backend:
   name: github
   repo: christkasseyet-design/parole-eternelle-website
   branch: main
-  base_url: https://REMPLACER-PAR-L-ADRESSE-DU-SERVEUR-DE-CONNEXION
+  base_url: https://pe-cms-auth.christkasseyet.workers.dev
   auth_endpoint: auth
   commit_messages:
     create: "Contenu : ajout dans « {{collection}} » (via /admin)"
